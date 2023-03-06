@@ -1,0 +1,15 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/global_scope/MaterialLibrary.gd" type="Script" id=1]
+[ext_resource path="res://materials/base_materials/bronze/bronze.tres" type="Material" id=2]
+[ext_resource path="res://materials/base_materials/gold/gold.tres" type="Material" id=3]
+[ext_resource path="res://materials/base_materials/brushed_metal/brushed_metal.tres" type="Material" id=4]
+[ext_resource path="res://materials/base_materials/light_wood/light_wood.tres" type="Material" id=5]
+[ext_resource path="res://materials/base_materials/chrome/chrome.tres" type="Material" id=6]
+[ext_resource path="res://materials/base_materials/dark_wood/dark_wood.tres" type="Material" id=7]
+[ext_resource path="res://materials/base_materials/wood/wood.tres" type="Material" id=8]
+[ext_resource path="res://materials/base_materials/default_material.tres" type="Material" id=9]
+
+[node name="MaterialLibrary" type="Node"]
+script = ExtResource( 1 )
+materials = [ ExtResource( 9 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 7 ) ]

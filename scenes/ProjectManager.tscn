@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/themes/new_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/ui_components/CreateProjectDialog.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/ProjectManager.gd" type="Script" id=3]
+[ext_resource path="res://assets/themes/dark.tres" type="Theme" id=4]
+[ext_resource path="res://assets/icons/icon_import.svg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/icon_new.svg" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 1.0
+content_margin_right = 1.0
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="ProjectManager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Main_Panel" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="Main_Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_Panel"]
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.9
+
+[node name="Label" type="Label" parent="Main_Panel/VBoxContainer"]
+margin_right = 921.0
+margin_bottom = 39.0
+text = "VR Sketcher"
+valign = 1
+
+[node name="Control" type="Control" parent="Main_Panel/VBoxContainer"]
+margin_top = 43.0
+margin_right = 921.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main_Panel/VBoxContainer"]
+margin_top = 67.0
+margin_right = 921.0
+margin_bottom = 480.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 64
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_Panel/VBoxContainer/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 413.0
+rect_min_size = Vector2( 250, 0 )
+custom_constants/separation = 16
+
+[node name="New_Project" type="Button" parent="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+text = "  New project"
+icon = ExtResource( 6 )
+flat = true
+align = 0
+
+[node name="Import_Project" type="Button" parent="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 80.0
+margin_right = 250.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 0, 64 )
+text = "  Import project"
+icon = ExtResource( 5 )
+flat = true
+align = 0
+
+[node name="VSeparator" type="VSeparator" parent="Main_Panel/VBoxContainer/HBoxContainer"]
+margin_left = 314.0
+margin_right = 318.0
+margin_bottom = 413.0
+custom_styles/separator = SubResource( 1 )
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main_Panel/VBoxContainer/HBoxContainer"]
+margin_left = 382.0
+margin_right = 921.0
+margin_bottom = 413.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 539.0
+margin_bottom = 39.0
+text = "Recent projects"
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 43.0
+margin_right = 539.0
+margin_bottom = 413.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+margin_right = 539.0
+margin_bottom = 370.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CreateProjectDialog" parent="." instance=ExtResource( 2 )]
+file_system_dialog_path = NodePath("../Project_Directory_Dialog")
+
+[node name="Project_Directory_Dialog" type="FileDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+theme = ExtResource( 4 )
+window_title = "Target project location"
+mode_overrides_title = false
+mode = 2
+access = 2
+filters = PoolStringArray( "*.vrsk ; VRSketcher project file" )
+
+[node name="Import_Project_Dialog" type="FileDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+theme = ExtResource( 4 )
+window_title = "Import VRSketcher Project"
+mode_overrides_title = false
+mode = 0
+access = 2
+filters = PoolStringArray( "*.vrsk ; VRSketcher project file" )
+
+[connection signal="pressed" from="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer/New_Project" to="." method="open_project_creation"]
+[connection signal="pressed" from="Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer/Import_Project" to="." method="open_import_project_dialog"]
+[connection signal="file_selected" from="Import_Project_Dialog" to="." method="import_project_dialog"]

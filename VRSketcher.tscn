@@ -1,0 +1,324 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/tools/SpatialSync.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ControllerSelection.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/themes/dark.tres" type="Theme" id=4]
+[ext_resource path="res://scripts/VRSketcher.gd" type="Script" id=5]
+[ext_resource path="res://scripts/DebugFPS.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ColorPreview.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/Interface.gd" type="Script" id=8]
+[ext_resource path="res://assets/icons/icon_import.svg" type="Texture" id=9]
+[ext_resource path="res://scripts/ModelImportWindow.gd" type="Script" id=10]
+[ext_resource path="res://scripts/ui_components/ModelItemManager.gd" type="Script" id=11]
+[ext_resource path="res://scenes/ProjectManager.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/icons/icon_camera.svg" type="Texture" id=13]
+[ext_resource path="res://assets/icons/icon_save.svg" type="Texture" id=14]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 100, 0.5, 100 )
+
+[node name="VRSketcher" type="Node"]
+script = ExtResource( 5 )
+controller_viewport_path = NodePath("Viewport")
+camera_sync_path = NodePath("Interface/VRSketcherInterface/Render_Viewport/Viewport/Spatial/SpatialSync")
+
+[node name="World" parent="." instance=ExtResource( 1 )]
+
+[node name="Imported_Models" type="Spatial" parent="."]
+
+[node name="Lines" type="Spatial" parent="."]
+
+[node name="Measurements" type="Spatial" parent="."]
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1024, 600 )
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 1024
+
+[node name="StaticBody" type="StaticBody" parent="Viewport"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Viewport/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+shape = SubResource( 3 )
+
+[node name="Interface" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 8 )
+
+[node name="VRSketcherInterface" type="Control" parent="Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Render_Viewport" type="ViewportContainer" parent="Interface/VRSketcherInterface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Interface/VRSketcherInterface/Render_Viewport"]
+size = Vector2( 1024, 600 )
+size_override_stretch = true
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+shadow_atlas_size = 1024
+
+[node name="Spatial" type="Spatial" parent="Interface/VRSketcherInterface/Render_Viewport/Viewport"]
+
+[node name="SpatialSync" type="Spatial" parent="Interface/VRSketcherInterface/Render_Viewport/Viewport/Spatial"]
+script = ExtResource( 2 )
+sync_on_start = false
+
+[node name="Camera" type="Camera" parent="Interface/VRSketcherInterface/Render_Viewport/Viewport/Spatial/SpatialSync"]
+
+[node name="ColorPreview" parent="Interface/VRSketcherInterface" instance=ExtResource( 7 )]
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Interface/VRSketcherInterface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer"]
+margin_right = 200.0
+margin_bottom = 580.0
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer"]
+margin_right = 104.0
+margin_bottom = 32.0
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 98.0
+margin_bottom = 28.0
+size_flags_horizontal = 0
+
+[node name="Save" type="Button" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 28.0
+margin_bottom = 24.0
+hint_tooltip = "Save project"
+icon = ExtResource( 14 )
+flat = true
+
+[node name="Import_Model" type="Button" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_left = 32.0
+margin_right = 60.0
+margin_bottom = 24.0
+hint_tooltip = "Import 3d model"
+icon = ExtResource( 9 )
+flat = true
+
+[node name="Screenshot" type="Button" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_left = 64.0
+margin_right = 92.0
+margin_bottom = 24.0
+hint_tooltip = "Take screenshot"
+icon = ExtResource( 13 )
+flat = true
+
+[node name="TabedContainer" type="TabContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 200.0
+margin_bottom = 580.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+tab_align = 0
+
+[node name="Scene" type="VBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Scene"]
+margin_right = 190.0
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Scene"]
+margin_top = 4.0
+margin_right = 190.0
+margin_bottom = 510.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Scene/ScrollContainer"]
+margin_right = 190.0
+margin_bottom = 506.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 11 )
+
+[node name="Display" type="VBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Fullscreen" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_right = 140.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Fullscreen"]
+margin_top = 1.0
+margin_right = 112.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Fullscreen :"
+
+[node name="CheckBox" type="CheckBox" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Fullscreen"]
+margin_left = 116.0
+margin_right = 140.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_top = 28.0
+margin_right = 140.0
+margin_bottom = 50.0
+text = "Resolution"
+
+[node name="X_Resolution" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_top = 54.0
+margin_right = 140.0
+margin_bottom = 76.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/X_Resolution"]
+margin_right = 60.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "X :"
+align = 2
+
+[node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/X_Resolution"]
+margin_left = 64.0
+margin_right = 140.0
+margin_bottom = 22.0
+max_value = 720.0
+value = 70.0
+rounded = true
+allow_greater = true
+align = 2
+
+[node name="Y_Resolution" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_top = 80.0
+margin_right = 140.0
+margin_bottom = 102.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Y_Resolution"]
+margin_right = 60.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Y :"
+align = 2
+
+[node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Y_Resolution"]
+margin_left = 64.0
+margin_right = 140.0
+margin_bottom = 22.0
+max_value = 720.0
+value = 70.0
+rounded = true
+allow_greater = true
+align = 2
+
+[node name="FOV" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_top = 106.0
+margin_right = 140.0
+margin_bottom = 128.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/FOV"]
+margin_right = 60.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "FOV :"
+
+[node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/FOV"]
+margin_left = 64.0
+margin_right = 140.0
+margin_bottom = 22.0
+max_value = 720.0
+value = 70.0
+rounded = true
+allow_greater = true
+align = 2
+
+[node name="Framerate" type="HBoxContainer" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+modulate = Color( 0.554688, 0.554688, 0.554688, 1 )
+margin_top = 132.0
+margin_right = 140.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Framerate"]
+margin_right = 81.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Framerate :"
+
+[node name="Label2" type="Label" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Framerate"]
+margin_left = 85.0
+margin_right = 140.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "XX"
+align = 2
+script = ExtResource( 6 )
+
+[node name="Apply" type="Button" parent="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display"]
+margin_top = 158.0
+margin_right = 140.0
+margin_bottom = 180.0
+focus_mode = 0
+text = "Apply"
+
+[node name="Control" type="Control" parent="Interface/VRSketcherInterface/HSplitContainer"]
+margin_left = 208.0
+margin_right = 1004.0
+margin_bottom = 580.0
+
+[node name="ControllerSelection" parent="Interface" instance=ExtResource( 3 )]
+visible = false
+
+[node name="ModelImportWindow" type="FileDialog" parent="Interface"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.3mf, *.3MF ; 3D Manufacturing Format", "*.obj, *.OBJ ; Wavefront OBJ", "*.stl, *.STL ; STL" )
+script = ExtResource( 10 )
+
+[node name="ProjectManager" parent="Interface" instance=ExtResource( 12 )]
+visible = false
+
+[connection signal="pressed" from="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer/Save" to="." method="save_project"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer/Import_Model" to="Interface/ModelImportWindow" method="open_import_window"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/PanelContainer/VBoxContainer/Screenshot" to="Interface" method="take_screenshot"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Apply" to="." method="apply_display_settings"]
+[connection signal="file_selected" from="Interface/ModelImportWindow" to="." method="import_model"]

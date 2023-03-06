@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/VRController.gd" type="Script" id=1]
+[ext_resource path="res://scenes/tools/ToolsVR.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/tools/Teleport.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Tooltip.tscn" type="PackedScene" id=4]
+
+[node name="Player" type="ARVROrigin"]
+script = ExtResource( 1 )
+tools_path = NodePath("ARVRController/Tools")
+tooltip_path = NodePath("ARVRController/Tooltip")
+
+[node name="ARVRCamera" type="ARVRCamera" parent="."]
+far = 250.0
+
+[node name="ARVRController" type="ARVRController" parent="."]
+
+[node name="Tools" parent="ARVRController" instance=ExtResource( 2 )]
+
+[node name="Teleport" parent="ARVRController" instance=ExtResource( 3 )]
+root_node_path = NodePath("../..")
+camera_node_path = NodePath("../../ARVRCamera")
+
+[node name="Tooltip" parent="ARVRController" instance=ExtResource( 4 )]

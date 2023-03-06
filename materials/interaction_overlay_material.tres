@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://shaders/InteractionOverlay.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/overlay_color = Color( 1, 0.5625, 0, 1 )
+shader_param/rim_power = 3.0
+shader_param/overlay_strength = 3.0
