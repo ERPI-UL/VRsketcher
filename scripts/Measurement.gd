@@ -57,14 +57,31 @@ func _ready() -> void :
 
 	line_renderer = Line.new();
 	line_renderer.thickness = 0.01;
-	line_renderer.material_override = load("res://materials/paint_materials/Red.tres");
+	if mode == MeasureMode.DISTANCE :
+		line_renderer.material_override = load("res://materials/measurement_materials/distance.tres");
+	else :
+		line_renderer.material_override = load("res://materials/measurement_materials/angle.tres");
+	
 	add_child(line_renderer);
 
 	measure_text = Label3D.new();
-	measure_text.modulate = Color.red;
+	measure_text.billboard = SpatialMaterial.BILLBOARD_FIXED_Y;
+	if mode == MeasureMode.DISTANCE :
+		measure_text.modulate = Color.dodgerblue;
+	else :
+		measure_text.modulate = Color.darkorange;
+	measure_text.font = load("res://assets/fonts/3dFont.tres");
 	add_child(measure_text);
+	measure_text.scale = Vector3.ONE * 0.1;
 
 func _process(delta : float) -> void :
+	if (start_area == null || end_area == null) && mode == MeasureMode.DISTANCE :
+		queue_free();
+		return;
+	elif (start_area == null || middle_area == null || end_area == null) && mode == MeasureMode.ANGLE :
+		queue_free();
+		return;
+
 	if use_areas_position == true :
 		start_point = start_area.global_transform.origin;
 		end_point = end_area.global_transform.origin;
@@ -87,10 +104,10 @@ func _process(delta : float) -> void :
 		
 	if measure_text != null :
 		if mode == MeasureMode.DISTANCE :
-			measure_text.global_transform.origin = (start_point + end_point) / 2.0 + (Vector3.UP * 0.05);
+			measure_text.global_transform.origin = (start_point + end_point) / 2.0 + (Vector3.UP * 0.1);
 			measure_text.text = "%.2fm" % start_point.distance_to(end_point);
 		else :
-			measure_text.global_transform.origin = middle_point + (Vector3.UP * 0.05);
+			measure_text.global_transform.origin = middle_point + (Vector3.UP * 0.1);
 			var from_vec : Vector3 = middle_point.direction_to(start_point);
 			var to_vec : Vector3 = middle_point.direction_to(end_point);
 			

@@ -1,5 +1,7 @@
 extends Controller
 
+const TOUCHPAD_DEAD_ZONE : float = 0.5;
+
 const BUTTON_B = 1
 const BUTTON_A = 7
 const BUTTON_GRIP = 2
@@ -33,22 +35,23 @@ func _process(delta: float) -> void :
 	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
 
 func input_pressed(button_index : int) -> void :
-	if button_index == BUTTON_B :
-		get_current_tool().switch_tool_mode();
-
 	if button_index == BUTTON_TRIGGER :
 		get_current_tool().start_tool_use();
 
 	if button_index == BUTTON_STICK :
 		trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
 		
-		if trackpad_vector.length() < 0.6 :
+		if trackpad_vector.length() < TOUCHPAD_DEAD_ZONE :
 			teleport_tool.start_tool_use();
 		else :
-			if trackpad_vector.y < -0.7 :
-				MaterialLibrary.switch_material();
-			elif trackpad_vector.y > 0.7 :
+			if (trackpad_vector.x > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
 				switch_tool();
+			elif (trackpad_vector.x < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
+				switch_tool(true);
+			elif (trackpad_vector.y > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
+				get_current_tool().switch_tool_mode();
+			elif (trackpad_vector.y < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
+				MaterialLibrary.switch_material();
 	
 func input_released(button_index : int) -> void :
 	if button_index == BUTTON_TRIGGER :

@@ -15,14 +15,19 @@ func _ready() -> void :
 		(t as SketchTool).connect("tool_mode_switch", tooltip, "update_tooltip_text");
 	switch_tool();
 
-func switch_tool() -> void :	
+func switch_tool(switch_to_previous : bool = false) -> void :
 	if current_tool_index >= 0 :
 		get_current_tool().stop_tool_use();
 		get_current_tool().hide_tool();
-	
-	current_tool_index += 1;
-	if current_tool_index >= tools.size() :
-		current_tool_index = 0;
+
+	if switch_to_previous == false :
+		current_tool_index += 1;
+		if current_tool_index >= tools.size() :
+			current_tool_index = 0;
+	else :
+		current_tool_index -= 1;
+		if current_tool_index < 0 :
+			current_tool_index = tools.size() - 1;
 
 	get_current_tool().show_tool();
 	

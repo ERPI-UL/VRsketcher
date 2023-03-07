@@ -19,8 +19,8 @@ onready var model_interaction_area : PackedScene = load("res://scenes/ModelInter
 
 
 func _ready() -> void :
-	(get_node("Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
-	(get_node("Interface/VRSketcherInterface/HSplitContainer/VBoxContainer/TabedContainer/Display/Y_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
 	
 	Project.connect("open_project", self, "open_project");
 
@@ -53,10 +53,10 @@ func get_children_recursive (root : Node) -> Array :
 	return children;
 
 func apply_display_settings():
-	var x_resolution : float = (get_node("Interface/VRSketcherInterface/HSplitContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value;
-	var y_resolution : float = (get_node("Interface/VRSketcherInterface/HSplitContainer/TabedContainer/Display/Y_Resolution/SpinBox") as SpinBox).value;
-	var fov : float = (get_node("Interface/VRSketcherInterface/HSplitContainer/TabedContainer/Display/FOV/SpinBox") as SpinBox).value;
-	var fullscreen = (get_node("Interface/VRSketcherInterface/HSplitContainer/TabedContainer/Display/Fullscreen/CheckBox") as CheckBox).pressed;
+	var x_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value;
+	var y_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Y_Resolution/SpinBox") as SpinBox).value;
+	var fov : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/FOV/SpinBox") as SpinBox).value;
+	var fullscreen = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Fullscreen/CheckBox") as CheckBox).pressed;
 
 	get_viewport().size = Vector2(x_resolution, y_resolution);
 	OS.window_size = Vector2(x_resolution, y_resolution);
@@ -66,13 +66,13 @@ func apply_display_settings():
 		camera.fov = fov;
 
 func update_color_preview(color : Color) -> void :
-	(get_node("Interface/VRSketcherInterface/ColorPreview/MarginContainer/Control/TextureRect") as Control).self_modulate = color;
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/ColorPreview/MarginContainer/Control/TextureRect") as Control).self_modulate = color;
 
 func open_project() -> void :
 	project_manager.visible = false;
 	vr_sketcher_interface.visible = true;
 	controller_selection.visible = true;
-	
+
 	if Project.current_project.has("scene_models_data") == true :
 		for model_data in Project.current_project["scene_models_data"] :
 			import_model(
@@ -82,7 +82,7 @@ func open_project() -> void :
 				model_data["rotation"] as Vector3,
 				model_data["scale"] as float
 			);
-		
+
 	if Project.current_project.has("scene_line_drawings") == true :
 		for line_data in Project.current_project["scene_line_drawings"] :
 			var line_renderer : Line = Line.new();

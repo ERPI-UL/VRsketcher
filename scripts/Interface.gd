@@ -1,6 +1,6 @@
 extends Control
 
-onready var render_viewport : Viewport = get_node("VRSketcherInterface/Render_Viewport/Viewport");
+onready var render_viewport : Viewport = get_node("VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport");
 
 func take_screenshot() -> void :
 	var directory : Directory = Directory.new();

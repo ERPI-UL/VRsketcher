@@ -24,3 +24,5 @@ func erase_line(node : Node) -> void :
 		if node.get_parent() != null :
 			if node.get_parent() is Line :
 				node.get_parent().queue_free();
+			if node.get_parent() is Measurement :
+				node.get_parent().queue_free();
