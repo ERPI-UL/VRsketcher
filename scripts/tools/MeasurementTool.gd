@@ -15,7 +15,7 @@ var current_measurement : Measurement = null;
 onready var tool_gizmo : Spatial = get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
-	_tool_mode_name = "Rotation";
+	_tool_mode_name = "Measurement";
 	switch_tool_mode();
 
 func _physics_process(_delta : float) -> void :
@@ -49,7 +49,7 @@ func start_tool_use() -> void :
 	current_measurement.middle_point = (start_position + end_position) / 2.0;
 	current_measurement.use_areas_position = false;
 	
-	(get_tree().root.get_node("VRSketcher") as VRSketcher).measurements_root.add_child(current_measurement);
+	(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(current_measurement);
 
 func stop_tool_use() -> void :
 	.stop_tool_use();

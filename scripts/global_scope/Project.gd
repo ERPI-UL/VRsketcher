@@ -53,20 +53,20 @@ func new_project(project_name : String, project_path : String) -> void :
 func save_project() -> void :
 	yield(get_tree(), "idle_frame");
 	var scene_models_data : Array = [];
-	for model in ImportedModelsManager.imported_models :
+	for model in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.models :
 		if model != null :
 			scene_models_data.append(
 				{
-					"model_filename" : (model as ImportedModel).model_filename,
-					"position" : (model as ImportedModel).global_transform.origin,
-					"rotation" : (model as ImportedModel).rotation_degrees,
-					"scale" : (model as ImportedModel).scale.x,
+					"model_filename" : (model as Model3D).model_filename,
+					"position" : (model as Model3D).global_transform.origin,
+					"rotation" : (model as Model3D).rotation_degrees,
+					"scale" : (model as Model3D).scale.x,
 				}
 			);
 	current_project["scene_models_data"] = scene_models_data;
 	
 	var scene_line_drawings : Array = [];
-	for line in (get_tree().root.get_node("VRSketcher") as VRSketcher).lines_root.get_children() :
+	for line in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.get_children() :
 		scene_line_drawings.append(
 			{
 				"points" : (line as Line).points,
@@ -78,7 +78,7 @@ func save_project() -> void :
 
 
 	var scene_measurements : Array = [];
-	for measurement in (get_tree().root.get_node("VRSketcher") as VRSketcher).measurements_root.get_children() :
+	for measurement in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.get_children() :
 		scene_measurements.append(
 			{
 				"mode" : (measurement as Measurement).mode,

@@ -23,16 +23,24 @@ func _ready() -> void :
 
 	if VR and VR.initialize():
 		get_viewport().arvr = true;
-		#get_viewport().hdr = true;
+		get_viewport().hdr = true;
 		#get_viewport().keep_3d_linear = true
 		OS.vsync_enabled = false;
 		Engine.target_fps = 90;
 
+	controller.controller_id = 1;
 	controller.connect("button_pressed", self, "input_pressed")
 	controller.connect("button_release", self, "input_released")
 
+
 func _process(delta: float) -> void :
 	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
+	
+	if controller.get_is_active() == false :
+		if controller.controller_id == 1 :
+			controller.controller_id = 2;
+		else :
+			controller.controller_id = 1;
 
 func input_pressed(button_index : int) -> void :
 	if button_index == BUTTON_TRIGGER :

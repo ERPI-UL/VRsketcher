@@ -3,24 +3,31 @@ class_name VRSketcher
 
 var camera : Camera = null;
 
-export(NodePath) var controller_viewport_path : NodePath = "";
-export(NodePath) var camera_sync_path : NodePath = "";
+export(NodePath) var controller_viewport_path	: NodePath				= "";
+export(NodePath) var camera_sync_path			: NodePath				= "";
 
-onready var world : Spatial = get_node("World");
-onready var imported_models_root : Spatial = get_node("Imported_Models");
-onready var lines_root : Spatial = get_node("Lines");
-onready var measurements_root : Spatial = get_node("Measurements");
+onready var world								: Spatial				= get_node("World");
+onready var world_environment					: WorldEnvironment		= get_node("WorldEnvironment");
 
-onready var project_manager : Control = get_node("Interface/ProjectManager");
-onready var vr_sketcher_interface : Control = get_node("Interface/VRSketcherInterface");
-onready var controller_selection : Control = get_node("Interface/ControllerSelection");
 
-onready var model_interaction_area : PackedScene = load("res://scenes/ModelInteractionArea.tscn");
+onready var manager_imported_models				: ModelsManager			= get_node("Model_Managers/Imported_Models");
+onready var manager_drawn_models				: ModelsManager			= get_node("Model_Managers/Drawn_Models");
+
+onready var scene_imported_models				: Spatial				= get_node("Scene_Objects/Imported_Models");
+onready var scene_lines							: Spatial				= get_node("Scene_Objects/Lines");
+onready var scene_measurements					: Spatial				= get_node("Scene_Objects/Measurements");
+onready var scene_drawn_models					: Spatial				= get_node("Scene_Objects/Drawn_Models");
+
+onready var project_manager						: Control				= get_node("Interface/ProjectManager");
+onready var vr_sketcher_interface				: Control				= get_node("Interface/VRSketcherInterface");
+onready var controller_selection				: Control				= get_node("Interface/ControllerSelection");
+
+onready var model_interaction_area				: PackedScene			= load("res://scenes/ModelInteractionArea.tscn");
 
 
 func _ready() -> void :
-	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
-	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
 	
 	Project.connect("open_project", self, "open_project");
 
@@ -53,10 +60,10 @@ func get_children_recursive (root : Node) -> Array :
 	return children;
 
 func apply_display_settings():
-	var x_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/X_Resolution/SpinBox") as SpinBox).value;
-	var y_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Y_Resolution/SpinBox") as SpinBox).value;
-	var fov : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/FOV/SpinBox") as SpinBox).value;
-	var fullscreen = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Fullscreen/CheckBox") as CheckBox).pressed;
+	var x_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value;
+	var y_resolution : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Y_Resolution/SpinBox") as SpinBox).value;
+	var fov : float = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/FOV/SpinBox") as SpinBox).value;
+	var fullscreen = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Fullscreen/CheckBox") as CheckBox).pressed;
 
 	get_viewport().size = Vector2(x_resolution, y_resolution);
 	OS.window_size = Vector2(x_resolution, y_resolution);
@@ -64,6 +71,9 @@ func apply_display_settings():
 	
 	if camera != null :
 		camera.fov = fov;
+
+func set_environment_exposure(value : float = 1.0) -> void :
+	world_environment.environment.tonemap_exposure = value;
 
 func update_color_preview(color : Color) -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/ColorPreview/MarginContainer/Control/TextureRect") as Control).self_modulate = color;
@@ -86,7 +96,7 @@ func open_project() -> void :
 	if Project.current_project.has("scene_line_drawings") == true :
 		for line_data in Project.current_project["scene_line_drawings"] :
 			var line_renderer : Line = Line.new();
-			(get_tree().root.get_node("VRSketcher") as VRSketcher).lines_root.add_child(line_renderer);
+			(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.add_child(line_renderer);
 			line_renderer.generate_collisions = true;
 			line_renderer.thickness = (line_data as Dictionary)["thickness"] as float;
 			line_renderer.add_points_from_array((line_data as Dictionary)["points"] as Array);
@@ -100,7 +110,7 @@ func open_project() -> void :
 			measurement.start_point = measurement_data["start_point"];
 			measurement.middle_point = measurement_data["middle_point"];
 			measurement.end_point = measurement_data["end_point"];
-			(get_tree().root.get_node("VRSketcher") as VRSketcher).measurements_root.add_child(measurement);
+			(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(measurement);
 
 
 
@@ -127,7 +137,7 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 
 
 		if loaded_meshes.size() > 0 :
-			var model : ImportedModel = ImportedModel.new();
+			var model : Model3D = Model3D.new();
 			
 			var model_name : String = model_path.rsplit("/", true, 1)[1];
 			model.model_filename = model_name;
@@ -143,7 +153,7 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 
 			for mesh in loaded_meshes :
 				model.add_mesh(mesh);
-			imported_models_root.add_child(model);
+			scene_imported_models.add_child(model);
 			model.global_transform.origin = model_position;
 			model.rotation_degrees = model_rotation;
 			model.scale = Vector3.ONE * model_scale;
@@ -154,7 +164,7 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 			model.add_child(interaction_area);
 			interaction_area.set_interaction_area(model.get_model_aabb().position, model.get_model_aabb().size / 2.0);
 			
-			ImportedModelsManager.add_model(model);
+			manager_imported_models.add_model(model);
 			print("model loaded")
 		else :
 			print("model loading error");

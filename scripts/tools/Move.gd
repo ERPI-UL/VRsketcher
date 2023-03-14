@@ -57,8 +57,8 @@ func _physics_process(_delta : float) -> void :
 
 				var direction_sign : float = sign(direction.dot(move_direction));
 
-				if interacted_object is ImportedModel :
-					(interacted_object as ImportedModel).set_position(base_model_position + move_distance * (direction * direction_sign))
+				if interacted_object is Model3D :
+					(interacted_object as Model3D).set_position(base_model_position + move_distance * (direction * direction_sign))
 				else :
 					interacted_object.global_transform.origin = base_model_position + move_distance * (direction * direction_sign);
 

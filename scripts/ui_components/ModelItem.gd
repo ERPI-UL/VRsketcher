@@ -1,7 +1,8 @@
 extends Control
 class_name ModelItem
 
-var target_model : ImportedModel = null;
+var target_model : Model3D = null;
+var target_model_manager : ModelsManager = null;
 
 onready var btn_fold : CheckButton = get_node("VBoxContainer/HBoxContainer/Fold");
 
@@ -13,7 +14,7 @@ signal model_position_changed(value);
 signal model_rotation_changed(value);
 signal model_scale_changed(value);
 
-func set_target_model(model : ImportedModel) -> void :
+func set_target_model(model : Model3D) -> void :
 	target_model = model;
 	model_name.text = model.inspector_name;
 	
@@ -29,7 +30,7 @@ func fold_item(override : bool = false, value : bool = true) -> void :
 		model_transform.visible = target_model.inspector_unfolded;
 
 func delete_model() -> void :
-	ImportedModelsManager.remove_model(target_model);
+	target_model_manager.remove_model(target_model);
 
 func set_model_position(value : Vector3) -> void :
 	target_model.global_transform.origin = value;

@@ -39,10 +39,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/exporters/Exporter_OBJ.gd"
 }, {
-"base": "Spatial",
-"class": "ImportedModel",
+"base": "Container",
+"class": "FlexGridContainer",
 "language": "GDScript",
-"path": "res://scripts/ImportedModel.gd"
+"path": "res://scripts/ui_components/FlexGridContainer.gd"
 }, {
 "base": "Node",
 "class": "Importer",
@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/tools/MeasurementTool.gd"
 }, {
+"base": "Spatial",
+"class": "Model3D",
+"language": "GDScript",
+"path": "res://scripts/Model3D.gd"
+}, {
 "base": "Area",
 "class": "ModelInteractionArea",
 "language": "GDScript",
@@ -83,6 +88,16 @@ _global_script_classes=[ {
 "class": "ModelTransform",
 "language": "GDScript",
 "path": "res://scripts/ui_components/ModelTransform.gd"
+}, {
+"base": "SketchTool",
+"class": "Modeler",
+"language": "GDScript",
+"path": "res://scripts/tools/Modeler.gd"
+}, {
+"base": "Node",
+"class": "ModelsManager",
+"language": "GDScript",
+"path": "res://scripts/ModelsManager.gd"
 }, {
 "base": "SketchTool",
 "class": "Move",
@@ -146,15 +161,18 @@ _global_script_class_icons={
 "Exporter": "",
 "Exporter_3MF": "",
 "Exporter_OBJ": "",
-"ImportedModel": "",
+"FlexGridContainer": "",
 "Importer": "",
 "Line": "",
 "LineRenderer": "",
 "Measurement": "",
 "MeasurementTool": "",
+"Model3D": "",
 "ModelInteractionArea": "",
 "ModelItem": "",
 "ModelTransform": "",
+"Modeler": "",
+"ModelsManager": "",
 "Move": "",
 "ObjParse": "",
 "Painter": "",
@@ -179,13 +197,13 @@ config/icon="res://icon.png"
 EventBus="*res://scripts/global_scope/EventBus.gd"
 Main="*res://scripts/global_scope/Main.gd"
 MaterialLibrary="*res://scenes/MaterialLibrary.tscn"
-ImportedModelsManager="*res://scripts/global_scope/ImportedModelsManager.gd"
 Importer3mf="*res://scripts/importers/Importer_3MF.gd"
 ImporterObj="*res://scripts/importers/Importer_OBJ.gd"
 ImporterStl="*res://scripts/importers/Importer_STL.gd"
 Project="*res://scripts/global_scope/Project.gd"
 PaintMaterials="*res://scenes/PaintMaterials.tscn"
 GdUnzip="*res://scripts/global_scope/GDUnzip.gd"
+CameraData="*res://scripts/global_scope/CameraData.gd"
 
 [editor_plugins]
 

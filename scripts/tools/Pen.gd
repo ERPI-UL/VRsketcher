@@ -30,7 +30,7 @@ func start_tool_use() -> void :
 		paint_last_position = pen_tip.global_transform.origin;
 
 		current_line_renderer = Line.new();
-		(get_tree().root.get_node("VRSketcher") as VRSketcher).lines_root.add_child(current_line_renderer);
+		(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.add_child(current_line_renderer);
 		current_line_renderer.add_point(paint_last_position)
 		current_line_renderer.material_index = current_paint_index;
 		current_line_renderer.material_override = PaintMaterials.materials[current_line_renderer.material_index];
