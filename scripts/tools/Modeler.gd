@@ -1,24 +1,23 @@
 extends SketchTool
 class_name Modeler
 
-var modes : Array = [
+var modes	: Array		= [
 	"Box",
 	"Cube",
 	"Sphere"
 ];
 
-var current_mode : int = -1;
+var current_mode						: int			= -1;
 
+var start_position						: Vector3		= Vector3.ZERO;
+var end_position						: Vector3		= Vector3.ZERO;
+var reference_right_direction			: Vector3		= Vector3.RIGHT;
+var reference_forward_direction			: Vector3		= Vector3.FORWARD;
 
-var start_position : Vector3 = Vector3.ZERO;
-var end_position : Vector3 = Vector3.ZERO;
-var reference_right_direction : Vector3 = Vector3.RIGHT;
-var reference_forward_direction : Vector3 = Vector3.FORWARD;
+var current_model						: Model3D		= null;
 
-var current_model : Model3D = null;
-
-onready var tool_gizmo : Spatial = get_node("Graphics/Gizmo_Position");
-
+onready var tool_gizmo					: Spatial		= get_node("Graphics/Gizmo_Position");
+onready var model_interaction_area		: PackedScene	= load("res://scenes/ModelInteractionArea.tscn");
 
 func _ready() -> void :
 	_tool_mode_name = "Modeler";
@@ -67,14 +66,17 @@ func start_tool_use() -> void :
 	current_model.inspector_name = "";
 	match (modes[current_mode] as String) :
 		"Box" :
+			current_model.model_filename = "Box";
 			current_model.inspector_name = "Box";
 			current_model.add_mesh(CubeMesh.new());
 			(current_model.meshes[0] as CubeMesh).size = Vector3.ONE * 0.05;
 		"Cube" :
+			current_model.model_filename = "Cube";
 			current_model.inspector_name = "Cube";
 			current_model.add_mesh(CubeMesh.new());
 			(current_model.meshes[0] as CubeMesh).size = Vector3.ONE * 0.05;
 		"Sphere" :
+			current_model.model_filename = "Sphere";
 			current_model.inspector_name = "Sphere";
 			current_model.add_mesh(SphereMesh.new());
 			(current_model.meshes[0] as SphereMesh).height = 0.05;
@@ -93,6 +95,13 @@ func stop_tool_use() -> void :
 		if start_position.distance_to(end_position) < 0.01 :
 			current_model.queue_free();
 		else :
+			current_model.update_aabb();
+
+			var interaction_area : ModelInteractionArea = model_interaction_area.instance();
+			current_model.add_child(interaction_area);
+
+			interaction_area.set_interaction_area(current_model.get_model_aabb().position, current_model.get_model_aabb().size / 2.0);
+
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.add_model(current_model);
 		current_model = null;
 

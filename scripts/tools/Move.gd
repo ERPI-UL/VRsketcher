@@ -1,7 +1,7 @@
 extends SketchTool
 class_name Move
 
-var modes : Array = [
+var modes	: Array		= [
 	"Free",
 	"X Global",
 	"Y Global",
@@ -11,14 +11,14 @@ var modes : Array = [
 	"Z Local"
 ];
 
-export(Material) var interaction_overlay_material : Material = null;
+export(Material) var interaction_overlay_material	: Material	= null;
 
-var current_mode : int = -1;
-var interacted_object : Spatial = null;
-var start_position : Vector3 = Vector3.ZERO;
-var start_offset : Vector3 = Vector3.ZERO;
+var current_mode				: int		= -1;
+var interacted_object			: Spatial	= null;
+var start_position				: Vector3	= Vector3.ZERO;
+var start_offset				: Vector3	= Vector3.ZERO;
 
-onready var interaction_area : Area = get_node("Area");
+onready var interaction_area	: Area		= get_node("Area");
 
 func _ready() -> void :
 	_tool_mode_name = "Move";
@@ -85,18 +85,14 @@ func object_enter_hover(node : Node) -> void :
 	if tool_in_use == false && visible == true :
 		if node is ModelInteractionArea == true :
 			interacted_object = node.get_parent();
-			if interacted_object is MeshInstance == true :
-				(interacted_object as MeshInstance).material_overlay = interaction_overlay_material;
+			if interacted_object is Model3D == true :
+				(interacted_object as Model3D).set_overlay_material(interaction_overlay_material);
 		elif node is Area == true :
 			interacted_object = node;
-			print("ok")
-		
 
 func object_exit_hover(node : Node) -> void :
 	if node is ModelInteractionArea == true :
 		if node.get_parent() == interacted_object :
-			if interacted_object is MeshInstance == true :
-				(interacted_object as MeshInstance).material_overlay = null;
+			if interacted_object is Model3D == true :
+				(interacted_object as Model3D).set_overlay_material(null);
 			interacted_object = null;
-
-	

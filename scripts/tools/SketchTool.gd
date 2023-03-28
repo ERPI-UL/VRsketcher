@@ -1,9 +1,9 @@
 extends Spatial
 class_name SketchTool
 
-var tool_in_use : bool = false;
+var tool_in_use			: bool		= false;
 
-var _tool_mode_name : String = "";
+var _tool_mode_name		: String	= "";
 
 signal tool_mode_switch(tool_mode_name);
 

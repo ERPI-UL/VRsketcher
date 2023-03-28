@@ -139,7 +139,6 @@ theme = ExtResource( 4 )
 tab_align = 0
 
 [node name="3D objects" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -197,6 +196,7 @@ script = ExtResource( 11 )
 models_manager_path = NodePath("../../../../../../../../../../Model_Managers/Drawn_Models")
 
 [node name="Display" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0

@@ -1,0 +1,21 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix;
+
+uniform sampler2D icon_texture : hint_white;
+
+uniform vec4 tint_color : hint_color = vec4(1.0);
+uniform vec2 emission_strengh_range  = vec2(1.0);
+
+
+uniform float blink_speed : hint_range(0.0, 10.0, 0.01) = 1.0;
+
+void fragment()
+{
+	vec4 color = texture(icon_texture, UV) * tint_color;
+	ALBEDO = vec3(0.0, 0.0, 0.0);
+	EMISSION = color.xyz * mix(emission_strengh_range.x, emission_strengh_range.y, (sin(TIME * blink_speed) + 1.0) / 2.0);
+	ALPHA = color.w;
+}"

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/ui_components/VR_Tool_Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/icons/icon_cog.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/icon_file.svg" type="Texture" id=3]
+
+[node name="VR_Tools_Menu" type="Spatial"]
+
+[node name="VR_Tool_Item" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137855, 0, 0 )
+tool_icon = ExtResource( 2 )
+
+[node name="VR_Tool_Item2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.143462, 0, 0 )
+target_tool_index = 1
+tool_icon = ExtResource( 3 )

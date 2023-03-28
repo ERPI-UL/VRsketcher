@@ -33,6 +33,16 @@ func switch_tool(switch_to_previous : bool = false) -> void :
 	
 	tooltip.update_tooltip_text(get_current_tool().get_tool_mode_name());
 
+func switch_to_tool(var index : int = 0) -> void :
+	if current_tool_index >= 0 :
+		get_current_tool().stop_tool_use();
+		get_current_tool().hide_tool();
+	
+	current_tool_index = clamp(index, 0, tools.size() - 1);
+	get_current_tool().show_tool();
+	
+	tooltip.update_tooltip_text(get_current_tool().get_tool_mode_name());
+
 func get_current_tool() -> SketchTool :
 
 	return tools[current_tool_index];

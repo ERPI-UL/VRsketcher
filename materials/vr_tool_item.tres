@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://shaders/vr_tool_item.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/tint_color = Color( 0.486275, 0.854902, 1, 1 )
+shader_param/emission_strengh_range = Vector2( 0.5, 1.5 )
+shader_param/blink_speed = 4.0

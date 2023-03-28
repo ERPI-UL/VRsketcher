@@ -83,8 +83,8 @@ func open_project() -> void :
 	vr_sketcher_interface.visible = true;
 	controller_selection.visible = true;
 
-	if Project.current_project.has("scene_models_data") == true :
-		for model_data in Project.current_project["scene_models_data"] :
+	if Project.current_project.has("scene_imported_models_data") == true :
+		for model_data in Project.current_project["scene_imported_models_data"] :
 			import_model(
 				model_data["model_filename"] as String,
 				true,
@@ -92,6 +92,10 @@ func open_project() -> void :
 				model_data["rotation"] as Vector3,
 				model_data["scale"] as float
 			);
+
+	if Project.current_project.has("scene_drawn_models_data") == true :
+		for model_data in Project.current_project["scene_drawn_models_data"] :
+			load_drawn_model(model_data);
 
 	if Project.current_project.has("scene_line_drawings") == true :
 		for line_data in Project.current_project["scene_line_drawings"] :
@@ -149,6 +153,7 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 					dir.copy(model_path, Project.get_imported_models_directory_path() + "/" + model_name);
 
 			model_name = model_name.rsplit(".")[0];
+			model.is_imported = true;
 			model.inspector_name = model_name;
 
 			for mesh in loaded_meshes :
@@ -165,11 +170,56 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 			interaction_area.set_interaction_area(model.get_model_aabb().position, model.get_model_aabb().size / 2.0);
 			
 			manager_imported_models.add_model(model);
-			print("model loaded")
+			print("imported model loaded");
 		else :
 			print("model loading error");
 	else :
 		print("model not found");
+
+
+
+func load_drawn_model(model_data : Dictionary) -> Model3D :
+	var drawn_model : Model3D = Model3D.new();
+
+	match (model_data["model_filename"] as String) :
+		"Box" :
+			drawn_model.model_filename = "Box";
+			drawn_model.inspector_name = "Box";
+			drawn_model.add_mesh(CubeMesh.new());
+			(drawn_model.meshes[0] as CubeMesh).size = model_data["size"] as Vector3;
+		"Cube" :
+			drawn_model.model_filename = "Cube";
+			drawn_model.inspector_name = "Cube";
+			drawn_model.add_mesh(CubeMesh.new());
+			(drawn_model.meshes[0] as CubeMesh).size = model_data["size"] as Vector3;
+		"Sphere" :
+			drawn_model.model_filename = "Sphere";
+			drawn_model.inspector_name = "Sphere";
+			drawn_model.add_mesh(SphereMesh.new());
+			(drawn_model.meshes[0] as SphereMesh).height = (model_data["size"] as Vector3).x;
+			(drawn_model.meshes[0] as SphereMesh).radius = (model_data["size"] as Vector3).y;
+			(drawn_model.meshes[0] as SphereMesh).radial_segments = 32;
+			(drawn_model.meshes[0] as SphereMesh).rings = 16;
+		_ :
+			pass;
+
+	drawn_model.is_imported = false;
+
+	scene_drawn_models.add_child(drawn_model);
+	drawn_model.global_transform.origin = model_data["position"] as Vector3;
+	drawn_model.rotation_degrees = model_data["rotation"] as Vector3;
+	drawn_model.scale = Vector3.ONE * model_data["scale"] as float;
+
+	drawn_model.set_material(MaterialLibrary.get_current_material());
+		
+	var interaction_area : ModelInteractionArea = model_interaction_area.instance();
+	drawn_model.add_child(interaction_area);
+	interaction_area.set_interaction_area(drawn_model.get_model_aabb().position, drawn_model.get_model_aabb().size / 2.0);
+		
+	manager_drawn_models.add_model(drawn_model);
+	print("drawn model loaded");
+
+	return drawn_model;
 
 func save_project() -> void :
 	Project.save_project();

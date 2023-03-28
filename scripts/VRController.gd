@@ -2,19 +2,20 @@ extends Controller
 
 const TOUCHPAD_DEAD_ZONE : float = 0.5;
 
-const BUTTON_B = 1
-const BUTTON_A = 7
-const BUTTON_GRIP = 2
-const BUTTON_STICK = 14
-const BUTTON_TRIGGER = 15
+const BUTTON_B			= 1
+const BUTTON_A			= 7
+const BUTTON_GRIP		= 2
+const BUTTON_STICK		= 14
+const BUTTON_TRIGGER	= 15
 
-const AXIS_X = 0
-const AXIS_Y = 1
-const AXIS_TRIGGER = 2
-const AXIS_GRIP = 4
+const AXIS_X			= 0
+const AXIS_Y			= 1
+const AXIS_TRIGGER		= 2
+const AXIS_GRIP			= 4
 
-onready var controller : ARVRController = get_node("ARVRController");
-onready var teleport_tool : Teleport = get_node("ARVRController/Teleport");
+onready var controller			: ARVRController	= get_node("ARVRController");
+onready var teleport_tool		: Teleport			= get_node("ARVRController/Teleport");
+onready var tool_selection_tool	: ToolsSelection	= get_node("ARVRController/ToolsSelection");
 
 var trackpad_vector : Vector2 = Vector2.ZERO;
 
@@ -29,9 +30,8 @@ func _ready() -> void :
 		Engine.target_fps = 90;
 
 	controller.controller_id = 1;
-	controller.connect("button_pressed", self, "input_pressed")
-	controller.connect("button_release", self, "input_released")
-
+	controller.connect("button_pressed", self, "input_pressed");
+	controller.connect("button_release", self, "input_released");
 
 func _process(delta: float) -> void :
 	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
@@ -53,9 +53,9 @@ func input_pressed(button_index : int) -> void :
 			teleport_tool.start_tool_use();
 		else :
 			if (trackpad_vector.x > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
-				switch_tool();
+				teleport_tool.start_tool_use();
 			elif (trackpad_vector.x < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
-				switch_tool(true);
+				teleport_tool.start_tool_use();
 			elif (trackpad_vector.y > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
 				get_current_tool().switch_tool_mode();
 			elif (trackpad_vector.y < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
@@ -68,3 +68,5 @@ func input_released(button_index : int) -> void :
 	if button_index == BUTTON_STICK :
 		if teleport_tool.tool_in_use == true :
 			teleport_tool.stop_tool_use();
+		if teleport_tool.tool_in_use == true :
+			tool_selection_tool.stop_tool_use();

@@ -26,3 +26,9 @@ func erase_line(node : Node) -> void :
 				node.get_parent().queue_free();
 			if node.get_parent() is Measurement :
 				node.get_parent().queue_free();
+			if node.get_parent() is Model3D :
+				if (node.get_parent() as Model3D).is_imported == true :
+					(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_imported_models.remove_model((node.get_parent() as Model3D));
+				else :
+					(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.remove_model((node.get_parent() as Model3D));
+				node.get_parent().queue_free();

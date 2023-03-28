@@ -1,19 +1,18 @@
 extends SketchTool
 class_name Teleport
 
-export(NodePath) var root_node_path : NodePath = "";
-onready var root_node : Spatial = get_node(root_node_path);
+export(NodePath)	var root_node_path			: NodePath		= "";
+export(NodePath)	var camera_node_path		: NodePath		= "";
+export(NodePath)	var teleport_gizmo_path		: NodePath		= "";
 
-export(NodePath) var camera_node_path : NodePath = "";
-onready var camera_node : Spatial = get_node(camera_node_path);
+onready var root_node			: Spatial	= get_node(root_node_path);
+onready var teleport_gizmo		: Spatial	= get_node(teleport_gizmo_path);
+onready var camera_node			: Spatial	= get_node(camera_node_path);
 
-export(NodePath) var teleport_gizmo_path : NodePath = "";
-onready var teleport_gizmo : Spatial = get_node(teleport_gizmo_path);
+onready var raycast				: RayCast	= get_node("RayCast");
+onready var ray					: Spatial	= get_node("RayCast/RayGraphics");
 
-onready var raycast : RayCast = get_node("RayCast");
-onready var ray : Spatial = get_node("RayCast/RayGraphics");
-
-var teleport_position : Vector3 = Vector3.ZERO;
+var teleport_position			: Vector3	= Vector3.ZERO;
 
 func _ready() -> void :
 	_tool_mode_name = "Teleport";

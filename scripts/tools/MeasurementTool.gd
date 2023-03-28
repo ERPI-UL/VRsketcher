@@ -1,18 +1,18 @@
 extends SketchTool
 class_name MeasurementTool
 
-var modes : Array = [
+var modes	: Array		= [
 	"Distance",
 	"Angle"
 ];
 
-var current_mode : int = -1;
-var start_position : Vector3 = Vector3.ZERO;
-var end_position : Vector3 = Vector3.ZERO;
+var current_mode			: int			= -1;
+var start_position			: Vector3		= Vector3.ZERO;
+var end_position			: Vector3		= Vector3.ZERO;
 
-var current_measurement : Measurement = null;
+var current_measurement		: Measurement	= null;
 
-onready var tool_gizmo : Spatial = get_node("Graphics/Gizmo_Position");
+onready var tool_gizmo		: Spatial		= get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
 	_tool_mode_name = "Measurement";

@@ -52,10 +52,10 @@ func new_project(project_name : String, project_path : String) -> void :
 
 func save_project() -> void :
 	yield(get_tree(), "idle_frame");
-	var scene_models_data : Array = [];
-	for model in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.models :
+	var scene_imported_models_data : Array = [];
+	for model in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_imported_models.models :
 		if model != null :
-			scene_models_data.append(
+			scene_imported_models_data.append(
 				{
 					"model_filename" : (model as Model3D).model_filename,
 					"position" : (model as Model3D).global_transform.origin,
@@ -63,8 +63,35 @@ func save_project() -> void :
 					"scale" : (model as Model3D).scale.x,
 				}
 			);
-	current_project["scene_models_data"] = scene_models_data;
+	current_project["scene_imported_models_data"] = scene_imported_models_data;
 	
+	
+	var scene_drawn_models_data : Array = [];
+	for model in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.models :
+		if model != null :
+			var model_size : Vector3 = Vector3.ZERO;
+			match (model as Model3D).model_filename :
+				"Box" :
+					model_size = ((model as Model3D).meshes[0] as CubeMesh).size;
+				"Cube" :
+					model_size = ((model as Model3D).meshes[0] as CubeMesh).size;
+				"Sphere" :
+					model_size.x = ((model as Model3D).meshes[0] as SphereMesh).height;
+					model_size.y = ((model as Model3D).meshes[0] as SphereMesh).radius;
+				_ :
+					pass;
+
+			scene_drawn_models_data.append(
+				{
+					"model_filename" : (model as Model3D).model_filename,
+					"position" : (model as Model3D).global_transform.origin,
+					"rotation" : (model as Model3D).rotation_degrees,
+					"scale" : (model as Model3D).scale.x,
+					"size" : model_size
+				}
+			);
+	current_project["scene_drawn_models_data"] = scene_drawn_models_data;
+
 	var scene_line_drawings : Array = [];
 	for line in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.get_children() :
 		scene_line_drawings.append(
@@ -103,7 +130,8 @@ func save_project() -> void :
 			{
 				"project_name" : current_project["project_name"],
 				"project_path" : current_project["project_path"],
-				"scene_models_data" : current_project["scene_models_data"],
+				"scene_imported_models_data" : current_project["scene_imported_models_data"],
+				"scene_drawn_models_data" : current_project["scene_drawn_models_data"],
 				"scene_line_drawings" : current_project["scene_line_drawings"],
 				"scene_measurements" : current_project["scene_measurements"]
 			}
@@ -115,8 +143,7 @@ func load_project(index : int) -> void :
 	current_project = (application_data["recent_projects"] as Array)[index];
 	
 	var target_project : Dictionary = (application_data["recent_projects"] as Array)[index];
-	
-	
+
 	var full_project_path : String = target_project["project_path"];
 	
 	var project_data_file : File = File.new();
@@ -126,13 +153,24 @@ func load_project(index : int) -> void :
 			if parse_result.error == OK :
 				current_project = parse_result.result;
 				
-				if current_project.has("scene_models_data") == true :
-					for model_data in current_project["scene_models_data"] :
+				if current_project.has("scene_imported_models_data") == true :
+					for model_data in current_project["scene_imported_models_data"] :
 						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
 						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
 						model_data["scale"] = float(model_data["scale"]);
 				else :
-					current_project["scene_models_data"] = [];
+					current_project["scene_imported_models_data"] = [];
+
+
+				if current_project.has("scene_drawn_models_data") == true :
+					for model_data in current_project["scene_drawn_models_data"] :
+						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
+						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
+						model_data["scale"] = float(model_data["scale"]);
+						model_data["size"] = parse_Vector3_from_String(model_data["size"]);
+				else :
+					current_project["scene_drawn_models_data"] = [];
+
 
 				if current_project.has("scene_line_drawings") == true :
 					for line_data in current_project["scene_line_drawings"] :
@@ -154,8 +192,6 @@ func load_project(index : int) -> void :
 						measurement_data["end_point"] = parse_Vector3_from_String(measurement_data["end_point"]);
 				else :
 					current_project["scene_measurements"] = [];
-
-
 
 			project_data_file.close();
 			

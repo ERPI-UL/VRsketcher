@@ -1,15 +1,15 @@
 extends SketchTool
 class_name Pen
 
-export(float)					var paint_thickness				: float	= 0.005;
-export(float) 					var paint_distance_threshold	: float	= 0.01;
+export(float)	var paint_thickness				: float	= 0.005;
+export(float)	var paint_distance_threshold	: float	= 0.01;
 
-var is_drawing				: bool		= false;
-var current_paint_index		: int		= -1;
-var current_line_renderer	: Line		= null;
-var paint_last_position		: Vector3	= Vector3.ZERO;
+var is_drawing				: bool			= false;
+var current_paint_index		: int			= -1;
+var current_line_renderer	: Line			= null;
+var paint_last_position		: Vector3		= Vector3.ZERO;
 
-onready var pen_tip : MeshInstance = get_node("Graphics/Tip");
+onready var pen_tip			: MeshInstance	= get_node("Graphics/Tip");
 
 func _ready() -> void :
 	switch_tool_mode();
