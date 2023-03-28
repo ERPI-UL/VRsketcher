@@ -2,7 +2,7 @@
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix;
+render_mode blend_mix, depth_test_disable, depth_draw_never;
 
 uniform sampler2D icon_texture : hint_white;
 

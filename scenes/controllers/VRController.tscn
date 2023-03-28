@@ -17,9 +17,6 @@ tooltip_path = NodePath("ARVRController/Tooltip")
 far = 250.0
 script = ExtResource( 5 )
 
-[node name="VR_Tools_Menu" parent="ARVRCamera" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-
 [node name="ARVRController" type="ARVRController" parent="."]
 
 [node name="Tools" parent="ARVRController" instance=ExtResource( 2 )]
@@ -29,8 +26,12 @@ root_node_path = NodePath("../..")
 camera_node_path = NodePath("../../ARVRCamera")
 
 [node name="ToolsSelection" parent="ARVRController" instance=ExtResource( 7 )]
+camera_path = NodePath("../../ARVRCamera")
 controller_path = NodePath("../..")
-vr_tools_menu_path = NodePath("../../ARVRCamera/VR_Tools_Menu")
+vr_tools_menu_path = NodePath("../../VR_Tools_Menu")
 
 [node name="Tooltip" parent="ARVRController" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+
+[node name="VR_Tools_Menu" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )

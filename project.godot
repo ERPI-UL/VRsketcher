@@ -219,11 +219,11 @@ CameraData="*res://scripts/global_scope/CameraData.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-openvr/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg" )
 
 [gdnative]
 
-singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
+singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib" ]
 
 [gui]
 
