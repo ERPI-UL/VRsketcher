@@ -86,11 +86,8 @@ func open_project() -> void :
 	if Project.current_project.has("scene_imported_models_data") == true :
 		for model_data in Project.current_project["scene_imported_models_data"] :
 			import_model(
-				model_data["model_filename"] as String,
-				true,
-				model_data["position"] as Vector3,
-				model_data["rotation"] as Vector3,
-				model_data["scale"] as float
+				model_data,
+				true
 			);
 
 	if Project.current_project.has("scene_drawn_models_data") == true :
@@ -116,10 +113,24 @@ func open_project() -> void :
 			measurement.end_point = measurement_data["end_point"];
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(measurement);
 
+func import_model_from_path(model_path : String) -> void :
+	import_model(
+		{
+			"model_filename" : model_path,
+			"inspector_unfolded" : true,
+			"position" : Vector3.ZERO,
+			"rotation" : Vector3(-90.0, 0.0, 0.0),
+			"scale" : 1.0,
+			"size" : Vector3.ZERO,
+			"material_override" : -1
+		},
+		false
+	);
 
-
-func import_model(model_path : String, local_model : bool = false, model_position : Vector3 = Vector3.ZERO, model_rotation : Vector3 = Vector3(-90.0, 0.0, 0.0), model_scale : float = 1.0) -> void :
-	print("Loading 3D model file : " + model_path);
+func import_model(model_data : Dictionary, local_model : bool = false) -> void :
+	print("Loading 3D model file : " + model_data["model_filename"] as String);
+	
+	var model_path = model_data["model_filename"] as String;
 	
 	if local_model == true :
 		model_path = Project.get_imported_models_directory_path() + "/" + model_path;
@@ -159,11 +170,15 @@ func import_model(model_path : String, local_model : bool = false, model_positio
 			for mesh in loaded_meshes :
 				model.add_mesh(mesh);
 			scene_imported_models.add_child(model);
-			model.global_transform.origin = model_position;
-			model.rotation_degrees = model_rotation;
-			model.scale = Vector3.ONE * model_scale;
-
-			model.set_material(MaterialLibrary.get_current_material());
+			
+			model.inspector_unfolded = model_data["inspector_unfolded"] as bool;
+			
+			model.global_transform.origin = model_data["position"] as Vector3;
+			model.rotation_degrees = model_data["rotation"] as Vector3;
+			model.scale = Vector3.ONE * model_data["scale"] as float;
+			
+			model.override_material_index = model_data["material_override"] as int;
+			model.set_material(null);
 			
 			var interaction_area : ModelInteractionArea = model_interaction_area.instance();
 			model.add_child(interaction_area);
@@ -206,11 +221,15 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 	drawn_model.is_imported = false;
 
 	scene_drawn_models.add_child(drawn_model);
+	
+	drawn_model.inspector_unfolded = model_data["inspector_unfolded"] as bool;
+
 	drawn_model.global_transform.origin = model_data["position"] as Vector3;
 	drawn_model.rotation_degrees = model_data["rotation"] as Vector3;
 	drawn_model.scale = Vector3.ONE * model_data["scale"] as float;
 
-	drawn_model.set_material(MaterialLibrary.get_current_material());
+	drawn_model.override_material_index = model_data["material_override"] as int;
+	drawn_model.set_material(null);
 		
 	var interaction_area : ModelInteractionArea = model_interaction_area.instance();
 	drawn_model.add_child(interaction_area);

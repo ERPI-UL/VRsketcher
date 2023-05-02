@@ -90,14 +90,14 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
-margin_right = 212.0
+margin_right = 262.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer"]
 margin_left = 6.0
 margin_top = 4.0
-margin_right = 206.0
+margin_right = 256.0
 margin_bottom = 596.0
 size_flags_vertical = 3
 
@@ -131,9 +131,9 @@ flat = true
 
 [node name="TabedContainer" type="TabContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer"]
 margin_top = 28.0
-margin_right = 200.0
+margin_right = 250.0
 margin_bottom = 592.0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 250, 0 )
 size_flags_vertical = 3
 theme = ExtResource( 4 )
 tab_align = 0
@@ -152,7 +152,7 @@ custom_styles/panel = SubResource( 4 )
 [node name="TabContainer" type="TabContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/3D objects"]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 189.0
+margin_right = 239.0
 margin_bottom = 529.0
 tab_align = 0
 
@@ -168,7 +168,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/3D objects/TabContainer/Imported"]
-margin_right = 178.0
+margin_right = 228.0
 margin_bottom = 494.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -188,7 +188,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/3D objects/TabContainer/Drawn"]
-margin_right = 178.0
+margin_right = 228.0
 margin_bottom = 499.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -395,7 +395,7 @@ focus_mode = 0
 text = "Apply"
 
 [node name="Render_Viewport" type="ViewportContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
-margin_left = 212.0
+margin_left = 262.0
 margin_right = 1024.0
 margin_bottom = 600.0
 focus_mode = 1
@@ -404,7 +404,7 @@ size_flags_vertical = 3
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport"]
-size = Vector2( 812, 600 )
+size = Vector2( 762, 600 )
 size_override_stretch = true
 handle_input_locally = false
 msaa = 2
@@ -448,4 +448,4 @@ visible = false
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/Screenshot" to="Interface" method="take_screenshot"]
 [connection signal="value_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox" to="." method="set_environment_exposure"]
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Apply" to="." method="apply_display_settings"]
-[connection signal="file_selected" from="Interface/ModelImportWindow" to="." method="import_model"]
+[connection signal="file_selected" from="Interface/ModelImportWindow" to="." method="import_model_from_path"]

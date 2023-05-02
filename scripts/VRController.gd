@@ -58,12 +58,9 @@ func initialise() -> bool:
 		Engine.target_fps = 90;
 		Engine.iterations_per_second = 90;
 
-		emit_signal("initialised");
 		return true;
 	else:
 		interface = null;
-
-		emit_signal("failed_initialisation");
 		return false
 
 

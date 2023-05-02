@@ -39,10 +39,8 @@ func _physics_process(delta : float) -> void :
 			if tool_item != null :
 				tool_item.focus_exited();
 				tool_item = null;
-			tool_index = -1;
 		ray.scale.y = raycast.global_transform.origin.distance_to(raycast.get_collision_point());
 	else :
-		tool_index = -1;
 		if tool_item != null :
 			tool_item.focus_exited();
 			tool_item = null;
@@ -58,9 +56,6 @@ func start_tool_use() -> void :
 	position.y = 0.0;
 
 	var view_direction : Vector3 = -get_viewport().get_camera().global_transform.basis.z;
-	
-	print(view_direction)
-	
 	view_direction.y = 0.0;
 	view_direction = view_direction.normalized();
 

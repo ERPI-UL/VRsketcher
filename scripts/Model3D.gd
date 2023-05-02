@@ -13,9 +13,12 @@ var aabb				: AABB		= AABB(Vector3.ZERO, Vector3.ZERO);
 
 var meshes : Array = [];
 
+var override_material_index : int = -1;
+
 signal position_changed(new_value);
 signal rotation_changed(new_value);
 signal scale_changed(new_value);
+signal material_override_changed(new_value);
 
 func _ready() -> void :
 	MaterialLibrary.connect("material_selection_changed", self, "set_material");
@@ -33,6 +36,11 @@ func set_scale(new_value : Vector3) -> void :
 	scale = new_value;
 	emit_signal("scale_changed", new_value);
 
+func set_override_material(new_value : int) -> void :
+	override_material_index = new_value;
+	set_material(null);
+	emit_signal("material_override_changed", new_value);
+
 func add_mesh(value : Mesh) -> void :
 	var m : MeshInstance = MeshInstance.new();
 	m.mesh = value;
@@ -47,7 +55,13 @@ func update_aabb() -> void :
 		aabb = aabb.merge(m.get_aabb());
 
 func set_material(value : Material) -> void :
-	material = value;
+	if override_material_index >= 0 :
+		material = MaterialLibrary.get_material(override_material_index);
+	else :
+		if value == null :
+			material = MaterialLibrary.get_current_material();
+		else :
+			material = value;
 	refresh_material();
 
 func refresh_material() -> void :
@@ -62,3 +76,4 @@ func set_overlay_material(material : Material) -> void :
 	for c in get_children() :
 		if c is MeshInstance :
 			c.material_overlay = material;
+

@@ -9,6 +9,9 @@ export(int, LAYERS_3D_PHYSICS)	var paint_collision_mask		: int	= 0;
 
 signal material_selection_changed(new_material);
 
+func get_material(index : int) -> Material :
+	return materials[index] as Material;
+
 func get_current_material() -> Material :
 	return materials[current_material_index];
 	

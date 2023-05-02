@@ -58,9 +58,11 @@ func save_project() -> void :
 			scene_imported_models_data.append(
 				{
 					"model_filename" : (model as Model3D).model_filename,
+					"inspector_unfolded" : (model as Model3D).inspector_unfolded,
 					"position" : (model as Model3D).global_transform.origin,
 					"rotation" : (model as Model3D).rotation_degrees,
 					"scale" : (model as Model3D).scale.x,
+					"material_override" : (model as Model3D).override_material_index
 				}
 			);
 	current_project["scene_imported_models_data"] = scene_imported_models_data;
@@ -84,10 +86,12 @@ func save_project() -> void :
 			scene_drawn_models_data.append(
 				{
 					"model_filename" : (model as Model3D).model_filename,
+					"inspector_unfolded" : (model as Model3D).inspector_unfolded,
 					"position" : (model as Model3D).global_transform.origin,
 					"rotation" : (model as Model3D).rotation_degrees,
 					"scale" : (model as Model3D).scale.x,
-					"size" : model_size
+					"size" : model_size,
+					"material_override" : (model as Model3D).override_material_index
 				}
 			);
 	current_project["scene_drawn_models_data"] = scene_drawn_models_data;
@@ -126,8 +130,7 @@ func save_project() -> void :
 		
 		project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.WRITE);
 
-		project_data_file.store_string(to_json(
-			{
+		var project_data : Dictionary = {
 				"project_name" : current_project["project_name"],
 				"project_path" : current_project["project_path"],
 				"scene_imported_models_data" : current_project["scene_imported_models_data"],
@@ -135,8 +138,11 @@ func save_project() -> void :
 				"scene_line_drawings" : current_project["scene_line_drawings"],
 				"scene_measurements" : current_project["scene_measurements"]
 			}
-		));
+
+		project_data_file.store_string(to_json(project_data));
 		project_data_file.close();
+		
+		print(project_data)
 
 func load_project(index : int) -> void :
 	print("load project " + str(index))
@@ -155,22 +161,25 @@ func load_project(index : int) -> void :
 				
 				if current_project.has("scene_imported_models_data") == true :
 					for model_data in current_project["scene_imported_models_data"] :
+						model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
 						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
 						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
 						model_data["scale"] = float(model_data["scale"]);
+						model_data["material_override"] = int(model_data["material_override"]);
 				else :
 					current_project["scene_imported_models_data"] = [];
 
 
 				if current_project.has("scene_drawn_models_data") == true :
 					for model_data in current_project["scene_drawn_models_data"] :
+						model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
 						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
 						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
 						model_data["scale"] = float(model_data["scale"]);
 						model_data["size"] = parse_Vector3_from_String(model_data["size"]);
+						model_data["material_override"] = int(model_data["material_override"]);
 				else :
 					current_project["scene_drawn_models_data"] = [];
-
 
 				if current_project.has("scene_line_drawings") == true :
 					for line_data in current_project["scene_line_drawings"] :
@@ -192,6 +201,8 @@ func load_project(index : int) -> void :
 						measurement_data["end_point"] = parse_Vector3_from_String(measurement_data["end_point"]);
 				else :
 					current_project["scene_measurements"] = [];
+
+			print(current_project);
 
 			project_data_file.close();
 			
