@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://scripts/ui_components/FlexGridContainer.gd"
 }, {
 "base": "Node",
+"class": "HDRIManager",
+"language": "GDScript",
+"path": "res://scripts/HDRIManager.gd"
+}, {
+"base": "Node",
 "class": "Importer",
 "language": "GDScript",
 "path": "res://scripts/importers/Importer.gd"
@@ -58,6 +63,11 @@ _global_script_classes=[ {
 "class": "LineRenderer",
 "language": "GDScript",
 "path": "res://scripts/LineRenderer.gd"
+}, {
+"base": "SketchTool",
+"class": "MaterialPainter",
+"language": "GDScript",
+"path": "res://scripts/tools/MaterialPainter.gd"
 }, {
 "base": "Spatial",
 "class": "Measurement",
@@ -172,9 +182,11 @@ _global_script_class_icons={
 "Exporter_3MF": "",
 "Exporter_OBJ": "",
 "FlexGridContainer": "",
+"HDRIManager": "",
 "Importer": "",
 "Line": "",
 "LineRenderer": "",
+"MaterialPainter": "",
 "Measurement": "",
 "MeasurementTool": "",
 "Model3D": "",
@@ -207,6 +219,7 @@ config/icon="res://icon.png"
 [autoload]
 
 EventBus="*res://scripts/global_scope/EventBus.gd"
+DebugSettings="*res://scripts/settings/DebugSettings.gd"
 Main="*res://scripts/global_scope/Main.gd"
 MaterialLibrary="*res://scenes/MaterialLibrary.tscn"
 Importer3mf="*res://scripts/importers/Importer_3MF.gd"

@@ -71,8 +71,11 @@ func stop_tool_use() -> void :
 	
 	vr_tools_menu.visible = false;
 
-	if controller != null :
-		controller.switch_to_tool(tool_index);
+	if tool_index >= 0 :
+		if controller != null :
+			controller.switch_to_tool(tool_index);
+	if tool_item != null :
+		tool_item.emit_signal("item_selected");
 
 func switch_tool_mode() -> void :
 	.switch_tool_mode();

@@ -13,6 +13,8 @@ onready var world_environment					: WorldEnvironment		= get_node("WorldEnvironme
 onready var manager_imported_models				: ModelsManager			= get_node("Model_Managers/Imported_Models");
 onready var manager_drawn_models				: ModelsManager			= get_node("Model_Managers/Drawn_Models");
 
+onready var hdri_manager						: Node				= get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI");
+
 onready var scene_imported_models				: Spatial				= get_node("Scene_Objects/Imported_Models");
 onready var scene_lines							: Spatial				= get_node("Scene_Objects/Lines");
 onready var scene_measurements					: Spatial				= get_node("Scene_Objects/Measurements");
@@ -242,3 +244,4 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 
 func save_project() -> void :
 	Project.save_project();
+

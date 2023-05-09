@@ -8,6 +8,8 @@ var base_blink_speed : float = 1.0;
 
 onready var icon_material : ShaderMaterial = load("res://materials/vr_tool_item.tres").duplicate();
 
+signal item_selected();
+
 func _ready() -> void :
 	(get_node("Graphics") as MeshInstance).material_override = icon_material;
 	

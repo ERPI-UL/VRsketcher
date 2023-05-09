@@ -22,7 +22,9 @@ func refresh_model_list() -> void :
 			item.set_target_model(target_models_manager.models[i]);
 			item.fold_item(true, (target_models_manager.models[i] as Model3D).inspector_unfolded);
 
+			#Connect to linked Model3D signals to update the inspector when the Model3D is updated from within the scene
 			(target_models_manager.models[i] as Model3D).connect("position_changed", item.model_transform, "update_inspector_position");
 			(target_models_manager.models[i] as Model3D).connect("rotation_changed", item.model_transform, "update_inspector_rotation");
 			(target_models_manager.models[i] as Model3D).connect("scale_changed", item.model_transform, "update_inspector_scale");
+			(target_models_manager.models[i] as Model3D).connect("material_override_changed", item, "update_inspector_material_override");
 

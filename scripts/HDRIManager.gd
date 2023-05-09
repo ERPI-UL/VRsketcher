@@ -1,4 +1,5 @@
 extends Node
+class_name HDRIManager
 
 var hdri_list : Array = [
 	["default sky", 	"res://default_sky.tres",				"res://assets/hdri/icons/default sky.png"],
@@ -19,6 +20,8 @@ var hdri_list : Array = [
 	["sky 0",			"res://assets/hdri/sky 03.hdr",			"res://assets/hdri/icons/sky 03.png"],
 	["studio 01",		"res://assets/hdri/studio 01.hdr",		"res://assets/hdri/icons/studio 01.png"]
 ]
+
+var current_hdri_index : int = 0;
 
 onready var items_root : Control = get_node("ScrollContainer/HDRI_Manager");
 
@@ -42,6 +45,7 @@ func _ready() -> void :
 		items_root.add_child(item_button);
 
 func set_environement_hdri(index : int = 0) -> void :
+	current_hdri_index = index;
 
 	if index == 0 :
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = load("res://default_sky.tres");

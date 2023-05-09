@@ -11,10 +11,7 @@ var modes	: Array		= [
 	"Z Local"
 ];
 
-export(Material) var interaction_overlay_material	: Material	= null;
-
 var current_mode				: int		= -1;
-var interacted_object			: Spatial	= null;
 var start_position				: Vector3	= Vector3.ZERO;
 var start_offset				: Vector3	= Vector3.ZERO;
 
@@ -80,19 +77,3 @@ func switch_tool_mode() -> void :
 	_tool_mode_name = (modes[current_mode] as String) + " Move";
 
 	.switch_tool_mode();
-
-func object_enter_hover(node : Node) -> void :
-	if tool_in_use == false && visible == true :
-		if node is ModelInteractionArea == true :
-			interacted_object = node.get_parent();
-			if interacted_object is Model3D == true :
-				(interacted_object as Model3D).set_overlay_material(interaction_overlay_material);
-		elif node is Area == true :
-			interacted_object = node;
-
-func object_exit_hover(node : Node) -> void :
-	if node is ModelInteractionArea == true :
-		if node.get_parent() == interacted_object :
-			if interacted_object is Model3D == true :
-				(interacted_object as Model3D).set_overlay_material(null);
-			interacted_object = null;

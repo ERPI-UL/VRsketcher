@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/tools/SpatialSync.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://scripts/ui_components/FlexGridContainer.gd" type="Script" id=17]
 [ext_resource path="res://scripts/HDRIManager.gd" type="Script" id=18]
 [ext_resource path="res://default_env.tres" type="Environment" id=19]
+[ext_resource path="res://scripts/settings/DebugSettingsManager.gd" type="Script" id=20]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 100, 0.5, 100 )
@@ -139,6 +140,7 @@ theme = ExtResource( 4 )
 tab_align = 0
 
 [node name="3D objects" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -207,13 +209,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VSplitContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display"]
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 504.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Environment_HDRI" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer"]
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 248.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -222,13 +224,13 @@ script = ExtResource( 18 )
 [node name="ScrollContainer" type="ScrollContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI"]
 margin_left = 6.0
 margin_top = 4.0
-margin_right = 184.0
+margin_right = 234.0
 margin_bottom = 244.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HDRI_Manager" type="Container" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI/ScrollContainer"]
-margin_right = 178.0
+margin_right = 228.0
 margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -245,24 +247,24 @@ expand_icon = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer"]
 margin_top = 256.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 504.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Exposure" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure"]
-margin_right = 110.0
+margin_right = 160.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Exposure :"
 
 [node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure"]
-margin_left = 114.0
-margin_right = 190.0
+margin_left = 164.0
+margin_right = 240.0
 margin_bottom = 22.0
 min_value = 0.01
 max_value = 4.0
@@ -273,49 +275,49 @@ align = 2
 
 [node name="HSeparator" type="HSeparator" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 26.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 38.0
 custom_constants/separation = 12
 custom_styles/separator = SubResource( 5 )
 
 [node name="Fullscreen" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 42.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 66.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Fullscreen"]
 margin_top = 1.0
-margin_right = 162.0
+margin_right = 212.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Fullscreen :"
 
 [node name="CheckBox" type="CheckBox" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Fullscreen"]
-margin_left = 166.0
-margin_right = 190.0
+margin_left = 216.0
+margin_right = 240.0
 margin_bottom = 24.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 70.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 92.0
 text = "Resolution"
 
 [node name="X_Resolution" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 96.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 118.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution"]
-margin_right = 110.0
+margin_right = 160.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "X :"
 align = 2
 
 [node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution"]
-margin_left = 114.0
-margin_right = 190.0
+margin_left = 164.0
+margin_right = 240.0
 margin_bottom = 22.0
 max_value = 720.0
 value = 70.0
@@ -325,19 +327,19 @@ align = 2
 
 [node name="Y_Resolution" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 122.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 144.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Y_Resolution"]
-margin_right = 110.0
+margin_right = 160.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Y :"
 align = 2
 
 [node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Y_Resolution"]
-margin_left = 114.0
-margin_right = 190.0
+margin_left = 164.0
+margin_right = 240.0
 margin_bottom = 22.0
 max_value = 720.0
 value = 70.0
@@ -347,18 +349,18 @@ align = 2
 
 [node name="FOV" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 margin_top = 148.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 170.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/FOV"]
-margin_right = 110.0
+margin_right = 160.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "FOV :"
 
 [node name="SpinBox" type="SpinBox" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/FOV"]
-margin_left = 114.0
-margin_right = 190.0
+margin_left = 164.0
+margin_right = 240.0
 margin_bottom = 22.0
 max_value = 720.0
 value = 70.0
@@ -369,18 +371,18 @@ align = 2
 [node name="Framerate" type="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer"]
 modulate = Color( 0.554688, 0.554688, 0.554688, 1 )
 margin_top = 174.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 196.0
 
 [node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Framerate"]
-margin_right = 93.0
+margin_right = 118.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Framerate :"
 
 [node name="Label2" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Framerate"]
-margin_left = 97.0
-margin_right = 190.0
+margin_left = 122.0
+margin_right = 240.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "XX"
@@ -389,10 +391,106 @@ script = ExtResource( 6 )
 
 [node name="Apply" type="Button" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display"]
 margin_top = 508.0
-margin_right = 190.0
+margin_right = 240.0
 margin_bottom = 530.0
 focus_mode = 0
 text = "Apply"
+
+[node name="Debug" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 20 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_right = 240.0
+margin_bottom = 461.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_right = 240.0
+margin_bottom = 22.0
+text = "Tools activation"
+
+[node name="Pen" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 26.0
+margin_right = 240.0
+margin_bottom = 50.0
+text = "Pen"
+
+[node name="Eraser" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 54.0
+margin_right = 240.0
+margin_bottom = 78.0
+text = "Eraser"
+
+[node name="Measurements" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 82.0
+margin_right = 240.0
+margin_bottom = 106.0
+text = "Measurements"
+
+[node name="Material_Painter" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 110.0
+margin_right = 240.0
+margin_bottom = 134.0
+text = "Texture painting"
+
+[node name="Move" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 138.0
+margin_right = 240.0
+margin_bottom = 162.0
+text = "Move"
+
+[node name="Rotate" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 166.0
+margin_right = 240.0
+margin_bottom = 190.0
+text = "Rotate"
+
+[node name="Modeler" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 194.0
+margin_right = 240.0
+margin_bottom = 218.0
+text = "Primitive modeling"
+
+[node name="HSeparator" type="HSeparator" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 222.0
+margin_right = 240.0
+margin_bottom = 234.0
+custom_constants/separation = 12
+custom_styles/separator = SubResource( 5 )
+
+[node name="HDRI_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 238.0
+margin_right = 240.0
+margin_bottom = 262.0
+text = "Sky texture switch"
+
+[node name="Global_Material_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+margin_top = 266.0
+margin_right = 240.0
+margin_bottom = 290.0
+text = "Global Material Switch"
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 465.0
+margin_right = 240.0
+margin_bottom = 504.0
+text = "* Changes will take effect after saving and restarting."
+autowrap = true
+
+[node name="Save debug settings" type="Button" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 508.0
+margin_right = 240.0
+margin_bottom = 530.0
+text = "Apply settings"
 
 [node name="Render_Viewport" type="ViewportContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
 margin_left = 262.0
@@ -448,4 +546,5 @@ visible = false
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/Screenshot" to="Interface" method="take_screenshot"]
 [connection signal="value_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox" to="." method="set_environment_exposure"]
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Apply" to="." method="apply_display_settings"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/Save debug settings" to="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug" method="save_debug_settings"]
 [connection signal="file_selected" from="Interface/ModelImportWindow" to="." method="import_model_from_path"]

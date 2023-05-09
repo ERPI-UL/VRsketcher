@@ -61,3 +61,6 @@ func set_model_material_override(value : int, is_correct_value : bool = false) -
 		target_model.set_override_material(value);
 	else :
 		target_model.set_override_material(value - 1);
+
+func update_inspector_material_override(value : int) -> void :
+	model_override_material.selected = value + 1;

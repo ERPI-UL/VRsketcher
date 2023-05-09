@@ -76,7 +76,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -929, -150 )
+graph_offset = Vector2( -888, -80 )
 modes/blend = 1
 nodes/fragment/0/position = Vector2( 520, 60 )
 nodes/fragment/2/node = SubResource( 1 )
