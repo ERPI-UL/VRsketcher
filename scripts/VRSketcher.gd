@@ -116,7 +116,8 @@ func open_project() -> void :
 			measurement.end_point = measurement_data["end_point"];
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(measurement);
 
-	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox") as SpinBox).value = Project.current_project["current_exposure"];
+	if Project.current_project.has("current_exposure") == true :
+		(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox") as SpinBox).value = Project.current_project["current_exposure"];
 
 func import_model_from_path(model_path : String) -> void :
 	import_model(

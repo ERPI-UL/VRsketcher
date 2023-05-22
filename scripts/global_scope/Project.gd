@@ -222,7 +222,7 @@ func import_project(path : String) -> void :
 	#Update project's name and path in projectdata.vrsk file
 	var project_data : Dictionary = {};
 	var file : File = File.new();
-	if file.open(path, File.READ_WRITE) == OK :
+	if file.open(path, File.READ) == OK :
 		var parse_result : JSONParseResult = JSON.parse(file.get_as_text());
 		if parse_result.error == OK :
 			project_data = parse_result.result;
@@ -230,20 +230,32 @@ func import_project(path : String) -> void :
 			project_data["project_name"] = imported_project_name;
 			project_data["project_path"] = imported_project_path;
 
-			file.store_string(to_json(project_data));
-		file.close();
+			file.close();
 
-	#Add imported project to the current recent projects list
-	(application_data["recent_projects"] as Array).insert(
-		0,
-		{
-			"project_name"	:	imported_project_name,
-			"project_path"	:	imported_project_path
-		}
-	);
+			if file.open(path, File.WRITE) == OK :
+				file.store_string(to_json(project_data));
+				file.close();
+			else :
+				print("Error while importing project");
+				return;
 
-	save_application_data();
-	load_application_data();
+			#Add imported project to the current recent projects list
+			(application_data["recent_projects"] as Array).insert(
+				0,
+				{
+					"project_name"	:	imported_project_name,
+					"project_path"	:	imported_project_path
+				}
+			);
+
+			save_application_data();
+			load_application_data();
+		else :
+			print("Error while importing project");
+			return;
+	else :
+		print("Error while importing project");
+		return;
 
 func save_application_data() -> void :
 	print(application_data)
