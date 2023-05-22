@@ -28,7 +28,7 @@ default_value = 3.0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_add, specular_schlick_ggx, async_visible;
+render_mode blend_add, cull_disabled, specular_schlick_ggx, async_visible;
 
 uniform vec4 overlay_color : hint_color = vec4(1.000000, 0.562500, 0.000000, 1.000000);
 uniform float rim_power = 3;
@@ -76,8 +76,9 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -888, -80 )
+graph_offset = Vector2( -894, -147 )
 modes/blend = 1
+modes/cull = 2
 nodes/fragment/0/position = Vector2( 520, 60 )
 nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( -640, 160 )

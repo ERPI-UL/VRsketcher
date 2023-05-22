@@ -9,14 +9,25 @@ var render_list : Array = [
 	["city 05", "res://assets/hdri/city 05.hdr"],
 	["city 06", "res://assets/hdri/city 06.hdr"],
 	["city 07", "res://assets/hdri/city 07.hdr"],
+	
 	["forest 01", "res://assets/hdri/forest 01.hdr"],
+	
 	["interior 01", "res://assets/hdri/interior 01.hdr"],
 	["interior 02", "res://assets/hdri/interior 02.hdr"],
+	["interior 03", "res://assets/hdri/interior 03.hdr"],
+	["interior 04", "res://assets/hdri/interior 04.hdr"],
+	["interior 05", "res://assets/hdri/interior 05.hdr"],
+	["interior 06", "res://assets/hdri/interior 06.hdr"],
+	["interior 07", "res://assets/hdri/interior 07.hdr"],
+	
 	["outdoor 01", "res://assets/hdri/outdoor 01.hdr"],
 	["outdoor 02", "res://assets/hdri/outdoor 02.hdr"],
+	["outdoor 03", "res://assets/hdri/outdoor 03.hdr"],
+	
 	["sky 01", "res://assets/hdri/sky 01.hdr"],
 	["sky 02", "res://assets/hdri/sky 02.hdr"],
 	["sky 03", "res://assets/hdri/sky 03.hdr"],
+	
 	["studio 01", "res://assets/hdri/studio 01.hdr"]
 ];
 

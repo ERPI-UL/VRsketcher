@@ -22,7 +22,7 @@ code = "//MIT License
 //Procedural grid shader
 
 shader_type spatial;
-render_mode blend_mix, depth_draw_alpha_prepass, cull_disabled, world_vertex_coords, shadows_disabled, unshaded;
+render_mode blend_mix, cull_disabled, world_vertex_coords, shadows_disabled, unshaded;
 
 uniform vec4 grid_color : hint_color = vec4(vec3(0.0),1.0);
 uniform vec4 background_color : hint_color = vec4(vec3(0.0),0.0);
@@ -58,4 +58,5 @@ void fragment()
 	
 	ALBEDO = color.rgb;
     ALPHA = color.a * falloff;
+	DEPTH = 500.0;
 }"

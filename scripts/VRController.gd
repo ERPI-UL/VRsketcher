@@ -39,7 +39,21 @@ func _ready() -> void :
 	controller.connect("button_pressed", self, "input_pressed");
 	controller.connect("button_release", self, "input_released");
 
-func initialise() -> bool:
+func _process(delta: float) -> void :
+	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
+	
+	if controller.get_is_active() == false :
+		if controller.controller_id == 1 :
+			controller.controller_id = 2;
+		else :
+			controller.controller_id = 1;
+
+# Initialize the VR session
+# Params : None
+# Returns : 
+# - true : the VR has been initialized
+# - false : otherwise
+func initialise() -> bool :
 	if Engine.editor_hint:
 		print("Can't initialise while in the editor");
 		return false;
@@ -63,102 +77,86 @@ func initialise() -> bool:
 		interface = null;
 		return false
 
-
-func _process(delta: float) -> void :
-	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
-	
-	if controller.get_is_active() == false :
-		if controller.controller_id == 1 :
-			controller.controller_id = 2;
-		else :
-			controller.controller_id = 1;
-
+# Called when a button is pressed on the VR controller
+# Params :
+# - button_index : index of the button that was pressed
+# Returns : Nothing
 func input_pressed(button_index : int) -> void :
 	var input_code : int = get_input_code(button_index);
 
 	match input_code :
 		InputCode.BUTTON_MENU :
 			MaterialLibrary.switch_material();
-
 		InputCode.BUTTON_A :
 			MaterialLibrary.switch_material();
-
 		InputCode.BUTTON_B :
 			pass;
-
 		InputCode.BUTTON_GRIP :
 			pass;
-
 		InputCode.BUTTON_TRIGGER :
 			get_current_tool().start_tool_use();
-
 		InputCode.BUTTON_STICK :
 			tool_selection_tool.start_tool_use();
 
 		InputCode.STICK_BUTTON_UP :
 			teleport_tool.start_tool_use();
-			
 		InputCode.STICK_BUTTON_DOWN :
 			get_current_tool().switch_tool_mode();
-			
 		InputCode.STICK_BUTTON_LEFT :
 			pass;
-			
 		InputCode.STICK_BUTTON_RIGHT :
 			pass;
 		_ :
 			pass;
-	
+
+# Called when a button is released on the VR controller
+# Params :
+# - button_index : index of the button that was released
+# Returns : Nothing
 func input_released(button_index : int) -> void :
 	var input_code : int = get_input_code(button_index);
 	
 	match input_code :
 		InputCode.BUTTON_MENU :
 			pass;
-
 		InputCode.BUTTON_A :
 			pass;
-
 		InputCode.BUTTON_B :
 			pass;
-
 		InputCode.BUTTON_GRIP :
 			pass;
-
 		InputCode.BUTTON_TRIGGER :
 			get_current_tool().stop_tool_use();
-
 		InputCode.BUTTON_STICK :
 			tool_selection_tool.stop_tool_use();
-
 		InputCode.STICK_BUTTON_UP :
 			teleport_tool.stop_tool_use();
-
 		InputCode.STICK_BUTTON_DOWN :
 			pass;
-			
 		InputCode.STICK_BUTTON_LEFT :
 			pass;
-			
 		InputCode.STICK_BUTTON_RIGHT :
 			pass;
 		_ :
 			pass;
 
+# Maps the given button index to its corresponding InputCode
+# Params :
+# - button_index : the button index to map
+# Returns : the corresponding InputCode
 func get_input_code(button_index : int) -> int :
+	#For usual buttons, the button index already corresponds to the right InputCode
+	#Map stick to usable inputs
 	if button_index == InputCode.BUTTON_STICK :
 		
 		trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1));
 		
 		if (trackpad_vector.x > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
 			return InputCode.STICK_BUTTON_RIGHT;
-
 		if (trackpad_vector.x < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
 			return InputCode.STICK_BUTTON_LEFT;
-			
 		if (trackpad_vector.y > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
 			return InputCode.STICK_BUTTON_UP;
-			
 		if (trackpad_vector.y < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
 			return InputCode.STICK_BUTTON_DOWN;
 

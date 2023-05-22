@@ -22,9 +22,11 @@ func load_recent_projects_list() -> void :
 		recent_projects_list.add_child(item);
 		
 		var project : Dictionary = Project.application_data["recent_projects"][i];
+		var project_name : String = (project["project_path"] as String).rsplit("/", true, 1)[1];
+		var project_path : String = (project["project_path"] as String).rsplit("/", true, 1)[0];
 		
-		item.project_name.text = (project["project_path"] as String).rsplit("/", true, 1)[1];
-		item.project_path.text = (project["project_path"] as String).rsplit("/", true, 1)[0];
+		item.project_name.text = project_name;
+		item.project_path.text = project_path + "/" + project_name; 
 		item.project_index = i;
 
 func open_project_creation() -> void :
@@ -32,6 +34,6 @@ func open_project_creation() -> void :
 
 func open_import_project_dialog() -> void :
 	import_project_dialog.popup_centered();
-	
-func import_project_dialog(path: String) -> void :
-	pass;
+
+func import_project_dialog(path : String) -> void :
+	Project.import_project(path);

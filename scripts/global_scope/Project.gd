@@ -34,6 +34,8 @@ func new_project(project_name : String, project_path : String) -> void :
 			{
 				"project_name" : project_name,
 				"project_path" : full_project_path,
+				"hdri_index" : 0,
+				"current_exposure" : 1.0,
 				"scene_models_data" : [],
 				"scene_line_drawings" : []
 			}
@@ -107,7 +109,6 @@ func save_project() -> void :
 		);
 	current_project["scene_line_drawings"] = scene_line_drawings;
 
-
 	var scene_measurements : Array = [];
 	for measurement in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.get_children() :
 		scene_measurements.append(
@@ -120,9 +121,6 @@ func save_project() -> void :
 		);
 	current_project["scene_measurements"] = scene_measurements;
 
-
-
-
 	var full_project_path : String = current_project["project_path"];
 	
 	var project_data_file : File = File.new();
@@ -133,6 +131,8 @@ func save_project() -> void :
 		var project_data : Dictionary = {
 				"project_name" : current_project["project_name"],
 				"project_path" : current_project["project_path"],
+				"hdri_index" : (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index,
+				"current_exposure" : (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure,
 				"scene_imported_models_data" : current_project["scene_imported_models_data"],
 				"scene_drawn_models_data" : current_project["scene_drawn_models_data"],
 				"scene_line_drawings" : current_project["scene_line_drawings"],
@@ -158,7 +158,13 @@ func load_project(index : int) -> void :
 			var parse_result : JSONParseResult = JSON.parse(project_data_file.get_as_text());
 			if parse_result.error == OK :
 				current_project = parse_result.result;
-				
+
+				if current_project.has("hdri_index" ) == true :
+					(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.set_environement_hdri(current_project["hdri_index"]);
+
+				if current_project.has("current_exposure" ) == true :
+					(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure = current_project["current_exposure"];
+
 				if current_project.has("scene_imported_models_data") == true :
 					for model_data in current_project["scene_imported_models_data"] :
 						model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
@@ -208,6 +214,37 @@ func load_project(index : int) -> void :
 			
 	emit_signal("open_project");
 
+func import_project(path : String) -> void :
+	print("import VRSketcher project at : " + path);
+	var imported_project_name : String = path.rsplit("/", true, 2)[1];
+	var imported_project_path : String = path.rsplit("/", true, 1)[0];
+
+	#Update project's name and path in projectdata.vrsk file
+	var project_data : Dictionary = {};
+	var file : File = File.new();
+	if file.open(path, File.READ_WRITE) == OK :
+		var parse_result : JSONParseResult = JSON.parse(file.get_as_text());
+		if parse_result.error == OK :
+			project_data = parse_result.result;
+			
+			project_data["project_name"] = imported_project_name;
+			project_data["project_path"] = imported_project_path;
+
+			file.store_string(to_json(project_data));
+		file.close();
+
+	#Add imported project to the current recent projects list
+	(application_data["recent_projects"] as Array).insert(
+		0,
+		{
+			"project_name"	:	imported_project_name,
+			"project_path"	:	imported_project_path
+		}
+	);
+
+	save_application_data();
+	load_application_data();
+
 func save_application_data() -> void :
 	print(application_data)
 	
@@ -246,7 +283,7 @@ func load_application_data() -> void :
 	save_application_data();
 
 func get_imported_models_directory_path() -> String :
-	return current_project["project_path"] + "/" + IMPORT_PATH_MODELS
+	return current_project["project_path"] + "/" + IMPORT_PATH_MODELS;
 
 func parse_Vector3_from_String (from : String) -> Vector3 :
 	var to = from;

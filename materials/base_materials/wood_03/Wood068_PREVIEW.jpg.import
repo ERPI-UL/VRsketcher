@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/Wood068_PREVIEW.jpg-6c6a6e53ef75f1a95f8c3e90d8a399ad.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://materials/base_materials/wood_03/Wood068_PREVIEW.jpg"
+dest_files=[ "res://.import/Wood068_PREVIEW.jpg-6c6a6e53ef75f1a95f8c3e90d8a399ad.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

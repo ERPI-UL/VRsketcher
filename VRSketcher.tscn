@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/tools/SpatialSync.gd" type="Script" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://scripts/HDRIManager.gd" type="Script" id=18]
 [ext_resource path="res://default_env.tres" type="Environment" id=19]
 [ext_resource path="res://scripts/settings/DebugSettingsManager.gd" type="Script" id=20]
+[ext_resource path="res://scenes/camera_tools/spectator_camera/SpectatorCamera.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/ui_components/ModelTransform.tscn" type="PackedScene" id=22]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 100, 0.5, 100 )
@@ -32,6 +34,12 @@ content_margin_bottom = 1.0
 bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="ViewportTexture" id=6]
+viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_01")
+
+[sub_resource type="ViewportTexture" id=7]
+viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_02")
 
 [node name="VRSketcher" type="Node"]
 script = ExtResource( 5 )
@@ -60,6 +68,12 @@ script = ExtResource( 15 )
 [node name="Lines" type="Spatial" parent="Scene_Objects"]
 
 [node name="Measurements" type="Spatial" parent="Scene_Objects"]
+
+[node name="Spectator_Cameras" type="Node" parent="."]
+
+[node name="SpectatorCamera_01" parent="Spectator_Cameras" instance=ExtResource( 21 )]
+
+[node name="SpectatorCamera_02" parent="Spectator_Cameras" instance=ExtResource( 21 )]
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1024, 600 )
@@ -140,7 +154,6 @@ theme = ExtResource( 4 )
 tab_align = 0
 
 [node name="3D objects" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -397,6 +410,7 @@ focus_mode = 0
 text = "Apply"
 
 [node name="Debug" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -407,79 +421,458 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 20 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
-margin_right = 240.0
-margin_bottom = 461.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
 margin_right = 240.0
 margin_bottom = 22.0
 text = "Tools activation"
 
-[node name="Pen" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
 margin_top = 26.0
 margin_right = 240.0
-margin_bottom = 50.0
+margin_bottom = 201.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 234.0
+margin_bottom = 171.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer"]
+margin_right = 228.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Pen" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_right = 216.0
+margin_bottom = 24.0
 text = "Pen"
 
-[node name="Eraser" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 54.0
-margin_right = 240.0
-margin_bottom = 78.0
+[node name="Eraser" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 216.0
+margin_bottom = 52.0
 text = "Eraser"
 
-[node name="Measurements" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 82.0
-margin_right = 240.0
-margin_bottom = 106.0
+[node name="Measurements" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 216.0
+margin_bottom = 80.0
 text = "Measurements"
 
-[node name="Material_Painter" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 110.0
-margin_right = 240.0
-margin_bottom = 134.0
+[node name="Material_Painter" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 84.0
+margin_right = 216.0
+margin_bottom = 108.0
 text = "Texture painting"
 
-[node name="Move" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 138.0
-margin_right = 240.0
-margin_bottom = 162.0
+[node name="Move" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 112.0
+margin_right = 216.0
+margin_bottom = 136.0
 text = "Move"
 
-[node name="Rotate" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 166.0
-margin_right = 240.0
-margin_bottom = 190.0
+[node name="Rotate" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 140.0
+margin_right = 216.0
+margin_bottom = 164.0
 text = "Rotate"
 
-[node name="Modeler" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 194.0
-margin_right = 240.0
-margin_bottom = 218.0
+[node name="Modeler" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 168.0
+margin_right = 216.0
+margin_bottom = 192.0
 text = "Primitive modeling"
 
-[node name="HSeparator" type="HSeparator" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 222.0
-margin_right = 240.0
-margin_bottom = 234.0
+[node name="HSeparator" type="HSeparator" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 196.0
+margin_right = 216.0
+margin_bottom = 208.0
 custom_constants/separation = 12
 custom_styles/separator = SubResource( 5 )
 
-[node name="HDRI_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 238.0
-margin_right = 240.0
-margin_bottom = 262.0
+[node name="HDRI_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 212.0
+margin_right = 216.0
+margin_bottom = 236.0
 text = "Sky texture switch"
 
-[node name="Global_Material_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/VBoxContainer"]
-margin_top = 266.0
-margin_right = 240.0
-margin_bottom = 290.0
+[node name="Global_Material_Switch" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 240.0
+margin_right = 216.0
+margin_bottom = 264.0
 text = "Global Material Switch"
 
-[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+[node name="Label2" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 205.0
+margin_right = 240.0
+margin_bottom = 227.0
+text = "Spectator cameras"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 231.0
+margin_right = 240.0
+margin_bottom = 407.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 234.0
+margin_bottom = 172.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer"]
+margin_right = 228.0
+margin_bottom = 696.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer"]
+margin_right = 216.0
+margin_bottom = 22.0
+text = "Camera 1"
+
+[node name="Preview_Camera_01" type="TextureRect" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 126.0
+rect_min_size = Vector2( 0, 100 )
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Transform_Camera_01" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer" instance=ExtResource( 22 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 130.0
+margin_right = 216.0
+margin_bottom = 342.0
+
+[node name="Model_Scale" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01" index="0"]
+visible = false
+margin_right = 228.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Scale" index="0"]
+margin_top = 0.0
+margin_right = 144.0
+margin_bottom = 22.0
+
+[node name="Scale" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Scale" index="1"]
+margin_left = 152.0
+margin_right = 228.0
+margin_bottom = 22.0
+
+[node name="Model_Position" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01" index="1"]
+margin_top = 0.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/HBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position" index="1"]
+margin_top = 30.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_X" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer2" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer" index="1"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 48.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer2" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_Y" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer2" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer3" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer" index="2"]
+margin_top = 52.0
+margin_right = 216.0
+margin_bottom = 74.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer3" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_Z" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Position/VBoxContainer/HBoxContainer3" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Model_Rotation" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01" index="2"]
+margin_top = 108.0
+margin_right = 216.0
+margin_bottom = 212.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/HBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation" index="1"]
+margin_top = 30.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_X" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer2" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer" index="1"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 48.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer2" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_Y" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer2" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer3" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer" index="2"]
+margin_top = 52.0
+margin_right = 216.0
+margin_bottom = 74.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer3" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_Z" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01/Model_Rotation/VBoxContainer/HBoxContainer3" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HSeparator" type="HSeparator" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer"]
+margin_top = 346.0
+margin_right = 216.0
+margin_bottom = 350.0
+
+[node name="Label2" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer"]
+margin_top = 354.0
+margin_right = 216.0
+margin_bottom = 376.0
+text = "Camera 2"
+
+[node name="Preview_Camera_02" type="TextureRect" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer"]
+margin_top = 380.0
+margin_right = 216.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 0, 100 )
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Transform_Camera_02" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer" instance=ExtResource( 22 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 484.0
+margin_right = 216.0
+margin_bottom = 696.0
+
+[node name="Model_Scale" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02" index="0"]
+visible = false
+margin_right = 228.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Scale" index="0"]
+margin_top = 0.0
+margin_right = 144.0
+margin_bottom = 22.0
+
+[node name="Scale" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Scale" index="1"]
+margin_left = 152.0
+margin_right = 228.0
+margin_bottom = 22.0
+
+[node name="Model_Position" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02" index="1"]
+margin_top = 0.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/HBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position" index="1"]
+margin_top = 30.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_X" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer2" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer" index="1"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 48.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer2" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_Y" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer2" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer3" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer" index="2"]
+margin_top = 52.0
+margin_right = 216.0
+margin_bottom = 74.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer3" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Position_Z" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Position/VBoxContainer/HBoxContainer3" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Model_Rotation" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02" index="2"]
+margin_top = 108.0
+margin_right = 216.0
+margin_bottom = 212.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/HBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation" index="1"]
+margin_top = 30.0
+margin_right = 216.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer" index="0"]
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_X" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer2" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer" index="1"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 48.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer2" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_Y" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer2" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer3" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer" index="2"]
+margin_top = 52.0
+margin_right = 216.0
+margin_bottom = 74.0
+
+[node name="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer3" index="0"]
+margin_top = 0.0
+margin_right = 136.0
+margin_bottom = 22.0
+
+[node name="Rotation_Z" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02/Model_Rotation/VBoxContainer/HBoxContainer3" index="1"]
+margin_left = 140.0
+margin_right = 216.0
+margin_bottom = 22.0
+
+[node name="Screenshot_Prefix" type="LineEdit" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 411.0
+margin_right = 240.0
+margin_bottom = 435.0
+right_icon = ExtResource( 13 )
+
+[node name="Spectator_Cameras_Screenshot" type="Button" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
+margin_top = 439.0
+margin_right = 240.0
+margin_bottom = 461.0
+text = "Take cameras screenshot"
+
+[node name="Label3" type="Label" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug"]
 margin_top = 465.0
 margin_right = 240.0
 margin_bottom = 504.0
@@ -546,5 +939,15 @@ visible = false
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/Screenshot" to="Interface" method="take_screenshot"]
 [connection signal="value_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox" to="." method="set_environment_exposure"]
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/Apply" to="." method="apply_display_settings"]
+[connection signal="model_position_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01" to="Spectator_Cameras/SpectatorCamera_01" method="set_camera_position"]
+[connection signal="model_rotation_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01" to="Spectator_Cameras/SpectatorCamera_01" method="set_camera_rotation"]
+[connection signal="model_position_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02" to="Spectator_Cameras/SpectatorCamera_02" method="set_camera_position"]
+[connection signal="model_rotation_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02" to="Spectator_Cameras/SpectatorCamera_02" method="set_camera_rotation"]
+[connection signal="text_changed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/Screenshot_Prefix" to="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug" method="set_screenshot_prefix"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/Spectator_Cameras_Screenshot" to="Spectator_Cameras/SpectatorCamera_01" method="save_screenshot"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/Spectator_Cameras_Screenshot" to="Spectator_Cameras/SpectatorCamera_02" method="save_screenshot"]
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/Save debug settings" to="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug" method="save_debug_settings"]
 [connection signal="file_selected" from="Interface/ModelImportWindow" to="." method="import_model_from_path"]
+
+[editable path="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01"]
+[editable path="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_02"]

@@ -85,11 +85,7 @@ func import_model_file(path : String) -> Array :
 							[v_3]
 						]
 					);
-			
-			
 
-				
-				
 				"""
 				# Polygonal face element (see below)
 				f 1 2 3
@@ -97,19 +93,7 @@ func import_model_file(path : String) -> Array :
 				f 6/4/1 3/5/3 7/6/5
 				f 7//1 8//2 9//3
 				f ...
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				"""
-				
 
 	var output_meshes : Array = [];
 

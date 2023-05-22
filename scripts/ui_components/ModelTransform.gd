@@ -26,10 +26,10 @@ func set_model_transform(model_position : Vector3, model_rotation : Vector3, mod
 	
 	scale.value = model_scale;
 
-func set_model_position(_value : float) -> void :
+func set_model_position(_value) -> void :
 	emit_signal("model_position_changed", Vector3(position_x.value, position_y.value, position_z.value));
 
-func set_model_rotation(_value : float) -> void :
+func set_model_rotation(_value) -> void :
 	emit_signal("model_rotation_changed", Vector3(rotation_x.value, rotation_y.value, rotation_z.value));
 
 func set_model_scale(_value : float) -> void :

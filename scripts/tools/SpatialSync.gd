@@ -10,7 +10,6 @@ export(NodePath) var target_path : NodePath = "";
 var node_to_sync_to : Spatial;
 
 
-
 func _ready() -> void:
 	if sync_on_start == true :
 		sync_node();

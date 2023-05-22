@@ -76,6 +76,7 @@ func apply_display_settings():
 
 func set_environment_exposure(value : float = 1.0) -> void :
 	world_environment.environment.tonemap_exposure = value;
+	hdri_manager.current_exposure = value;
 
 func update_color_preview(color : Color) -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/ColorPreview/MarginContainer/Control/TextureRect") as Control).self_modulate = color;
@@ -114,6 +115,8 @@ func open_project() -> void :
 			measurement.middle_point = measurement_data["middle_point"];
 			measurement.end_point = measurement_data["end_point"];
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(measurement);
+
+	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Exposure/SpinBox") as SpinBox).value = Project.current_project["current_exposure"];
 
 func import_model_from_path(model_path : String) -> void :
 	import_model(
@@ -165,6 +168,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 				if dir.file_exists(model_path) == true :
 					dir.copy(model_path, Project.get_imported_models_directory_path() + "/" + model_name);
 
+			#Restore model data
 			model_name = model_name.rsplit(".")[0];
 			model.is_imported = true;
 			model.inspector_name = model_name;
@@ -182,6 +186,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			model.override_material_index = model_data["material_override"] as int;
 			model.set_material(null);
 			
+			#Create interaction area using the model's overall AABB
 			var interaction_area : ModelInteractionArea = model_interaction_area.instance();
 			model.add_child(interaction_area);
 			interaction_area.set_interaction_area(model.get_model_aabb().position, model.get_model_aabb().size / 2.0);
@@ -197,28 +202,31 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 
 func load_drawn_model(model_data : Dictionary) -> Model3D :
 	var drawn_model : Model3D = Model3D.new();
+	var primitive_mesh : Mesh = null;
 
 	match (model_data["model_filename"] as String) :
 		"Box" :
 			drawn_model.model_filename = "Box";
 			drawn_model.inspector_name = "Box";
-			drawn_model.add_mesh(CubeMesh.new());
-			(drawn_model.meshes[0] as CubeMesh).size = model_data["size"] as Vector3;
+			primitive_mesh = CubeMesh.new();
+			(primitive_mesh as CubeMesh).size = model_data["size"] as Vector3;
 		"Cube" :
 			drawn_model.model_filename = "Cube";
 			drawn_model.inspector_name = "Cube";
-			drawn_model.add_mesh(CubeMesh.new());
-			(drawn_model.meshes[0] as CubeMesh).size = model_data["size"] as Vector3;
+			primitive_mesh = CubeMesh.new();
+			(primitive_mesh as CubeMesh).size = model_data["size"] as Vector3;
 		"Sphere" :
 			drawn_model.model_filename = "Sphere";
 			drawn_model.inspector_name = "Sphere";
-			drawn_model.add_mesh(SphereMesh.new());
-			(drawn_model.meshes[0] as SphereMesh).height = (model_data["size"] as Vector3).x;
-			(drawn_model.meshes[0] as SphereMesh).radius = (model_data["size"] as Vector3).y;
-			(drawn_model.meshes[0] as SphereMesh).radial_segments = 32;
-			(drawn_model.meshes[0] as SphereMesh).rings = 16;
+			primitive_mesh = SphereMesh.new();
+			(primitive_mesh  as SphereMesh).height = (model_data["size"] as Vector3).x;
+			(primitive_mesh as SphereMesh).radius = (model_data["size"] as Vector3).y;
+			(primitive_mesh as SphereMesh).radial_segments = 32;
+			(primitive_mesh as SphereMesh).rings = 16;
 		_ :
 			pass;
+
+	drawn_model.add_mesh(primitive_mesh);
 
 	drawn_model.is_imported = false;
 
@@ -232,11 +240,11 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 
 	drawn_model.override_material_index = model_data["material_override"] as int;
 	drawn_model.set_material(null);
-		
+
 	var interaction_area : ModelInteractionArea = model_interaction_area.instance();
 	drawn_model.add_child(interaction_area);
 	interaction_area.set_interaction_area(drawn_model.get_model_aabb().position, drawn_model.get_model_aabb().size / 2.0);
-		
+
 	manager_drawn_models.add_model(drawn_model);
 	print("drawn model loaded");
 

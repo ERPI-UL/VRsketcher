@@ -13,6 +13,24 @@ var enable_tool_modeler							: bool	= true;
 var enable_function_hdri_switch					: bool	= true;
 var enable_function_global_material_switch		: bool	= true;
 
+var spectator_camera_01_position_x				: float	= 0.0;
+var spectator_camera_01_position_y				: float	= 0.0;
+var spectator_camera_01_position_z				: float	= 0.0;
+
+var spectator_camera_01_rotation_x				: float	= 0.0;
+var spectator_camera_01_rotation_y				: float	= 0.0;
+var spectator_camera_01_rotation_z				: float	= 0.0;
+
+var spectator_camera_02_position_x				: float	= 0.0;
+var spectator_camera_02_position_y				: float	= 0.0;
+var spectator_camera_02_position_z				: float	= 0.0;
+
+var spectator_camera_02_rotation_x				: float	= 0.0;
+var spectator_camera_02_rotation_y				: float	= 0.0;
+var spectator_camera_02_rotation_z				: float	= 0.0;
+
+var screenshot_prefix							: String = "";
+
 func _ready():
 	var file : File = File.new();
 	if file.file_exists(DEBUG_SETTINGS_FILE_PATH) == false :
@@ -50,6 +68,34 @@ func load_debug_settings() -> void :
 				if settings.has("enable_function_global_material_switch") == true :
 					enable_function_global_material_switch = settings["enable_function_global_material_switch"] as bool;
 
+				if settings.has("spectator_camera_01_position_x") == true :
+					spectator_camera_01_position_x = settings["spectator_camera_01_position_x"] as float;
+				if settings.has("spectator_camera_01_position_y") == true :
+					spectator_camera_01_position_y = settings["spectator_camera_01_position_y"] as float;
+				if settings.has("spectator_camera_01_position_z") == true :
+					spectator_camera_01_position_z = settings["spectator_camera_01_position_z"] as float;
+
+				if settings.has("spectator_camera_01_rotation_x") == true :
+					spectator_camera_01_rotation_x = settings["spectator_camera_01_rotation_x"] as float;
+				if settings.has("spectator_camera_01_rotation_y") == true :
+					spectator_camera_01_rotation_y = settings["spectator_camera_01_rotation_y"] as float;
+				if settings.has("spectator_camera_01_rotation_z") == true :
+					spectator_camera_01_rotation_z = settings["spectator_camera_01_rotation_z"] as float;
+
+				if settings.has("spectator_camera_02_position_x") == true :
+					spectator_camera_02_position_x = settings["spectator_camera_02_position_x"] as float;
+				if settings.has("spectator_camera_02_position_y") == true :
+					spectator_camera_02_position_y = settings["spectator_camera_02_position_y"] as float;
+				if settings.has("spectator_camera_02_position_z") == true :
+					spectator_camera_02_position_z = settings["spectator_camera_02_position_z"] as float;
+
+				if settings.has("spectator_camera_02_rotation_x") == true :
+					spectator_camera_02_rotation_x = settings["spectator_camera_02_rotation_x"] as float;
+				if settings.has("spectator_camera_02_rotation_y") == true :
+					spectator_camera_02_rotation_y = settings["spectator_camera_02_rotation_y"] as float;
+				if settings.has("spectator_camera_02_rotation_z") == true :
+					spectator_camera_02_rotation_z = settings["spectator_camera_02_rotation_z"] as float;
+
 			debug_settings_file.close();
 
 func save_debug_settings() -> void :	
@@ -67,7 +113,23 @@ func save_debug_settings() -> void :
 		"enable_tool_modeler" : enable_tool_modeler,
 		
 		"enable_function_hdri_switch" : enable_function_hdri_switch,
-		"enable_function_global_material_switch" : enable_function_global_material_switch
+		"enable_function_global_material_switch" : enable_function_global_material_switch,
+		
+		"spectator_camera_01_position_x" : spectator_camera_01_position_x,
+		"spectator_camera_01_position_y" : spectator_camera_01_position_y,
+		"spectator_camera_01_position_z" : spectator_camera_01_position_z,
+		
+		"spectator_camera_01_rotation_x" : spectator_camera_01_rotation_x,
+		"spectator_camera_01_rotation_y" : spectator_camera_01_rotation_y,
+		"spectator_camera_01_rotation_z" : spectator_camera_01_rotation_z,
+		
+		"spectator_camera_02_position_x" : spectator_camera_02_position_x,
+		"spectator_camera_02_position_y" : spectator_camera_02_position_y,
+		"spectator_camera_02_position_z" : spectator_camera_02_position_z,
+		
+		"spectator_camera_02_rotation_x" : spectator_camera_02_rotation_x,
+		"spectator_camera_02_rotation_y" : spectator_camera_02_rotation_y,
+		"spectator_camera_02_rotation_z" : spectator_camera_02_rotation_z
 	};
 	
 	debug_settings_file.store_string(to_json(settings));

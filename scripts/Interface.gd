@@ -13,6 +13,8 @@ func take_screenshot() -> void :
 	var date : Dictionary = Time.get_datetime_dict_from_system();
 	
 	var file_name : String = "";
+	if DebugSettings.screenshot_prefix != "" :
+		file_name += DebugSettings.screenshot_prefix + "-";
 	file_name += str(date["day"]) + "-";
 	file_name += str(date["month"]) + "-";
 	file_name += str(date["year"]) + "_";
