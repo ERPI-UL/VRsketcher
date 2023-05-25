@@ -26,5 +26,6 @@ func refresh_model_list() -> void :
 			(target_models_manager.models[i] as Model3D).connect("position_changed", item.model_transform, "update_inspector_position");
 			(target_models_manager.models[i] as Model3D).connect("rotation_changed", item.model_transform, "update_inspector_rotation");
 			(target_models_manager.models[i] as Model3D).connect("scale_changed", item.model_transform, "update_inspector_scale");
+			(target_models_manager.models[i] as Model3D).connect("model_interactable_changed", item, "update_model_interactable_changed");
 			(target_models_manager.models[i] as Model3D).connect("material_override_changed", item, "update_inspector_material_override");
 

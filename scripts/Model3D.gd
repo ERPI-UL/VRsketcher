@@ -1,17 +1,22 @@
 extends Spatial
 class_name Model3D
 
-var is_imported			: bool		= false;
+onready var model_interaction_area_template	: PackedScene	= load("res://scenes/ModelInteractionArea.tscn");
 
-var inspector_name		: String	= "";
-var inspector_unfolded	: bool		= false;
-var model_filename		: String	= "";
+var is_imported								: bool			= false;
 
-var material			: Material	= null;
+var inspector_name							: String		= "";
+var inspector_unfolded						: bool			= false;
+var model_filename							: String		= "";
 
-var aabb				: AABB		= AABB(Vector3.ZERO, Vector3.ZERO);
+var model_interactable						: bool			= true;
+
+var material								: Material		= null;
+
+var aabb									: AABB			= AABB(Vector3.ZERO, Vector3.ZERO);
 
 var meshes : Array = [];
+var interaction_area : ModelInteractionArea = null;
 
 var override_material_index : int = -1;
 
@@ -19,6 +24,7 @@ signal position_changed(new_value);
 signal rotation_changed(new_value);
 signal scale_changed(new_value);
 signal material_override_changed(new_value);
+signal model_interactable_changed(new_changed);
 
 func _ready() -> void :
 	MaterialLibrary.connect("material_selection_changed", self, "set_material");
@@ -48,11 +54,27 @@ func add_mesh(value : Mesh) -> void :
 	add_child(m);
 	update_aabb();
 	refresh_material();
-	
+
+func get_model_aabb() -> AABB :
+	return aabb;
+
 func update_aabb() -> void :
 	aabb = AABB(Vector3.ZERO, Vector3.ZERO);
 	for m in meshes :
 		aabb = aabb.merge(m.get_aabb());
+
+func update_interaction_area() -> void :
+	if interaction_area != null :
+		interaction_area.queue_free();
+	interaction_area = model_interaction_area_template.instance();
+	interaction_area.monitorable = model_interactable;
+	add_child(interaction_area);
+	interaction_area.set_interaction_area(get_model_aabb().position, get_model_aabb().size / 2.0);
+
+func set_model_interactable(value : bool) -> void :
+	model_interactable = value;
+	if interaction_area != null :
+		interaction_area.monitorable = model_interactable;
 
 func set_material(value : Material) -> void :
 	if override_material_index >= 0 :
@@ -68,9 +90,6 @@ func refresh_material() -> void :
 	for c in get_children() :
 		if c is MeshInstance :
 			c.set_surface_material(0, material);
-
-func get_model_aabb() -> AABB :
-	return aabb;
 
 func set_overlay_material(material : Material) -> void :
 	for c in get_children() :

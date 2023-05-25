@@ -64,6 +64,7 @@ func save_project() -> void :
 					"position" : (model as Model3D).global_transform.origin,
 					"rotation" : (model as Model3D).rotation_degrees,
 					"scale" : (model as Model3D).scale.x,
+					"model_interactable" : (model as Model3D).model_interactable,
 					"material_override" : (model as Model3D).override_material_index
 				}
 			);
@@ -93,6 +94,7 @@ func save_project() -> void :
 					"rotation" : (model as Model3D).rotation_degrees,
 					"scale" : (model as Model3D).scale.x,
 					"size" : model_size,
+					"model_interactable" : (model as Model3D).model_interactable,
 					"material_override" : (model as Model3D).override_material_index
 				}
 			);
@@ -167,23 +169,75 @@ func load_project(index : int) -> void :
 
 				if current_project.has("scene_imported_models_data") == true :
 					for model_data in current_project["scene_imported_models_data"] :
-						model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
-						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
-						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
-						model_data["scale"] = float(model_data["scale"]);
-						model_data["material_override"] = int(model_data["material_override"]);
+						if model_data.has("inspector_unfolded") == true :
+							model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
+						else :
+							model_data["inspector_unfolded"] = true;
+
+						if model_data.has("position") == true :
+							model_data["position"] = parse_Vector3_from_String(model_data["position"]);
+						else :
+							model_data["position"] = Vector3.ZERO;
+
+						if model_data.has("rotation") == true :
+							model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
+						else :
+							model_data["rotation"] = Vector3.ZERO;
+
+						if model_data.has("scale") == true :
+							model_data["scale"] = float(model_data["scale"]);
+						else :
+							model_data["scale"] = 1.0;
+
+						if model_data.has("model_interactable") == true :
+							model_data["model_interactable"] = bool(model_data["model_interactable"]);
+						else :
+							model_data["model_interactable"] = true;
+
+						if model_data.has("material_override") == true :
+							model_data["material_override"] = int(model_data["material_override"]);
+						else :
+							model_data["material_override"] = -1;
 				else :
 					current_project["scene_imported_models_data"] = [];
 
 
 				if current_project.has("scene_drawn_models_data") == true :
 					for model_data in current_project["scene_drawn_models_data"] :
-						model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
-						model_data["position"] = parse_Vector3_from_String(model_data["position"]);
-						model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
-						model_data["scale"] = float(model_data["scale"]);
-						model_data["size"] = parse_Vector3_from_String(model_data["size"]);
-						model_data["material_override"] = int(model_data["material_override"]);
+						if model_data.has("inspector_unfolded") == true :
+							model_data["inspector_unfolded"] = bool(model_data["inspector_unfolded"]);
+						else :
+							model_data["inspector_unfolded"] = true;
+
+						if model_data.has("position") == true :
+							model_data["position"] = parse_Vector3_from_String(model_data["position"]);
+						else :
+							model_data["position"] = Vector3.ZERO;
+
+						if model_data.has("rotation") == true :
+							model_data["rotation"] = parse_Vector3_from_String(model_data["rotation"]);
+						else :
+							model_data["rotation"] = Vector3.ZERO;
+
+						if model_data.has("scale") == true :
+							model_data["scale"] = float(model_data["scale"]);
+						else :
+							model_data["scale"] = 1.0;
+
+						if model_data.has("model_interactable") == true :
+							model_data["model_interactable"] = bool(model_data["model_interactable"]);
+						else :
+							model_data["model_interactable"] = true;
+
+						if model_data.has("material_override") == true :
+							model_data["material_override"] = int(model_data["material_override"]);
+						else :
+							model_data["material_override"] = -1;
+							
+						if model_data.has("size") == true :
+							model_data["size"] = parse_Vector3_from_String(model_data["size"]);
+						else :
+							model_data["size"] = Vector3.ONE;
 				else :
 					current_project["scene_drawn_models_data"] = [];
 

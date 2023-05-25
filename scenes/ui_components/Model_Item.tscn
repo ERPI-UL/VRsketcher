@@ -66,12 +66,12 @@ size_flags_vertical = 3
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1012.0
-margin_bottom = 538.0
+margin_bottom = 510.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 542.0
+margin_top = 514.0
 margin_right = 1012.0
-margin_bottom = 564.0
+margin_bottom = 536.0
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
 margin_right = 908.0
@@ -86,9 +86,28 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 clip_text = true
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 540.0
+margin_right = 1012.0
+margin_bottom = 564.0
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 1.0
+margin_right = 984.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Interactable"
+
+[node name="interactable_switch" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 988.0
+margin_right = 1012.0
+margin_bottom = 24.0
+pressed = true
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Fold" to="." method="fold_item"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Delete" to="." method="delete_model"]
 [connection signal="model_position_changed" from="VBoxContainer/VBoxContainer/ModelTransform" to="." method="set_model_position"]
 [connection signal="model_rotation_changed" from="VBoxContainer/VBoxContainer/ModelTransform" to="." method="set_model_rotation"]
 [connection signal="model_scale_changed" from="VBoxContainer/VBoxContainer/ModelTransform" to="." method="set_model_scale"]
 [connection signal="item_selected" from="VBoxContainer/VBoxContainer/HBoxContainer/material_override" to="." method="set_model_material_override"]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/HBoxContainer2/interactable_switch" to="." method="set_model_interactable"]

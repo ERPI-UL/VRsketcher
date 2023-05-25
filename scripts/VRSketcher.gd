@@ -24,9 +24,6 @@ onready var project_manager						: Control				= get_node("Interface/ProjectManag
 onready var vr_sketcher_interface				: Control				= get_node("Interface/VRSketcherInterface");
 onready var controller_selection				: Control				= get_node("Interface/ControllerSelection");
 
-onready var model_interaction_area				: PackedScene			= load("res://scenes/ModelInteractionArea.tscn");
-
-
 func _ready() -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
@@ -188,10 +185,9 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			model.set_material(null);
 			
 			#Create interaction area using the model's overall AABB
-			var interaction_area : ModelInteractionArea = model_interaction_area.instance();
-			model.add_child(interaction_area);
-			interaction_area.set_interaction_area(model.get_model_aabb().position, model.get_model_aabb().size / 2.0);
-			
+			model.model_interactable = model_data["model_interactable"] as bool;
+			model.update_interaction_area();
+
 			manager_imported_models.add_model(model);
 			print("imported model loaded");
 		else :
@@ -242,9 +238,8 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 	drawn_model.override_material_index = model_data["material_override"] as int;
 	drawn_model.set_material(null);
 
-	var interaction_area : ModelInteractionArea = model_interaction_area.instance();
-	drawn_model.add_child(interaction_area);
-	interaction_area.set_interaction_area(drawn_model.get_model_aabb().position, drawn_model.get_model_aabb().size / 2.0);
+	drawn_model.model_interactable = model_data["model_interactable"] as bool;
+	drawn_model.update_interaction_area();
 
 	manager_drawn_models.add_model(drawn_model);
 	print("drawn model loaded");

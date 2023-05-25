@@ -17,7 +17,6 @@ var reference_forward_direction			: Vector3		= Vector3.FORWARD;
 var current_model						: Model3D		= null;
 
 onready var tool_gizmo					: Spatial		= get_node("Graphics/Gizmo_Position");
-onready var model_interaction_area		: PackedScene	= load("res://scenes/ModelInteractionArea.tscn");
 
 func _ready() -> void :
 	_tool_mode_name = "Modeler";
@@ -96,11 +95,7 @@ func stop_tool_use() -> void :
 			current_model.queue_free();
 		else :
 			current_model.update_aabb();
-
-			var interaction_area : ModelInteractionArea = model_interaction_area.instance();
-			current_model.add_child(interaction_area);
-
-			interaction_area.set_interaction_area(current_model.get_model_aabb().position, current_model.get_model_aabb().size / 2.0);
+			current_model.update_interaction_area();
 
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.add_model(current_model);
 		current_model = null;
