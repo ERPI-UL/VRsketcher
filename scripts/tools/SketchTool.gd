@@ -17,7 +17,7 @@ func start_tool_use() -> void :
 func stop_tool_use() -> void :
 	tool_in_use = false
 
-func switch_tool_mode() -> void :
+func switch_tool_mode(invert_switch : bool = false) -> void :
 	emit_signal("tool_mode_switch", _tool_mode_name);
 
 func show_tool() -> void :

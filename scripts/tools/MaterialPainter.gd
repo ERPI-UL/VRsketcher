@@ -18,11 +18,17 @@ func start_tool_use() -> void :
 func stop_tool_use() -> void :
 	.stop_tool_use();
 
-func switch_tool_mode() -> void :
-	current_material_index += 1;
-	if current_material_index >= MaterialLibrary.materials.size() :
-		current_material_index = -1;
-		
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	if invert_switch == true :
+		current_material_index -= 1;
+		if current_material_index < -1 :
+			current_material_index = MaterialLibrary.materials.size() - 1;
+	else :
+		current_material_index += 1;
+		if current_material_index >= MaterialLibrary.materials.size() :
+			current_material_index = -1;
+
+	if current_material_index < 0 :
 		material_preview.material_override = MaterialLibrary.materials[0];
 		_tool_mode_name = "none";
 	else :
@@ -35,4 +41,4 @@ func switch_tool_mode() -> void :
 		
 		_tool_mode_name = material_name + " texture";
 	
-	.switch_tool_mode();
+	.switch_tool_mode(invert_switch);

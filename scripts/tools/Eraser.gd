@@ -16,8 +16,8 @@ func stop_tool_use() -> void :
 	if is_erasing == true :
 		is_erasing = false;
 
-func switch_tool_mode() -> void :
-	.switch_tool_mode();
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	.switch_tool_mode(invert_switch);
 
 func erase_line(node : Node) -> void :
 	if is_erasing == true :

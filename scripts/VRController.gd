@@ -86,9 +86,9 @@ func input_pressed(button_index : int) -> void :
 
 	match input_code :
 		InputCode.BUTTON_MENU :
-			MaterialLibrary.switch_material();
+			tool_selection_tool.start_tool_use();
 		InputCode.BUTTON_A :
-			MaterialLibrary.switch_material();
+			tool_selection_tool.start_tool_use();
 		InputCode.BUTTON_B :
 			pass;
 		InputCode.BUTTON_GRIP :
@@ -96,16 +96,15 @@ func input_pressed(button_index : int) -> void :
 		InputCode.BUTTON_TRIGGER :
 			get_current_tool().start_tool_use();
 		InputCode.BUTTON_STICK :
-			tool_selection_tool.start_tool_use();
-
+			pass;
 		InputCode.STICK_BUTTON_UP :
 			teleport_tool.start_tool_use();
 		InputCode.STICK_BUTTON_DOWN :
-			get_current_tool().switch_tool_mode();
+			pass;
 		InputCode.STICK_BUTTON_LEFT :
-			pass;
+			get_current_tool().switch_tool_mode(true);
 		InputCode.STICK_BUTTON_RIGHT :
-			pass;
+			get_current_tool().switch_tool_mode();
 		_ :
 			pass;
 
@@ -118,9 +117,9 @@ func input_released(button_index : int) -> void :
 	
 	match input_code :
 		InputCode.BUTTON_MENU :
-			pass;
+			tool_selection_tool.stop_tool_use();
 		InputCode.BUTTON_A :
-			pass;
+			tool_selection_tool.stop_tool_use();
 		InputCode.BUTTON_B :
 			pass;
 		InputCode.BUTTON_GRIP :
@@ -128,7 +127,7 @@ func input_released(button_index : int) -> void :
 		InputCode.BUTTON_TRIGGER :
 			get_current_tool().stop_tool_use();
 		InputCode.BUTTON_STICK :
-			tool_selection_tool.stop_tool_use();
+			pass;
 		InputCode.STICK_BUTTON_UP :
 			teleport_tool.stop_tool_use();
 		InputCode.STICK_BUTTON_DOWN :

@@ -60,11 +60,16 @@ func stop_tool_use() -> void :
 			current_measurement.queue_free();
 		current_measurement = null;
 
-func switch_tool_mode() -> void :
-	current_mode += 1;
-	if current_mode >= modes.size() :
-		current_mode = 0;
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	if invert_switch == true :
+		current_mode -= 1;
+		if current_mode < 0 :
+			current_mode = modes.size() - 1;
+	else :
+		current_mode += 1;
+		if current_mode >= modes.size() :
+			current_mode = 0;
 
 	_tool_mode_name = (modes[current_mode] as String) + " Measurement";
 
-	.switch_tool_mode();
+	.switch_tool_mode(invert_switch);

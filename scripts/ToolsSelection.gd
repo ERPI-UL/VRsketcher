@@ -77,5 +77,5 @@ func stop_tool_use() -> void :
 	if tool_item != null :
 		tool_item.emit_signal("item_selected");
 
-func switch_tool_mode() -> void :
-	.switch_tool_mode();
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	.switch_tool_mode(invert_switch);

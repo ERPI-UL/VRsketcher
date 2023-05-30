@@ -5,6 +5,7 @@ func _ready():
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Eraser") as CheckButton).pressed = DebugSettings.enable_tool_eraser;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Measurements") as CheckButton).pressed = DebugSettings.enable_tool_measurements;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Material_Painter") as CheckButton).pressed = DebugSettings.enable_tool_material_painter;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Grab") as CheckButton).pressed = DebugSettings.enable_tool_grab;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed = DebugSettings.enable_tool_move;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed = DebugSettings.enable_tool_rotate;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed = DebugSettings.enable_tool_modeler;
@@ -48,6 +49,7 @@ func save_debug_settings() -> void :
 	DebugSettings.enable_tool_eraser = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Eraser") as CheckButton).pressed;
 	DebugSettings.enable_tool_measurements = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Measurements") as CheckButton).pressed;
 	DebugSettings.enable_tool_material_painter = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Material_Painter") as CheckButton).pressed;
+	DebugSettings.enable_tool_grab = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Grab") as CheckButton).pressed;
 	DebugSettings.enable_tool_move = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed;
 	DebugSettings.enable_tool_rotate = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed;
 	DebugSettings.enable_tool_modeler = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed;

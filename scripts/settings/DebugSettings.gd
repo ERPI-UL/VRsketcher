@@ -6,6 +6,7 @@ var enable_tool_pen								: bool	= true;
 var enable_tool_eraser							: bool	= true;
 var enable_tool_measurements					: bool	= true;
 var enable_tool_material_painter				: bool	= true;
+var enable_tool_grab							: bool	= true;
 var enable_tool_move							: bool	= true;
 var enable_tool_rotate							: bool	= true;
 var enable_tool_modeler							: bool	= true;
@@ -56,6 +57,8 @@ func load_debug_settings() -> void :
 					enable_tool_measurements = settings["enable_tool_measurements"] as bool;
 				if settings.has("enable_tool_material_painter") == true :
 					enable_tool_material_painter = settings["enable_tool_material_painter"] as bool;
+				if settings.has("enable_tool_grab") == true :
+					enable_tool_grab = settings["enable_tool_grab"] as bool;
 				if settings.has("enable_tool_move") == true :
 					enable_tool_move = settings["enable_tool_move"] as bool;
 				if settings.has("enable_tool_rotate") == true :
@@ -108,6 +111,7 @@ func save_debug_settings() -> void :
 		"enable_tool_eraser" : enable_tool_eraser,
 		"enable_tool_measurements" : enable_tool_measurements,
 		"enable_tool_material_painter" : enable_tool_material_painter,
+		"enable_tool_grab" : enable_tool_grab,
 		"enable_tool_move" : enable_tool_move,
 		"enable_tool_rotate" : enable_tool_rotate,
 		"enable_tool_modeler" : enable_tool_modeler,

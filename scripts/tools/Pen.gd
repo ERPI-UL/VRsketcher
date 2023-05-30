@@ -47,10 +47,16 @@ func stop_tool_use() -> void :
 			current_line_renderer.queue_free();
 		current_line_renderer = null;
 
-func switch_tool_mode() -> void :
-	current_paint_index += 1;
-	if current_paint_index >= PaintMaterials.materials.size() :
-		current_paint_index = 0;
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	if invert_switch == true :
+		current_paint_index -= 1;
+		if current_paint_index < 0 :
+			current_paint_index = PaintMaterials.materials.size() - 1;
+	else :
+		current_paint_index += 1;
+		if current_paint_index >= PaintMaterials.materials.size() :
+			current_paint_index = 0;
+
 
 	pen_tip.material_override = PaintMaterials.materials[current_paint_index];
 	EventBus.emit_signal("paint_color_changed", (PaintMaterials.materials[current_paint_index] as SpatialMaterial).albedo_color);
@@ -61,4 +67,4 @@ func switch_tool_mode() -> void :
 	
 	_tool_mode_name = material_name + " Pen";
 	
-	.switch_tool_mode();
+	.switch_tool_mode(invert_switch);

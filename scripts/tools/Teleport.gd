@@ -51,5 +51,5 @@ func stop_tool_use() -> void :
 	if root_node != null :
 		root_node.global_transform.origin = teleport_position - camera_offset;
 
-func switch_tool_mode() -> void :
-	.switch_tool_mode();
+func switch_tool_mode(invert_switch : bool = false) -> void :
+	.switch_tool_mode(invert_switch);

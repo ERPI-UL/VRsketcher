@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui_components/FlexGridContainer.gd"
 }, {
+"base": "SketchTool",
+"class": "Grab",
+"language": "GDScript",
+"path": "res://scripts/tools/Grab.gd"
+}, {
 "base": "Node",
 "class": "HDRIManager",
 "language": "GDScript",
@@ -187,6 +192,7 @@ _global_script_class_icons={
 "Exporter_3MF": "",
 "Exporter_OBJ": "",
 "FlexGridContainer": "",
+"Grab": "",
 "HDRIManager": "",
 "Importer": "",
 "Line": "",

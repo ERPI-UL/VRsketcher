@@ -470,6 +470,12 @@ margin_right = 216.0
 margin_bottom = 108.0
 text = "Texture painting"
 
+[node name="Grab" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 112.0
+margin_right = 216.0
+margin_bottom = 136.0
+text = "Grab"
+
 [node name="Move" type="CheckButton" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer/VBoxContainer"]
 margin_top = 112.0
 margin_right = 216.0

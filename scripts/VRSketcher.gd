@@ -121,6 +121,7 @@ func import_model_from_path(model_path : String) -> void :
 		{
 			"model_filename" : model_path,
 			"inspector_unfolded" : true,
+			"model_interactable" : true,
 			"position" : Vector3.ZERO,
 			"rotation" : Vector3(-90.0, 0.0, 0.0),
 			"scale" : 1.0,
