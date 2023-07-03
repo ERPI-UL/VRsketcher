@@ -1,9 +1,10 @@
 extends Controller
 
-export(float) var walk_speed : float = 1.0;
-export(float) var run_speed : float = 2.0;
-export(float) var h_sensitivity : float = 10.0;
-export(float) var v_sensitivity : float = 10.0;
+export(float) var walk_speed : float = 3.0;
+export(float) var run_speed : float = 6.0;
+
+export(float) var h_sensitivity : float = 150.0;
+export(float) var v_sensitivity : float = 100.0;
 
 export(Vector3) var gravity : Vector3 = Vector3(0.0, -9.81, 0.0);
 
@@ -14,6 +15,14 @@ onready var v_pivot : Spatial = get_node("H_Pivot/V_Pivot");
 onready var camera : Camera = get_node("H_Pivot/V_Pivot/Camera");
 
 func _physics_process(delta : float) -> void :
+	if Input.is_action_just_pressed("ui_cancel") == true :
+		print(Input.mouse_mode)
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED :
+			Input.mouse_mode = 0;
+
+		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE :
+			Input.mouse_mode = 2;
+
 	var speed : float = walk_speed;
 	if Input.is_action_pressed("run") == true :
 		speed = run_speed;

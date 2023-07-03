@@ -19,6 +19,7 @@ var meshes : Array = [];
 var interaction_area : ModelInteractionArea = null;
 
 var override_material_index : int = -1;
+var smooth_shading : bool = false;
 
 signal position_changed(new_value);
 signal rotation_changed(new_value);

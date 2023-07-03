@@ -59,13 +59,14 @@ func save_project() -> void :
 		if model != null :
 			scene_imported_models_data.append(
 				{
-					"model_filename" : (model as Model3D).model_filename,
-					"inspector_unfolded" : (model as Model3D).inspector_unfolded,
-					"position" : (model as Model3D).global_transform.origin,
-					"rotation" : (model as Model3D).rotation_degrees,
-					"scale" : (model as Model3D).scale.x,
-					"model_interactable" : (model as Model3D).model_interactable,
-					"material_override" : (model as Model3D).override_material_index
+					"model_filename"		: (model as Model3D).model_filename,
+					"inspector_unfolded"	: (model as Model3D).inspector_unfolded,
+					"position"				: (model as Model3D).global_transform.origin,
+					"rotation"				: (model as Model3D).rotation_degrees,
+					"scale"					: (model as Model3D).scale.x,
+					"model_interactable"	: (model as Model3D).model_interactable,
+					"material_override"		: (model as Model3D).override_material_index,
+					"smooth_shading"		: (model as Model3D).smooth_shading
 				}
 			);
 	current_project["scene_imported_models_data"] = scene_imported_models_data;
@@ -88,14 +89,15 @@ func save_project() -> void :
 
 			scene_drawn_models_data.append(
 				{
-					"model_filename" : (model as Model3D).model_filename,
-					"inspector_unfolded" : (model as Model3D).inspector_unfolded,
-					"position" : (model as Model3D).global_transform.origin,
-					"rotation" : (model as Model3D).rotation_degrees,
-					"scale" : (model as Model3D).scale.x,
-					"size" : model_size,
-					"model_interactable" : (model as Model3D).model_interactable,
-					"material_override" : (model as Model3D).override_material_index
+					"model_filename"		: (model as Model3D).model_filename,
+					"inspector_unfolded"	: (model as Model3D).inspector_unfolded,
+					"position"				: (model as Model3D).global_transform.origin,
+					"rotation"				: (model as Model3D).rotation_degrees,
+					"scale"					: (model as Model3D).scale.x,
+					"size"					: model_size,
+					"model_interactable"	: (model as Model3D).model_interactable,
+					"material_override"		: (model as Model3D).override_material_index,
+					"smooth_shading"		: (model as Model3D).smooth_shading
 				}
 			);
 	current_project["scene_drawn_models_data"] = scene_drawn_models_data;
@@ -104,9 +106,9 @@ func save_project() -> void :
 	for line in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.get_children() :
 		scene_line_drawings.append(
 			{
-				"points" : (line as Line).points,
-				"thickness" : (line as Line).thickness,
-				"material_index" : (line as Line).material_index
+				"points"			: (line as Line).points,
+				"thickness"			: (line as Line).thickness,
+				"material_index"	: (line as Line).material_index
 			}
 		);
 	current_project["scene_line_drawings"] = scene_line_drawings;
@@ -115,10 +117,10 @@ func save_project() -> void :
 	for measurement in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.get_children() :
 		scene_measurements.append(
 			{
-				"mode" : (measurement as Measurement).mode,
-				"start_point" : (measurement as Measurement).start_point,
-				"middle_point" : (measurement as Measurement).middle_point,
-				"end_point" : (measurement as Measurement).end_point
+				"mode"				: (measurement as Measurement).mode,
+				"start_point"		: (measurement as Measurement).start_point,
+				"middle_point"		: (measurement as Measurement).middle_point,
+				"end_point"			: (measurement as Measurement).end_point
 			}
 		);
 	current_project["scene_measurements"] = scene_measurements;
@@ -131,14 +133,14 @@ func save_project() -> void :
 		project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.WRITE);
 
 		var project_data : Dictionary = {
-				"project_name" : current_project["project_name"],
-				"project_path" : current_project["project_path"],
-				"hdri_index" : (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index,
-				"current_exposure" : (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure,
-				"scene_imported_models_data" : current_project["scene_imported_models_data"],
-				"scene_drawn_models_data" : current_project["scene_drawn_models_data"],
-				"scene_line_drawings" : current_project["scene_line_drawings"],
-				"scene_measurements" : current_project["scene_measurements"]
+				"project_name"					: current_project["project_name"],
+				"project_path"					: current_project["project_path"],
+				"hdri_index"					: (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index,
+				"current_exposure"				: (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure,
+				"scene_imported_models_data"	: current_project["scene_imported_models_data"],
+				"scene_drawn_models_data"		: current_project["scene_drawn_models_data"],
+				"scene_line_drawings"			: current_project["scene_line_drawings"],
+				"scene_measurements"			: current_project["scene_measurements"]
 			}
 
 		project_data_file.store_string(to_json(project_data));
@@ -198,6 +200,11 @@ func load_project(index : int) -> void :
 							model_data["material_override"] = int(model_data["material_override"]);
 						else :
 							model_data["material_override"] = -1;
+
+						if model_data.has("smooth_shading") == true :
+							model_data["smooth_shading"] = bool(model_data["smooth_shading"]);
+						else :
+							model_data["smooth_shading"] = false;
 				else :
 					current_project["scene_imported_models_data"] = [];
 
@@ -233,7 +240,12 @@ func load_project(index : int) -> void :
 							model_data["material_override"] = int(model_data["material_override"]);
 						else :
 							model_data["material_override"] = -1;
-							
+
+						if model_data.has("smooth_shading") == true :
+							model_data["smooth_shading"] = bool(model_data["smooth_shading"]);
+						else :
+							model_data["smooth_shading"] = false;
+
 						if model_data.has("size") == true :
 							model_data["size"] = parse_Vector3_from_String(model_data["size"]);
 						else :

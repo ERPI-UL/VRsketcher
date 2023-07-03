@@ -12,9 +12,6 @@ radius = 0.5
 script = ExtResource( 1 )
 tools_path = NodePath("H_Pivot/V_Pivot/Camera/Tools")
 tooltip_path = NodePath("H_Pivot/V_Pivot/Camera/Tooltip")
-run_speed = 6.0
-h_sensitivity = 150.0
-v_sensitivity = 100.0
 gravity = Vector3( 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

@@ -6,7 +6,7 @@ enum PARSE_STATE {
 	OUTER_LOOP
 }
 
-func import_model_file(path : String) -> Array :
+func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 	# STL file format: https://web.archive.org/web/20210428125112/http://www.fabbers.com/tech/STL_Format
 	
 	var file = File.new();
@@ -16,12 +16,15 @@ func import_model_file(path : String) -> Array :
 	
 	var surface_tool = SurfaceTool.new();
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES);
+	if smooth_shading == true :
+		surface_tool.add_smooth_group(true);
 	
 	if is_ascii_stl(file) :
 		process_ascii_stl(file, surface_tool);
 	else :
 		process_binary_stl(file, surface_tool);
 	
+	surface_tool.generate_normals();
 	var final_mesh = surface_tool.commit();
 	
 	return [final_mesh];
@@ -50,7 +53,7 @@ func process_binary_stl(file, surface_tool) -> void :
 		var normal_x = file.get_float();
 		var normal_y = file.get_float();
 		var normal_z = file.get_float();
-		surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
+		#surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
 		
 		# then there wil be 3 vertices
 		# STL lists its vertices in counterclockwise order
@@ -100,7 +103,7 @@ func process_ascii_stl(file, surface_tool) -> void :
 				var normal_x = float(parts[2]);
 				var normal_y = float(parts[3]);
 				var normal_z = float(parts[4]);
-				surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
+				#surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
 				
 				parsing_state = PARSE_STATE.FACET;
 				

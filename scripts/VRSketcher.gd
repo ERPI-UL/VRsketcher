@@ -24,6 +24,9 @@ onready var project_manager						: Control				= get_node("Interface/ProjectManag
 onready var vr_sketcher_interface				: Control				= get_node("Interface/VRSketcherInterface");
 onready var controller_selection				: Control				= get_node("Interface/ControllerSelection");
 
+onready var import_smooth_shading				: CheckButton			= get_node("Interface/ModelImportWindow/Import_Panel/Import_Smooth_Shading");
+
+
 func _ready() -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
@@ -119,14 +122,15 @@ func open_project() -> void :
 func import_model_from_path(model_path : String) -> void :
 	import_model(
 		{
-			"model_filename" : model_path,
-			"inspector_unfolded" : true,
-			"model_interactable" : true,
-			"position" : Vector3.ZERO,
-			"rotation" : Vector3(-90.0, 0.0, 0.0),
-			"scale" : 1.0,
-			"size" : Vector3.ZERO,
-			"material_override" : -1
+			"model_filename"		: model_path,
+			"inspector_unfolded"	: true,
+			"model_interactable"	: true,
+			"position"				: Vector3.ZERO,
+			"rotation"				: Vector3(0.0, 0.0, 0.0),
+			"scale"					: 1.0,
+			"size"					: Vector3.ZERO,
+			"material_override"		: -1,
+			"smooth_shading"		: import_smooth_shading.pressed
 		},
 		false
 	);
@@ -141,26 +145,23 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 	
 	var dir : Directory = Directory.new();
 	if dir.file_exists(model_path) == true :
-		
+
 		var extension : String = model_path.rsplit(".", true, 1)[1];
-		
 		var loaded_meshes : Array = [];
-		
-		
+
 		if extension == "3mf" || extension == "3MF" :
 			loaded_meshes = Importer3mf.import_model_file(model_path);
 		elif extension == "obj" || extension == "OBJ" :
-			loaded_meshes = ImporterObj.import_model_file(model_path);
+			loaded_meshes = ImporterObj.import_model_file(model_path, model_data["smooth_shading"]);
 		elif extension == "stl" || extension == "STL" :
-			loaded_meshes = ImporterStl.import_model_file(model_path);
-
+			loaded_meshes = ImporterStl.import_model_file(model_path, model_data["smooth_shading"]);
 
 		if loaded_meshes.size() > 0 :
 			var model : Model3D = Model3D.new();
-			
+
 			var model_name : String = model_path.rsplit("/", true, 1)[1];
 			model.model_filename = model_name;
-			
+
 			#Copy model in the import directory if it isn't there yet
 			var local_model_file : File = File.new();
 			if local_model_file.file_exists(Project.get_imported_models_directory_path() + "/" + model_name) == false :
@@ -175,16 +176,17 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			for mesh in loaded_meshes :
 				model.add_mesh(mesh);
 			scene_imported_models.add_child(model);
-			
+
 			model.inspector_unfolded = model_data["inspector_unfolded"] as bool;
-			
+			model.smooth_shading = model_data["smooth_shading"] as bool;
+
 			model.global_transform.origin = model_data["position"] as Vector3;
 			model.rotation_degrees = model_data["rotation"] as Vector3;
 			model.scale = Vector3.ONE * model_data["scale"] as float;
-			
+
 			model.override_material_index = model_data["material_override"] as int;
 			model.set_material(null);
-			
+
 			#Create interaction area using the model's overall AABB
 			model.model_interactable = model_data["model_interactable"] as bool;
 			model.update_interaction_area();

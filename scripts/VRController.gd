@@ -22,15 +22,21 @@ enum AxisCode{
 }
 
 const TOUCHPAD_DEAD_ZONE : float = 0.5;
+const TOOLS_MENU_DISPLAY_DISTANCE : float = 2.0;
 
+onready var camera				: ARVRCamera		= get_node("ARVRCamera");
 onready var controller			: ARVRController	= get_node("ARVRController");
 onready var teleport_tool		: Teleport			= get_node("ARVRController/Teleport");
-onready var tool_selection_tool	: ToolsSelection	= get_node("ARVRController/ToolsSelection");
+
+onready var interface_controller : XRInterfaceController = get_node("ARVRController/XRInterfaceController");
 
 var trackpad_vector : Vector2 = Vector2.ZERO;
 
 
 var interface : ARVRInterface
+
+onready var tools_menu : XRInterface = get_node("Tools_Menu");
+var tools_menu_visible : bool = false;
 
 func _ready() -> void :
 	initialise();
@@ -86,25 +92,32 @@ func input_pressed(button_index : int) -> void :
 
 	match input_code :
 		InputCode.BUTTON_MENU :
-			tool_selection_tool.start_tool_use();
+			tools_menu_visible = !tools_menu_visible;
+			show_tools_menu(tools_menu_visible);
 		InputCode.BUTTON_A :
-			tool_selection_tool.start_tool_use();
+			tools_menu_visible = !tools_menu_visible;
+			show_tools_menu(tools_menu_visible);
 		InputCode.BUTTON_B :
 			pass;
 		InputCode.BUTTON_GRIP :
 			pass;
 		InputCode.BUTTON_TRIGGER :
-			get_current_tool().start_tool_use();
+			if tools_menu_visible == false :
+				get_current_tool().start_tool_use();
+			interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);
 		InputCode.BUTTON_STICK :
 			pass;
 		InputCode.STICK_BUTTON_UP :
-			teleport_tool.start_tool_use();
+			if tools_menu_visible == false :
+				teleport_tool.start_tool_use();
 		InputCode.STICK_BUTTON_DOWN :
 			pass;
 		InputCode.STICK_BUTTON_LEFT :
-			get_current_tool().switch_tool_mode(true);
+			if tools_menu_visible == false :
+				get_current_tool().switch_tool_mode(true);
 		InputCode.STICK_BUTTON_RIGHT :
-			get_current_tool().switch_tool_mode();
+			if tools_menu_visible == false :
+				get_current_tool().switch_tool_mode();
 		_ :
 			pass;
 
@@ -117,19 +130,22 @@ func input_released(button_index : int) -> void :
 	
 	match input_code :
 		InputCode.BUTTON_MENU :
-			tool_selection_tool.stop_tool_use();
+			pass;
 		InputCode.BUTTON_A :
-			tool_selection_tool.stop_tool_use();
+			pass;
 		InputCode.BUTTON_B :
 			pass;
 		InputCode.BUTTON_GRIP :
 			pass;
 		InputCode.BUTTON_TRIGGER :
-			get_current_tool().stop_tool_use();
+			if tools_menu_visible == false :
+				get_current_tool().stop_tool_use();
+			interface_controller.interface_send_mouse_button_released(BUTTON_LEFT);
 		InputCode.BUTTON_STICK :
 			pass;
 		InputCode.STICK_BUTTON_UP :
-			teleport_tool.stop_tool_use();
+			if tools_menu_visible == false :
+				teleport_tool.stop_tool_use();
 		InputCode.STICK_BUTTON_DOWN :
 			pass;
 		InputCode.STICK_BUTTON_LEFT :
@@ -161,3 +177,13 @@ func get_input_code(button_index : int) -> int :
 
 	return button_index;
 
+func show_tools_menu(value : bool) -> void :
+	tools_menu.show_interface(value);
+	
+	interface_controller.set_enabled(value);
+	
+	if value == true :
+		var display_offset : Vector3 = -camera.global_transform.basis.z * TOOLS_MENU_DISPLAY_DISTANCE;
+		tools_menu.global_transform = camera.global_transform;
+		tools_menu.global_transform.origin += display_offset;
+		tools_menu.rotation_degrees.z = 0.0;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/tools/SpatialSync.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://scripts/settings/DebugSettingsManager.gd" type="Script" id=20]
 [ext_resource path="res://scenes/camera_tools/spectator_camera/SpectatorCamera.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/ui_components/ModelTransform.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scripts/ui_components/FileDialogAdditionalPanel.gd" type="Script" id=23]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 100, 0.5, 100 )
@@ -77,10 +78,10 @@ script = ExtResource( 15 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1024, 600 )
-handle_input_locally = false
 msaa = 1
 fxaa = true
 render_target_update_mode = 3
+gui_disable_input = true
 shadow_atlas_size = 1024
 
 [node name="StaticBody" type="StaticBody" parent="Viewport"]
@@ -443,7 +444,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Debug/PanelContainer/ScrollContainer"]
 margin_right = 228.0
-margin_bottom = 264.0
+margin_bottom = 292.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -910,12 +911,15 @@ gui_disable_input = true
 shadow_atlas_size = 1024
 
 [node name="Spatial" type="Spatial" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport"]
+visible = false
 
 [node name="SpatialSync" type="Spatial" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport/Spatial"]
+visible = false
 script = ExtResource( 2 )
 sync_on_start = false
 
 [node name="Camera" type="Camera" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport/Spatial/SpatialSync"]
+visible = false
 
 [node name="ColorPreview" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport" instance=ExtResource( 7 )]
 
@@ -923,6 +927,7 @@ sync_on_start = false
 visible = false
 
 [node name="ModelImportWindow" type="FileDialog" parent="Interface"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -936,6 +941,24 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.3mf, *.3MF ; 3D Manufacturing Format", "*.obj, *.OBJ ; Wavefront OBJ", "*.stl, *.STL ; STL" )
 script = ExtResource( 10 )
+
+[node name="Import_Panel" type="VBoxContainer" parent="Interface/ModelImportWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -38.0
+size_flags_horizontal = 3
+script = ExtResource( 23 )
+
+[node name="Import_Smooth_Shading" type="CheckButton" parent="Interface/ModelImportWindow/Import_Panel"]
+margin_right = 584.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+pressed = true
+text = "Smooth shading"
+flat = true
 
 [node name="ProjectManager" parent="Interface" instance=ExtResource( 12 )]
 visible = false

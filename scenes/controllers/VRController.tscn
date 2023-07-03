@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/VRController.gd" type="Script" id=1]
 [ext_resource path="res://scenes/tools/ToolsVR.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/tools/Teleport.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Tooltip.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/CameraDataUpdater.gd" type="Script" id=5]
-[ext_resource path="res://scenes/VR_Tools_Menu.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/tools/ToolsSelection.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/ui_components/XRInterfaceController.gd" type="Script" id=8]
+[ext_resource path="res://scenes/ui_components/Tools_Menu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/ui_components/XRInterface.gd" type="Script" id=12]
 
 [node name="Player" type="ARVROrigin"]
 script = ExtResource( 1 )
@@ -25,13 +26,17 @@ script = ExtResource( 5 )
 root_node_path = NodePath("../..")
 camera_node_path = NodePath("../../ARVRCamera")
 
-[node name="ToolsSelection" parent="ARVRController" instance=ExtResource( 7 )]
-camera_path = NodePath("../../ARVRCamera")
-controller_path = NodePath("../..")
-vr_tools_menu_path = NodePath("../../VR_Tools_Menu")
-
 [node name="Tooltip" parent="ARVRController" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
-[node name="VR_Tools_Menu" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+[node name="XRInterfaceController" type="Spatial" parent="ARVRController"]
+script = ExtResource( 8 )
+collision_mask = 134217728
+
+[node name="Tools_Menu" type="Area" parent="."]
+collision_layer = 134217728
+collision_mask = 0
+script = ExtResource( 12 )
+pixel_per_world_unit = 512
+
+[node name="Tools_Menu" parent="Tools_Menu" instance=ExtResource( 9 )]
