@@ -25,6 +25,7 @@ func _ready() -> void :
 		viewport.transparent_bg = true;
 		viewport.own_world = true;
 		viewport.handle_input_locally = true;
+		viewport.keep_3d_linear = true;
 		add_child(viewport);
 		viewport.add_child(interface);
 

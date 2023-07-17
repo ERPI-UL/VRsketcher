@@ -1,6 +1,17 @@
 extends SketchTool
 class_name Pen
 
+const paint_materials : Array = [
+	"res://materials/paint_materials/Blue.tres",
+	"res://materials/paint_materials/Red.tres",
+	"res://materials/paint_materials/Yellow.tres",
+	"res://materials/paint_materials/Green.tres",
+	"res://materials/paint_materials/Orange.tres",
+	"res://materials/paint_materials/Purple.tres",
+	"res://materials/paint_materials/White.tres",
+	"res://materials/paint_materials/Black.tres"
+]
+
 export(float)	var paint_thickness				: float	= 0.005;
 export(float)	var paint_distance_threshold	: float	= 0.01;
 
@@ -34,14 +45,14 @@ func load_tool_modes() -> void :
 	];
 
 	modes_sub = [
-		["Bleu",	load("res://materials/paint_materials/Blue.tres")],
-		["Rouge",	load("res://materials/paint_materials/Red.tres")],
-		["Jaune",	load("res://materials/paint_materials/Yellow.tres")],
-		["Vert",	load("res://materials/paint_materials/Green.tres")],
-		["Orange",	load("res://materials/paint_materials/Orange.tres")],
-		["Violet",	load("res://materials/paint_materials/Purple.tres")],
-		["Blanc",	load("res://materials/paint_materials/White.tres")],
-		["Noir",	load("res://materials/paint_materials/Black.tres")]
+		["Bleu",	load(paint_materials[0])],
+		["Rouge",	load(paint_materials[1])],
+		["Jaune",	load(paint_materials[2])],
+		["Vert",	load(paint_materials[3])],
+		["Orange",	load(paint_materials[4])],
+		["Violet",	load(paint_materials[5])],
+		["Blanc",	load(paint_materials[6])],
+		["Noir",	load(paint_materials[7])]
 	];
 
 func start_tool_use() -> void :

@@ -97,6 +97,17 @@ func open_project() -> void :
 		for model_data in Project.current_project["scene_drawn_models_data"] :
 			load_drawn_model(model_data);
 
+	var paint_materials : Array = [
+		"res://materials/paint_materials/Blue.tres",
+		"res://materials/paint_materials/Red.tres",
+		"res://materials/paint_materials/Yellow.tres",
+		"res://materials/paint_materials/Green.tres",
+		"res://materials/paint_materials/Orange.tres",
+		"res://materials/paint_materials/Purple.tres",
+		"res://materials/paint_materials/White.tres",
+		"res://materials/paint_materials/Black.tres"
+	]
+
 	if Project.current_project.has("scene_line_drawings") == true :
 		for line_data in Project.current_project["scene_line_drawings"] :
 			var line_renderer : Line = Line.new();
@@ -105,7 +116,7 @@ func open_project() -> void :
 			line_renderer.thickness = (line_data as Dictionary)["thickness"] as float;
 			line_renderer.add_points_from_array((line_data as Dictionary)["points"] as Array);
 			line_renderer.material_index = (line_data as Dictionary)["material_index"] as int;
-			line_renderer.material_override = PaintMaterials.materials[line_renderer.material_index];
+			line_renderer.material_override = load(paint_materials[line_renderer.material_index]);
 
 	if Project.current_project.has("scene_measurements") == true :
 		for measurement_data in Project.current_project["scene_measurements"] :
