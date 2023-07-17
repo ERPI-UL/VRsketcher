@@ -7,7 +7,17 @@ var grabbed_object : Spatial = null;
 onready var interaction_area	: Area		= get_node("Area");
 
 func _ready() -> void :
-	_tool_mode_name = "Grab";
+	._ready();
+
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Saisir"]
+	];
+
+	modes_sub = [
+		[""]
+	];
 
 func start_tool_use() -> void :
 	.start_tool_use();
@@ -22,9 +32,6 @@ func start_tool_use() -> void :
 			original_parent.remove_child(grabbed_object);
 		add_child(grabbed_object);
 		grabbed_object.global_transform = original_transform;
-
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	.switch_tool_mode(invert_switch);
 
 func stop_tool_use() -> void :
 	.stop_tool_use();

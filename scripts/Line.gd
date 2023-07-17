@@ -122,5 +122,3 @@ func commit() -> void :
 				for child in get_children() :
 					child.queu_free();
 				create_trimesh_collision();
-				(get_child(0) as CollisionObject).collision_layer = PaintMaterials.paint_collision_layer;
-				(get_child(0) as CollisionObject).collision_mask = PaintMaterials.paint_collision_mask;

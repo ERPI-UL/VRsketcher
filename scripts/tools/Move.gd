@@ -1,25 +1,13 @@
 extends SketchTool
 class_name Move
 
-var modes	: Array		= [
-	"Free",
-	"X Global",
-	"Y Global",
-	"Z Global",
-	"X Local",
-	"Y Local",
-	"Z Local"
-];
-
-var current_mode				: int		= -1;
 var start_position				: Vector3	= Vector3.ZERO;
 var start_offset				: Vector3	= Vector3.ZERO;
 
 onready var interaction_area	: Area		= get_node("Area");
 
 func _ready() -> void :
-	_tool_mode_name = "Move";
-	switch_tool_mode();
+	._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -34,20 +22,20 @@ func _physics_process(_delta : float) -> void :
 
 			if move_direction.length() >= 0.01 :
 				
-				match (modes[current_mode] as String) :
-					"Free" :
+				match (modes_main[mode_main_index] as String) :
+					"Déplacement Libre" :
 						direction = move_direction;
-					"X Global" :
+					"Déplacement X Global" :
 						direction = Vector3.RIGHT;
-					"Y Global" :
+					"Déplacement Y Global" :
 						direction = Vector3.UP;
-					"Z Global" :
+					"Déplacement Z Global" :
 						direction = Vector3.FORWARD;
-					"X Local" :
+					"Déplacement X Local" :
 						direction = interacted_object.global_transform.basis.x.normalized();
-					"Y Local" :
+					"Déplacement Y Local" :
 						direction = interacted_object.global_transform.basis.y.normalized();
-					"Z Local" :
+					"Déplacement Z Local" :
 						direction = interacted_object.global_transform.basis.z.normalized();
 					_ :
 						return;
@@ -59,6 +47,24 @@ func _physics_process(_delta : float) -> void :
 				else :
 					interacted_object.global_transform.origin = base_model_position + move_distance * (direction * direction_sign);
 
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Déplacement Libre"],
+		
+		["Déplacement X Global"],
+		["Déplacement Y Global"],
+		["Déplacement Z Global"],
+
+		["Déplacement X Local"],
+		["Déplacement Y Local"],
+		["Déplacement Z Local"],
+	];
+
+	modes_sub = [
+		[""]
+	];
+
 func start_tool_use() -> void :
 	.start_tool_use();
 	
@@ -68,17 +74,3 @@ func start_tool_use() -> void :
 
 func stop_tool_use() -> void :
 	.stop_tool_use();
-
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	if invert_switch == true :
-		current_mode -= 1;
-		if current_mode < 0 :
-			current_mode = modes.size() - 1;
-	else :
-		current_mode += 1;
-		if current_mode >= modes.size() :
-			current_mode = 0;
-
-	_tool_mode_name = (modes[current_mode] as String) + " Move";
-
-	.switch_tool_mode(invert_switch);

@@ -4,6 +4,9 @@ class_name Pen
 export(float)	var paint_thickness				: float	= 0.005;
 export(float)	var paint_distance_threshold	: float	= 0.01;
 
+export(int, LAYERS_3D_PHYSICS)	var paint_collision_layer		: int	= 0;
+export(int, LAYERS_3D_PHYSICS)	var paint_collision_mask		: int	= 0;
+
 var is_drawing				: bool			= false;
 var current_paint_index		: int			= -1;
 var current_line_renderer	: Line			= null;
@@ -12,7 +15,8 @@ var paint_last_position		: Vector3		= Vector3.ZERO;
 onready var pen_tip			: MeshInstance	= get_node("Graphics/Tip");
 
 func _ready() -> void :
-	switch_tool_mode();
+	._ready();
+	set_tool_sub_mode(0);
 
 func _physics_process(_delta : float) -> void :
 	if is_drawing == true :
@@ -20,6 +24,25 @@ func _physics_process(_delta : float) -> void :
 			if pen_tip.global_transform.origin.distance_to(paint_last_position) >= paint_distance_threshold :
 				paint_last_position = pen_tip.global_transform.origin;
 				current_line_renderer.add_point(paint_last_position);
+
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Libre"],
+		["Ligne"],
+		["Cercle"]
+	];
+
+	modes_sub = [
+		["Bleu",	load("res://materials/paint_materials/Blue.tres")],
+		["Rouge",	load("res://materials/paint_materials/Red.tres")],
+		["Jaune",	load("res://materials/paint_materials/Yellow.tres")],
+		["Vert",	load("res://materials/paint_materials/Green.tres")],
+		["Orange",	load("res://materials/paint_materials/Orange.tres")],
+		["Violet",	load("res://materials/paint_materials/Purple.tres")],
+		["Blanc",	load("res://materials/paint_materials/White.tres")],
+		["Noir",	load("res://materials/paint_materials/Black.tres")]
+	];
 
 func start_tool_use() -> void :
 	.start_tool_use();
@@ -32,8 +55,8 @@ func start_tool_use() -> void :
 		current_line_renderer = Line.new();
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.add_child(current_line_renderer);
 		current_line_renderer.add_point(paint_last_position)
-		current_line_renderer.material_index = current_paint_index;
-		current_line_renderer.material_override = PaintMaterials.materials[current_line_renderer.material_index];
+		current_line_renderer.material_index = mode_sub_index;
+		current_line_renderer.material_override = modes_sub[mode_sub_index][1] as Material;
 		current_line_renderer.thickness = paint_thickness;
 
 func stop_tool_use() -> void :
@@ -42,29 +65,24 @@ func stop_tool_use() -> void :
 	if is_drawing == true :
 		is_drawing = false;
 		current_line_renderer.commit();
+
+		(current_line_renderer.get_child(0) as CollisionObject).collision_layer = paint_collision_layer;
+		(current_line_renderer.get_child(0) as CollisionObject).collision_mask = paint_collision_mask;
+
 		yield(get_tree(), "idle_frame");
 		if current_line_renderer.get_child_count() < 0 :
 			current_line_renderer.queue_free();
 		current_line_renderer = null;
 
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	if invert_switch == true :
-		current_paint_index -= 1;
-		if current_paint_index < 0 :
-			current_paint_index = PaintMaterials.materials.size() - 1;
-	else :
-		current_paint_index += 1;
-		if current_paint_index >= PaintMaterials.materials.size() :
-			current_paint_index = 0;
-
-
-	pen_tip.material_override = PaintMaterials.materials[current_paint_index];
-	EventBus.emit_signal("paint_color_changed", (PaintMaterials.materials[current_paint_index] as SpatialMaterial).albedo_color);
+func set_tool_sub_mode(mode_index : int) -> void :
+	.set_tool_sub_mode(mode_index);
 	
-	var material_name : String = (PaintMaterials.materials[current_paint_index] as Material).resource_path;
+	var paint_material : Material = modes_sub[mode_sub_index][1] as Material;
+	
+	pen_tip.material_override = paint_material;
+	
+	var material_name : String = paint_material.resource_path;
 	material_name = material_name.rsplit("/", true, 1)[1];
 	material_name = material_name.rsplit(".")[0];
 	
-	_tool_mode_name = material_name + " Pen";
-	
-	.switch_tool_mode(invert_switch);
+	EventBus.emit_signal("paint_color_changed", (paint_material as SpatialMaterial).albedo_color);

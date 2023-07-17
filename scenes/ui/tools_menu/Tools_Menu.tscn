@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/ui_components/tool_item/Tool_Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/icons/vr_tool_icons/Ruler.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/ToolRotate.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/BoxMesh.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/vr_tool_icons/ScriptCreate.svg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/vr_tool_icons/ToolPan.svg" type="Texture" id=6]
+[ext_resource path="res://assets/icons/vr_tool_icons/ToolScale.svg" type="Texture" id=7]
+[ext_resource path="res://assets/icons/vr_tool_icons/Remove.svg" type="Texture" id=8]
+[ext_resource path="res://assets/icons/vr_tool_icons/ToolMove.svg" type="Texture" id=9]
+[ext_resource path="res://assets/icons/vr_tool_icons/Clear.svg" type="Texture" id=10]
+[ext_resource path="res://assets/themes/dark.tres" type="Theme" id=11]
+[ext_resource path="res://scenes/ui/tools_menu/tools_menu.gd" type="Script" id=12]
+
+[node name="Tools_Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 11 )
+script = ExtResource( 12 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 190.0
+margin_top = 188.0
+margin_right = 834.0
+margin_bottom = 412.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 644.0
+margin_bottom = 212.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 528.0
+margin_bottom = 212.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HFlowContainer" type="GridContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 522.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 5
+
+[node name="TOOL_TELEPORT" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_right = 100.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_TELEPORT"
+tool_icon = ExtResource( 7 )
+
+[node name="TOOL_PEN" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_PEN"
+tool_icon = ExtResource( 5 )
+
+[node name="TOOL_ERASER" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_ERASER"
+tool_icon = ExtResource( 8 )
+
+[node name="TOOL_GRAB" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 312.0
+margin_right = 412.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_GRAB"
+tool_icon = ExtResource( 6 )
+
+[node name="TOOL_MOVE" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 416.0
+margin_right = 516.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_MOVE"
+tool_icon = ExtResource( 9 )
+
+[node name="TOOL_ROTATE" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_top = 104.0
+margin_right = 100.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_ROTATE"
+tool_icon = ExtResource( 3 )
+
+[node name="TOOL_MODELER" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 104.0
+margin_top = 104.0
+margin_right = 204.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_MODELER"
+tool_icon = ExtResource( 4 )
+
+[node name="TOOL_MATERIAL_PAINT" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 208.0
+margin_top = 104.0
+margin_right = 308.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_MATERIAL_PAINT"
+tool_icon = ExtResource( 10 )
+
+[node name="TOOL_MEASUREMENT" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 312.0
+margin_top = 104.0
+margin_right = 412.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_MEASUREMENT"
+tool_icon = ExtResource( 2 )
+
+[node name="PanelContainer2" type="PanelContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 532.0
+margin_right = 644.0
+margin_bottom = 212.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 106.0
+margin_bottom = 208.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Tool_Item" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer" instance=ExtResource( 1 )]
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Tool_Item2" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 104.0
+margin_right = 100.0
+margin_bottom = 204.0
+
+[node name="tool_menus" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 216.0
+margin_right = 644.0
+margin_bottom = 224.0
+
+[node name="main_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
+margin_right = 12.0
+margin_bottom = 8.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="sub_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
+margin_left = 16.0
+margin_right = 28.0
+margin_bottom = 8.0
+size_flags_horizontal = 2
+size_flags_vertical = 0

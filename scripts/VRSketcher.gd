@@ -137,12 +137,12 @@ func import_model_from_path(model_path : String) -> void :
 
 func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 	print("Loading 3D model file : " + model_data["model_filename"] as String);
-	
+
 	var model_path = model_data["model_filename"] as String;
-	
+
 	if local_model == true :
 		model_path = Project.get_imported_models_directory_path() + "/" + model_path;
-	
+
 	var dir : Directory = Directory.new();
 	if dir.file_exists(model_path) == true :
 

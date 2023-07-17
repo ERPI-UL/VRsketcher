@@ -6,6 +6,7 @@ signal tool_switch_tool(tool_name);
 signal tool_switch_next_tool();
 signal tool_switch_previous_tool();
 
-signal tool_mode_switch(mode_index);
-
+signal tool_main_mode_switch(main_mode_index);
 signal tool_sub_mode_switch(sub_mode_index);
+
+signal tooltip_update_text(tooltip_text);

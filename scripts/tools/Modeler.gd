@@ -7,8 +7,6 @@ var modes	: Array		= [
 	"Sphere"
 ];
 
-var current_mode						: int			= -1;
-
 var start_position						: Vector3		= Vector3.ZERO;
 var end_position						: Vector3		= Vector3.ZERO;
 var reference_right_direction			: Vector3		= Vector3.RIGHT;
@@ -19,8 +17,7 @@ var current_model						: Model3D		= null;
 onready var tool_gizmo					: Spatial		= get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
-	_tool_mode_name = "Modeler";
-	switch_tool_mode();
+	._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -34,7 +31,7 @@ func _physics_process(_delta : float) -> void :
 			var draw_vector : Vector3 = end_position - start_position;
 			var draw_vector_length : float = draw_vector.length();
 
-			match (modes[current_mode] as String) :
+			match (modes[mode_main_index] as String) :
 				"Box" :
 					(current_model.meshes[0] as CubeMesh).size.x = abs(draw_vector_length * cos(reference_right_direction.angle_to(draw_vector)));
 					(current_model.meshes[0] as CubeMesh).size.y = abs(end_position.y - start_position.y);
@@ -46,6 +43,18 @@ func _physics_process(_delta : float) -> void :
 					(current_model.meshes[0] as SphereMesh).radius = draw_vector_length / 2.0;
 				_ :
 					pass;
+
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Box"],
+		["Cube"],
+		["Sphere"]
+	];
+
+	modes_sub = [
+		[""]
+	];
 
 func start_tool_use() -> void :
 	.start_tool_use();
@@ -63,7 +72,7 @@ func start_tool_use() -> void :
 
 	current_model = Model3D.new();
 	current_model.inspector_name = "";
-	match (modes[current_mode] as String) :
+	match (modes[mode_main_index] as String) :
 		"Box" :
 			current_model.model_filename = "Box";
 			current_model.inspector_name = "Box";
@@ -99,17 +108,3 @@ func stop_tool_use() -> void :
 
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.add_model(current_model);
 		current_model = null;
-
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	if invert_switch == true :
-		current_mode -= 1;
-		if current_mode < 0 :
-			current_mode = modes.size() - 1;
-	else :
-		current_mode += 1;
-		if current_mode >= modes.size() :
-			current_mode = 0;
-
-	_tool_mode_name = "Draw " + (modes[current_mode] as String);
-
-	.switch_tool_mode(invert_switch);

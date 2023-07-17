@@ -1,48 +1,41 @@
 extends Spatial
 class_name Controller
 
-export(NodePath) var tools_path : NodePath = "";
-onready var tools : Array = get_node(tools_path).get_children();
+export(NodePath) var tools_root_path : NodePath = "";
+onready var tools_root : Spatial = get_node(tools_root_path);
 
 export(NodePath) var tooltip_path : NodePath = "";
-onready var tooltip : ToolTip = get_node(tooltip_path);
+onready var tooltip : Spatial = get_node(tooltip_path);
 
-var current_tool_index : int = -1;
+var current_tool : SketchTool = null;
 
 func _ready() -> void :
-	for t in tools :
-		(t as SketchTool).hide_tool();
-		(t as SketchTool).connect("tool_mode_switch", tooltip, "update_tooltip_text");
-	switch_tool();
+	EventBus.connect("tool_switch_tool", self, "switch_to_tool");
 
-func switch_tool(switch_to_previous : bool = false) -> void :
-	if current_tool_index >= 0 :
-		get_current_tool().stop_tool_use();
-		get_current_tool().hide_tool();
+	EventBus.connect("tool_main_mode_switch", self, "switch_to_tool_main_mode");
+	EventBus.connect("tool_sub_mode_switch", self, "switch_to_tool_sub_mode");
 
-	if switch_to_previous == false :
-		current_tool_index += 1;
-		if current_tool_index >= tools.size() :
-			current_tool_index = 0;
-	else :
-		current_tool_index -= 1;
-		if current_tool_index < 0 :
-			current_tool_index = tools.size() - 1;
+func switch_to_tool(tool_name : String) -> void :
+	var new_tool : SketchTool = ToolsDatabase.get_tool(tool_name);
 
-	get_current_tool().show_tool();
-	
-	tooltip.update_tooltip_text(get_current_tool().get_tool_mode_name());
+	if new_tool == null :
+		return;
 
-func switch_to_tool(var index : int = 0) -> void :
-	if current_tool_index >= 0 :
-		get_current_tool().stop_tool_use();
-		get_current_tool().hide_tool();
-	
-	current_tool_index = clamp(index, 0, tools.size() - 1);
-	get_current_tool().show_tool();
-	
-	tooltip.update_tooltip_text(get_current_tool().get_tool_mode_name());
+	if current_tool != null :
+		current_tool.stop_tool_use();
+		tools_root.remove_child(current_tool);
 
-func get_current_tool() -> SketchTool :
+	current_tool = new_tool;
+	tools_root.add_child(new_tool);
 
-	return tools[current_tool_index];
+	EventBus.emit_signal("tooltip_update_text", ToolsDatabase.get_tool_name(tool_name));
+
+func switch_to_tool_main_mode(tool_mode : int) -> void :
+	print("switch main")
+	if current_tool != null :
+		current_tool.set_tool_main_mode(tool_mode);
+
+func switch_to_tool_sub_mode(tool_mode : int) -> void :
+	print("switch sub")
+	if current_tool != null :
+		current_tool.set_tool_sub_mode(tool_mode);

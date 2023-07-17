@@ -41,7 +41,8 @@ void fragment()
 }"
 
 [sub_resource type="Gradient" id=11]
-offsets = PoolRealArray( 0, 0.490566, 0.512579 )
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.452614, 0.480392 )
 colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
 
 [sub_resource type="GradientTexture" id=12]
@@ -50,7 +51,7 @@ width = 512
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = SubResource( 9 )
-shader_param/color = Color( 0.0509804, 1, 0.309804, 1 )
+shader_param/color = Color( 0.0509804, 1, 0.443137, 1 )
 shader_param/emission_strengh = 1.0
 shader_param/gradient = SubResource( 12 )
 

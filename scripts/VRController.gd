@@ -26,7 +26,6 @@ const TOOLS_MENU_DISPLAY_DISTANCE : float = 2.0;
 
 onready var camera				: ARVRCamera		= get_node("ARVRCamera");
 onready var controller			: ARVRController	= get_node("ARVRController");
-onready var teleport_tool		: Teleport			= get_node("ARVRController/Teleport");
 
 onready var interface_controller : XRInterfaceController = get_node("ARVRController/XRInterfaceController");
 
@@ -103,21 +102,24 @@ func input_pressed(button_index : int) -> void :
 			pass;
 		InputCode.BUTTON_TRIGGER :
 			if tools_menu_visible == false :
-				get_current_tool().start_tool_use();
-			interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);
+				if current_tool != null :
+					current_tool.start_tool_use();
+			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
+				interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);
 		InputCode.BUTTON_STICK :
 			pass;
 		InputCode.STICK_BUTTON_UP :
-			if tools_menu_visible == false :
-				teleport_tool.start_tool_use();
+			pass;
 		InputCode.STICK_BUTTON_DOWN :
 			pass;
 		InputCode.STICK_BUTTON_LEFT :
 			if tools_menu_visible == false :
-				get_current_tool().switch_tool_mode(true);
+				if current_tool != null :
+					current_tool.switch_tool_mode(true);
 		InputCode.STICK_BUTTON_RIGHT :
 			if tools_menu_visible == false :
-				get_current_tool().switch_tool_mode();
+				if current_tool != null :
+					current_tool.switch_tool_mode();
 		_ :
 			pass;
 
@@ -139,13 +141,16 @@ func input_released(button_index : int) -> void :
 			pass;
 		InputCode.BUTTON_TRIGGER :
 			if tools_menu_visible == false :
-				get_current_tool().stop_tool_use();
-			interface_controller.interface_send_mouse_button_released(BUTTON_LEFT);
+				if current_tool != null :
+					current_tool.stop_tool_use();
+			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
+				interface_controller.interface_send_mouse_button_released(BUTTON_LEFT);
 		InputCode.BUTTON_STICK :
 			pass;
 		InputCode.STICK_BUTTON_UP :
 			if tools_menu_visible == false :
-				teleport_tool.stop_tool_use();
+				if current_tool != null :
+					current_tool.stop_tool_use();
 		InputCode.STICK_BUTTON_DOWN :
 			pass;
 		InputCode.STICK_BUTTON_LEFT :
@@ -187,3 +192,4 @@ func show_tools_menu(value : bool) -> void :
 		tools_menu.global_transform = camera.global_transform;
 		tools_menu.global_transform.origin += display_offset;
 		tools_menu.rotation_degrees.z = 0.0;
+

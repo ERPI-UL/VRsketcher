@@ -4,31 +4,45 @@ class_name SketchTool
 onready var INTERACTION_OVERLAY_MATERIAL : Material = load("res://materials/interaction_overlay_material.tres");
 
 var tool_in_use			: bool		= false;
+var interacted_object	: Spatial	= null;
 
-var _tool_mode_name		: String	= "";
+var mode_main_index		: int		= 0;
+var mode_sub_index		: int		= 0;
 
-var interacted_object			: Spatial	= null;
+var modes_main			: Array		= [
+	[""]
+];
+var modes_sub			: Array		= [
+	[""]
+];
 
-signal tool_mode_switch(tool_mode_name);
+func _ready() -> void :
+	load_tool_modes();
+
+func load_tool_modes() -> void :
+	pass;
 
 func start_tool_use() -> void :
 	tool_in_use = true;
 
 func stop_tool_use() -> void :
 	tool_in_use = false
+	
+func set_tool_main_mode(mode_index : int) -> void :
+	mode_main_index = mode_index;
+	EventBus.call_deferred("emit_signal", "tooltip_update_text", get_tool_mode_name());
 
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	emit_signal("tool_mode_switch", _tool_mode_name);
+func set_tool_sub_mode(mode_index : int) -> void :
+	mode_sub_index = mode_index;
+	EventBus.call_deferred("emit_signal", "tooltip_update_text", get_tool_mode_name(true));
 
-func show_tool() -> void :
-	visible = true;
+func show_tool(tool_visible : bool = true) -> void :
+	visible = tool_visible;
 
-func hide_tool() -> void :
-	visible = false;
-
-func get_tool_mode_name() -> String :
-	return _tool_mode_name;
-
+func get_tool_mode_name(get_sub_mode_name : bool = false) -> String :
+	if get_sub_mode_name == true :
+		return modes_sub[mode_sub_index][0] as String;
+	return modes_main[mode_main_index][0] as String;
 
 func object_enter_hover(node : Node) -> void :
 	if tool_in_use == false && visible == true :

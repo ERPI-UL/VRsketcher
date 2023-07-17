@@ -4,20 +4,25 @@ class_name Eraser
 var is_erasing : bool = false;
 
 func _ready() -> void :
-	_tool_mode_name = "Eraser";
+	._ready();
+
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Effacer"]
+	];
+
+	modes_sub = [
+		[""]
+	];
 
 func start_tool_use() -> void :
 	.start_tool_use();
-	if is_erasing == false :
-		is_erasing = true;
-		
+	is_erasing = true;
+
 func stop_tool_use() -> void :
 	.stop_tool_use();
-	if is_erasing == true :
-		is_erasing = false;
-
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	.switch_tool_mode(invert_switch);
+	is_erasing = false;
 
 func erase_line(node : Node) -> void :
 	if is_erasing == true :

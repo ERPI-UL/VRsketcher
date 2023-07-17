@@ -169,6 +169,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ui_components/tool_item/tool_item.gd"
 }, {
+"base": "Control",
+"class": "ToolModeItem",
+"language": "GDScript",
+"path": "res://scenes/ui_components/tool_mode_item/tool_mode_item.gd"
+}, {
 "base": "Node",
 "class": "ToolTip",
 "language": "GDScript",
@@ -232,6 +237,7 @@ _global_script_class_icons={
 "SpectatorCamera": "",
 "Teleport": "",
 "ToolItem": "",
+"ToolModeItem": "",
 "ToolTip": "",
 "ToolsSelection": "",
 "VRSketcher": "",
@@ -256,9 +262,9 @@ Importer3mf="*res://scripts/importers/Importer_3MF.gd"
 ImporterObj="*res://scripts/importers/Importer_OBJ.gd"
 ImporterStl="*res://scripts/importers/Importer_STL.gd"
 Project="*res://scripts/global_scope/Project.gd"
-PaintMaterials="*res://scenes/PaintMaterials.tscn"
 GdUnzip="*res://scripts/global_scope/GDUnzip.gd"
 CameraData="*res://scripts/global_scope/CameraData.gd"
+ToolsDatabase="*res://scripts/global_scope/ToolsDatabase.gd"
 
 [editor_plugins]
 

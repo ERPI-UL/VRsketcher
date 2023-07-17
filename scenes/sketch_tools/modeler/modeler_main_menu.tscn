@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/icons/vr_tool_icons/BoxMesh.svg" type="Texture" id=2]
+
+[node name="modeler_main_menu" type="GridContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+
+[node name="Box" parent="." instance=ExtResource( 1 )]
+margin_left = 35.0
+margin_top = 250.0
+margin_right = 135.0
+margin_bottom = 350.0
+tool_mode_name = "Box"
+tool_icon = ExtResource( 2 )
+
+[node name="Cube" parent="." instance=ExtResource( 1 )]
+margin_left = 209.0
+margin_top = 250.0
+margin_right = 309.0
+margin_bottom = 350.0
+tool_mode_name = "Cube"
+tool_icon = ExtResource( 2 )
+target_mode_index = 1
+
+[node name="Sphere" parent="." instance=ExtResource( 1 )]
+margin_left = 382.0
+margin_top = 250.0
+margin_right = 482.0
+margin_bottom = 350.0
+tool_mode_name = "Sphere"
+tool_icon = ExtResource( 2 )
+target_mode_index = 2

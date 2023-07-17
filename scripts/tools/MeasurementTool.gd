@@ -6,7 +6,6 @@ var modes	: Array		= [
 	"Angle"
 ];
 
-var current_mode			: int			= -1;
 var start_position			: Vector3		= Vector3.ZERO;
 var end_position			: Vector3		= Vector3.ZERO;
 
@@ -15,26 +14,35 @@ var current_measurement		: Measurement	= null;
 onready var tool_gizmo		: Spatial		= get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
-	_tool_mode_name = "Measurement";
-	switch_tool_mode();
+	._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
-		match (modes[current_mode] as String) :
+		match (modes[mode_main_index] as String) :
 			"Distance" :
 				pass;
 			"Angle" :
 				pass;
 			_ :
 				pass;
-				
+
 		if current_measurement != null :
 			end_position = tool_gizmo.global_transform.origin;
 			
 			current_measurement.start_point = start_position;
 			current_measurement.end_point = end_position;
 			current_measurement.middle_point = (start_position + end_position) / 2.0;
-	
+
+func load_tool_modes() -> void :
+	.load_tool_modes();
+	modes_main = [
+		["Distance"],
+		["Angle"]
+	];
+
+	modes_sub = [
+		[""]
+	];
 
 func start_tool_use() -> void :
 	.start_tool_use();
@@ -43,7 +51,7 @@ func start_tool_use() -> void :
 	end_position = tool_gizmo.global_transform.origin;
 	
 	current_measurement = Measurement.new();
-	current_measurement.mode = current_mode;
+	current_measurement.mode = mode_main_index;
 	current_measurement.start_point = start_position;
 	current_measurement.end_point = end_position;
 	current_measurement.middle_point = (start_position + end_position) / 2.0;
@@ -60,16 +68,3 @@ func stop_tool_use() -> void :
 			current_measurement.queue_free();
 		current_measurement = null;
 
-func switch_tool_mode(invert_switch : bool = false) -> void :
-	if invert_switch == true :
-		current_mode -= 1;
-		if current_mode < 0 :
-			current_mode = modes.size() - 1;
-	else :
-		current_mode += 1;
-		if current_mode >= modes.size() :
-			current_mode = 0;
-
-	_tool_mode_name = (modes[current_mode] as String) + " Measurement";
-
-	.switch_tool_mode(invert_switch);
