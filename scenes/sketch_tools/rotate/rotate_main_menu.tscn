@@ -11,21 +11,23 @@ size_flags_vertical = 3
 columns = 3
 
 [node name="Libre" parent="." instance=ExtResource( 1 )]
-margin_left = 458.0
+margin_left = 119.0
 margin_top = 246.0
-margin_right = 558.0
+margin_right = 219.0
 margin_bottom = 346.0
 tool_mode_name = "Libre"
 tool_icon = ExtResource( 2 )
 
 [node name="Blank_01" type="Control" parent="."]
+visible = false
 margin_left = 1020.0
 margin_right = 1020.0
 margin_bottom = 592.0
 
 [node name="Blank_02" type="Control" parent="."]
-margin_left = 1024.0
-margin_right = 1024.0
+visible = false
+margin_left = 512.0
+margin_right = 512.0
 margin_bottom = 592.0
 
 [node name="X Global" parent="." instance=ExtResource( 1 )]

@@ -31,11 +31,9 @@ func switch_to_tool(tool_name : String) -> void :
 	EventBus.emit_signal("tooltip_update_text", ToolsDatabase.get_tool_name(tool_name));
 
 func switch_to_tool_main_mode(tool_mode : int) -> void :
-	print("switch main")
 	if current_tool != null :
 		current_tool.set_tool_main_mode(tool_mode);
 
 func switch_to_tool_sub_mode(tool_mode : int) -> void :
-	print("switch sub")
 	if current_tool != null :
 		current_tool.set_tool_sub_mode(tool_mode);

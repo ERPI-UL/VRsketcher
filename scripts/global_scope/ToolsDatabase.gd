@@ -67,9 +67,7 @@ func get_tool_name(tool_name : String) -> String :
 
 func get_tool(tool_name : String) -> SketchTool :
 	if tools.has(tool_name) == true :
-		print( tools[tool_name]["tool"])
 		return tools[tool_name]["tool"] as SketchTool;
-	print("no")
 	return null;
 
 func get_tool_main_menu(tool_name : String) -> Control :

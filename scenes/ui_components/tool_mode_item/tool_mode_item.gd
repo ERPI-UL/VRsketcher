@@ -16,11 +16,11 @@ export(Color) var icon_tint_color : Color = Color.white;
 
 
 func _ready() -> void :
-	(get_node("MarginContainer/Button/VBoxContainer/Label") as Label).text = tool_mode_name;
-	(get_node("MarginContainer/Button/VBoxContainer/TextureRect") as TextureRect).texture = tool_icon;
-	(get_node("MarginContainer/Button/VBoxContainer/TextureRect") as TextureRect).self_modulate = icon_tint_color;
+	(get_node("Button/VBoxContainer/Label") as Label).text = tool_mode_name;
+	(get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect).texture = tool_icon;
+	(get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect).self_modulate = icon_tint_color;
 	
-	(get_node("MarginContainer/Button") as Button).connect("pressed", self, "select_tool_mode");
+	(get_node("Button") as Button).connect("pressed", self, "select_tool_mode");
 
 func select_tool_mode() -> void :
 	match mode_type :

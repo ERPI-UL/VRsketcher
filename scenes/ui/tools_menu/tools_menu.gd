@@ -6,9 +6,7 @@ onready var tools_sub_menu_root : Control = get_node("CenterContainer/VBoxContai
 func _ready():
 	EventBus.connect("tool_switch_tool", self, "update_tool_menus");
 
-func update_tool_menus(tool_name : String) -> void :
-	print("udpate tools menu " + tool_name)
-	
+func update_tool_menus(tool_name : String) -> void :	
 	#Clean previous menus
 	for c in tools_main_menu_root.get_children() :
 		tools_main_menu_root.remove_child(c);
@@ -22,7 +20,6 @@ func update_tool_menus(tool_name : String) -> void :
 		tools_main_menu_root.visible = true;
 	else :
 		tools_main_menu_root.visible = false;
-
 
 	var sub_tool_menu : Control = ToolsDatabase.get_tool_sub_menu(tool_name);
 	if sub_tool_menu != null :
