@@ -27,3 +27,9 @@ func update_tool_menus(tool_name : String) -> void :
 		tools_sub_menu_root.visible = true;
 	else :
 		tools_sub_menu_root.visible = false;
+
+func switch_hdri() -> void :
+	(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.set_environement_hdri((get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index + 1);
+
+func switch_global_material() -> void :
+	MaterialLibrary.switch_material();

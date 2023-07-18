@@ -59,10 +59,12 @@ func _ready() -> void :
 
 func set_environement_hdri(index : int = 0) -> void :
 	current_hdri_index = index;
+	if current_hdri_index >= hdri_list.size() :
+		current_hdri_index = 0;
 
-	if index == 0 :
+	if current_hdri_index == 0 :
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = load("res://default_sky.tres");
 	else :
 		var panorama : PanoramaSky = PanoramaSky.new();
-		panorama.panorama = load(hdri_list[index][1]);
+		panorama.panorama = load(hdri_list[current_hdri_index][1]);
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = panorama;
