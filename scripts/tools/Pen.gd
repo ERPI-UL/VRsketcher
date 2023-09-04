@@ -1,6 +1,8 @@
 extends SketchTool
 class_name Pen
 
+const CIRCLE_RESOLUTION : int = 64;
+
 const paint_materials : Array = [
 	"res://materials/paint_materials/Blue.tres",
 	"res://materials/paint_materials/Red.tres",
@@ -32,9 +34,30 @@ func _ready() -> void :
 func _physics_process(_delta : float) -> void :
 	if is_drawing == true :
 		if current_line_renderer != null :
-			if pen_tip.global_transform.origin.distance_to(paint_last_position) >= paint_distance_threshold :
-				paint_last_position = pen_tip.global_transform.origin;
-				current_line_renderer.add_point(paint_last_position);
+			
+			match mode_main_index :
+				0 :	#FREE MODE
+					if pen_tip.global_transform.origin.distance_to(paint_last_position) >= paint_distance_threshold :
+						paint_last_position = pen_tip.global_transform.origin;
+						current_line_renderer.add_point(paint_last_position);
+				1 :	#LINE MODE
+					current_line_renderer.add_point(paint_last_position);
+					current_line_renderer.points[1] = pen_tip.global_transform.origin;
+				2 :	#CIRCLE MODE
+					var center : Vector3 = paint_last_position;
+					var pen_position : Vector3 = pen_tip.global_transform.origin;
+					var radius : float = center.distance_to(pen_position);
+					if radius >= paint_distance_threshold :
+						var circle_direction : Vector3 = center.direction_to(pen_position);
+						var step : float = 2.0 * PI / float(CIRCLE_RESOLUTION);
+						var up_direction : Vector3 = circle_direction.cross(Vector3.UP);
+						up_direction = circle_direction.cross(up_direction).normalized();
+						circle_direction *= radius;
+						
+						#Clear previous circle points
+						for i in range(0, CIRCLE_RESOLUTION + 1) :
+							current_line_renderer.points[i] = center + circle_direction.rotated(up_direction, i * step);
+						current_line_renderer.render_line();
 
 func load_tool_modes() -> void :
 	.load_tool_modes();
@@ -65,10 +88,22 @@ func start_tool_use() -> void :
 
 		current_line_renderer = Line.new();
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.add_child(current_line_renderer);
-		current_line_renderer.add_point(paint_last_position)
+
 		current_line_renderer.material_index = mode_sub_index;
 		current_line_renderer.material_override = modes_sub[mode_sub_index][1] as Material;
 		current_line_renderer.thickness = paint_thickness;
+		
+		match mode_main_index :
+			0 :
+				current_line_renderer.add_point(paint_last_position);
+			1 :
+				current_line_renderer.add_point(paint_last_position);
+				current_line_renderer.add_point(paint_last_position);
+			2 :
+				current_line_renderer.points = [];
+				current_line_renderer.points.resize(CIRCLE_RESOLUTION + 1);
+		
+		
 
 func stop_tool_use() -> void :
 	.stop_tool_use();

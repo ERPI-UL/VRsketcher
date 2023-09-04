@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_item/Tool_Item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/vr_tool_icons/Ruler.svg" type="Texture" id=2]
 [ext_resource path="res://assets/icons/vr_tool_icons/ToolRotate.svg" type="Texture" id=3]
 [ext_resource path="res://assets/icons/vr_tool_icons/BoxMesh.svg" type="Texture" id=4]
-[ext_resource path="res://assets/icons/vr_tool_icons/ScriptCreate.svg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/vr_tool_icons/tool_pen.svg" type="Texture" id=5]
 [ext_resource path="res://assets/icons/vr_tool_icons/ToolPan.svg" type="Texture" id=6]
 [ext_resource path="res://assets/icons/vr_tool_icons/ToolScale.svg" type="Texture" id=7]
 [ext_resource path="res://assets/icons/vr_tool_icons/Remove.svg" type="Texture" id=8]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/themes/dark.tres" type="Theme" id=11]
 [ext_resource path="res://scenes/ui/tools_menu/tools_menu.gd" type="Script" id=12]
 [ext_resource path="res://assets/icons/vr_tool_icons/WorldEnvironment.svg" type="Texture" id=13]
+[ext_resource path="res://scripts/settings/VRToolItemEnabler.gd" type="Script" id=14]
 
 [node name="Tools_Menu" type="Control"]
 anchor_right = 1.0
@@ -59,12 +60,20 @@ margin_bottom = 100.0
 target_tool_name = "TOOL_TELEPORT"
 tool_icon = ExtResource( 7 )
 
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_TELEPORT"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_teleport"
+
 [node name="TOOL_PEN" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_PEN"
 tool_icon = ExtResource( 5 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_PEN"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_pen"
 
 [node name="TOOL_ERASER" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 208.0
@@ -73,12 +82,20 @@ margin_bottom = 100.0
 target_tool_name = "TOOL_ERASER"
 tool_icon = ExtResource( 8 )
 
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_ERASER"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_eraser"
+
 [node name="TOOL_GRAB" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 312.0
 margin_right = 412.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_GRAB"
 tool_icon = ExtResource( 6 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_GRAB"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_grab"
 
 [node name="TOOL_MOVE" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 416.0
@@ -87,12 +104,20 @@ margin_bottom = 100.0
 target_tool_name = "TOOL_MOVE"
 tool_icon = ExtResource( 9 )
 
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_MOVE"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_move"
+
 [node name="TOOL_ROTATE" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_top = 104.0
 margin_right = 100.0
 margin_bottom = 204.0
 target_tool_name = "TOOL_ROTATE"
 tool_icon = ExtResource( 3 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_ROTATE"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_rotate"
 
 [node name="TOOL_MODELER" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 104.0
@@ -102,6 +127,10 @@ margin_bottom = 204.0
 target_tool_name = "TOOL_MODELER"
 tool_icon = ExtResource( 4 )
 
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_MODELER"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_modeler"
+
 [node name="TOOL_MATERIAL_PAINT" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 208.0
 margin_top = 104.0
@@ -110,6 +139,10 @@ margin_bottom = 204.0
 target_tool_name = "TOOL_MATERIAL_PAINT"
 tool_icon = ExtResource( 10 )
 
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_MATERIAL_PAINT"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_material_painter"
+
 [node name="TOOL_MEASUREMENT" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 312.0
 margin_top = 104.0
@@ -117,6 +150,10 @@ margin_right = 412.0
 margin_bottom = 204.0
 target_tool_name = "TOOL_MEASUREMENT"
 tool_icon = ExtResource( 2 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/HFlowContainer/TOOL_MEASUREMENT"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_measurements"
 
 [node name="PanelContainer2" type="PanelContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 margin_left = 532.0

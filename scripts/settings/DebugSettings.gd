@@ -2,6 +2,8 @@ extends Node
 
 const DEBUG_SETTINGS_FILE_PATH : String = "debug_settings.txt";
 
+
+var enable_tool_teleport						: bool	= true;
 var enable_tool_pen								: bool	= true;
 var enable_tool_eraser							: bool	= true;
 var enable_tool_measurements					: bool	= true;
@@ -48,7 +50,8 @@ func load_debug_settings() -> void :
 			var parse_result : JSONParseResult = JSON.parse(debug_settings_file.get_as_text());
 			if parse_result.error == OK :
 				var settings : Dictionary = parse_result.result;
-				
+				if settings.has("enable_tool_teleport") == true :
+					enable_tool_teleport = settings["enable_tool_teleport"] as bool;
 				if settings.has("enable_tool_pen") == true :
 					enable_tool_pen = settings["enable_tool_pen"] as bool;
 				if settings.has("enable_tool_eraser") == true :
@@ -101,39 +104,40 @@ func load_debug_settings() -> void :
 
 			debug_settings_file.close();
 
-func save_debug_settings() -> void :	
+func save_debug_settings() -> void :
 	var debug_settings_file : File = File.new();
 
 	debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.WRITE);
 
 	var settings : Dictionary = {
-		"enable_tool_pen" : enable_tool_pen,
-		"enable_tool_eraser" : enable_tool_eraser,
-		"enable_tool_measurements" : enable_tool_measurements,
-		"enable_tool_material_painter" : enable_tool_material_painter,
-		"enable_tool_grab" : enable_tool_grab,
-		"enable_tool_move" : enable_tool_move,
-		"enable_tool_rotate" : enable_tool_rotate,
-		"enable_tool_modeler" : enable_tool_modeler,
-		
-		"enable_function_hdri_switch" : enable_function_hdri_switch,
-		"enable_function_global_material_switch" : enable_function_global_material_switch,
-		
-		"spectator_camera_01_position_x" : spectator_camera_01_position_x,
-		"spectator_camera_01_position_y" : spectator_camera_01_position_y,
-		"spectator_camera_01_position_z" : spectator_camera_01_position_z,
-		
-		"spectator_camera_01_rotation_x" : spectator_camera_01_rotation_x,
-		"spectator_camera_01_rotation_y" : spectator_camera_01_rotation_y,
-		"spectator_camera_01_rotation_z" : spectator_camera_01_rotation_z,
-		
-		"spectator_camera_02_position_x" : spectator_camera_02_position_x,
-		"spectator_camera_02_position_y" : spectator_camera_02_position_y,
-		"spectator_camera_02_position_z" : spectator_camera_02_position_z,
-		
-		"spectator_camera_02_rotation_x" : spectator_camera_02_rotation_x,
-		"spectator_camera_02_rotation_y" : spectator_camera_02_rotation_y,
-		"spectator_camera_02_rotation_z" : spectator_camera_02_rotation_z
+		"enable_tool_teleport"						: enable_tool_teleport,
+		"enable_tool_pen"							: enable_tool_pen,
+		"enable_tool_eraser"						: enable_tool_eraser,
+		"enable_tool_measurements"					: enable_tool_measurements,
+		"enable_tool_material_painter"				: enable_tool_material_painter,
+		"enable_tool_grab"							: enable_tool_grab,
+		"enable_tool_move"							: enable_tool_move,
+		"enable_tool_rotate"						: enable_tool_rotate,
+		"enable_tool_modeler"						: enable_tool_modeler,
+
+		"enable_function_hdri_switch"				: enable_function_hdri_switch,
+		"enable_function_global_material_switch"	: enable_function_global_material_switch,
+
+		"spectator_camera_01_position_x"			: spectator_camera_01_position_x,
+		"spectator_camera_01_position_y"			: spectator_camera_01_position_y,
+		"spectator_camera_01_position_z"			: spectator_camera_01_position_z,
+
+		"spectator_camera_01_rotation_x"			: spectator_camera_01_rotation_x,
+		"spectator_camera_01_rotation_y"			: spectator_camera_01_rotation_y,
+		"spectator_camera_01_rotation_z"			: spectator_camera_01_rotation_z,
+
+		"spectator_camera_02_position_x"			: spectator_camera_02_position_x,
+		"spectator_camera_02_position_y"			: spectator_camera_02_position_y,
+		"spectator_camera_02_position_z"			: spectator_camera_02_position_z,
+
+		"spectator_camera_02_rotation_x"			: spectator_camera_02_rotation_x,
+		"spectator_camera_02_rotation_y"			: spectator_camera_02_rotation_y,
+		"spectator_camera_02_rotation_z"			: spectator_camera_02_rotation_z
 	};
 	
 	debug_settings_file.store_string(to_json(settings));

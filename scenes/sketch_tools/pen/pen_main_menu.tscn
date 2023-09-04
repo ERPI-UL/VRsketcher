@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/icons/vr_tool_icons/ScriptCreate.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/pen_draw_line.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/pen_draw_circle.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/pen_draw_free.svg" type="Texture" id=4]
 
 [node name="pen_main_menu" type="GridContainer"]
 anchor_right = 1.0
@@ -16,7 +18,7 @@ margin_top = 99.0
 margin_right = 305.0
 margin_bottom = 199.0
 tool_mode_name = "Libre"
-tool_icon = ExtResource( 2 )
+tool_icon = ExtResource( 4 )
 
 [node name="Ligne" parent="." instance=ExtResource( 1 )]
 margin_left = 719.0
@@ -33,5 +35,5 @@ margin_top = 401.0
 margin_right = 305.0
 margin_bottom = 501.0
 tool_mode_name = "Cercle"
-tool_icon = ExtResource( 2 )
+tool_icon = ExtResource( 3 )
 target_mode_index = 2
