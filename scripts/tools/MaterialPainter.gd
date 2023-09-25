@@ -15,9 +15,9 @@ func load_tool_modes() -> void :
 		["Peindre"]
 	];
 
-	modes_sub = [
-		[""]
-	];
+	modes_sub = [];
+	for m in MaterialLibrary.materials :
+		modes_sub.append(((m as SpatialMaterial).resource_path.rsplit("/", true, 1)[1] as String).split(".")[0]);
 
 func start_tool_use() -> void :
 	.start_tool_use();
@@ -30,11 +30,16 @@ func stop_tool_use() -> void :
 
 func set_tool_main_mode(mode_index : int) -> void :
 	.set_tool_main_mode(mode_index);
-	
-	if mode_main_index < 0 :
+
+func set_tool_sub_mode(mode_index : int) -> void :
+	current_material_index = mode_index;
+	mode_sub_index = mode_index;
+	if mode_sub_index < 0 :
 		material_preview.material_override = MaterialLibrary.materials[0];
 	else :
 		material_preview.material_override = MaterialLibrary.materials[current_material_index];
+	
+	EventBus.call_deferred("emit_signal", "tooltip_update_text", get_tool_mode_name(true));
 
 func get_tool_mode_name(get_sub_mode_name : bool = false) -> String :
 	if get_sub_mode_name == true :

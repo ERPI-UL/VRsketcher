@@ -5,10 +5,13 @@ export(String) var target_tool_name : String = "TOOL_NAME";
 export(Texture) var tool_icon : Texture = null;
 export(Color) var icon_tint_color : Color = Color.white;
 
+onready var label : Label = get_node("Button/VBoxContainer/Label") as Label;
+onready var icon : TextureRect = get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect;
+
 func _ready() -> void :
-	(get_node("Button/VBoxContainer/Label") as Label).text = ToolsDatabase.get_tool_name(target_tool_name);
-	(get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect).texture = tool_icon;
-	(get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect).self_modulate = icon_tint_color;
+	label.text = ToolsDatabase.get_tool_name(target_tool_name);
+	icon.texture = tool_icon;
+	icon.self_modulate = icon_tint_color;
 	
 	(get_node("Button") as Button).connect("pressed", self, "select_tool");
 

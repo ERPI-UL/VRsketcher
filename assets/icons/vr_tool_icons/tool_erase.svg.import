@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pen_draw_free.svg-71e0ac05a287afcce0aaea60d0a61226.stex"
+path="res://.import/tool_erase.svg-fdff193f2a0e4d234f933900a8e918b7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/vr_tool_icons/pen_draw_free.svg"
-dest_files=[ "res://.import/pen_draw_free.svg-71e0ac05a287afcce0aaea60d0a61226.stex" ]
+source_file="res://assets/icons/vr_tool_icons/tool_erase.svg"
+dest_files=[ "res://.import/tool_erase.svg-fdff193f2a0e4d234f933900a8e918b7.stex" ]
 
 [params]
 
@@ -21,9 +21,9 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
+flags/mipmaps=true
+flags/anisotropic=true
+flags/srgb=0
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

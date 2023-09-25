@@ -1,12 +1,11 @@
 [gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scripts/tools/SpatialSync.gd" type="Script" id=2]
+[ext_resource path="res://scripts/MouseInputForwarder.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ControllerSelection.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/themes/dark.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/VRSketcher.gd" type="Script" id=5]
 [ext_resource path="res://scripts/DebugFPS.gd" type="Script" id=6]
-[ext_resource path="res://scenes/ColorPreview.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/Interface.gd" type="Script" id=8]
 [ext_resource path="res://assets/icons/icon_import.svg" type="Texture" id=9]
 [ext_resource path="res://scripts/ModelImportWindow.gd" type="Script" id=10]
@@ -42,10 +41,13 @@ viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_01")
 [sub_resource type="ViewportTexture" id=7]
 viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_02")
 
+[sub_resource type="ViewportTexture" id=8]
+flags = 5
+viewport_path = NodePath("Viewport")
+
 [node name="VRSketcher" type="Node"]
 script = ExtResource( 5 )
 controller_viewport_path = NodePath("Viewport")
-camera_sync_path = NodePath("Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport/Spatial/SpatialSync")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 19 )
@@ -77,11 +79,11 @@ script = ExtResource( 15 )
 [node name="SpectatorCamera_02" parent="Spectator_Cameras" instance=ExtResource( 21 )]
 
 [node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 1024, 600 )
+size = Vector2( 1038, 1038 )
+handle_input_locally = false
 msaa = 1
 fxaa = true
 render_target_update_mode = 3
-gui_disable_input = true
 shadow_atlas_size = 1024
 
 [node name="StaticBody" type="StaticBody" parent="Viewport"]
@@ -99,6 +101,7 @@ script = ExtResource( 8 )
 [node name="VRSketcherInterface" type="Control" parent="Interface"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Interface/VRSketcherInterface"]
 anchor_right = 1.0
@@ -898,36 +901,26 @@ margin_right = 240.0
 margin_bottom = 530.0
 text = "Apply settings"
 
-[node name="Render_Viewport" type="ViewportContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
 margin_left = 262.0
-margin_right = 1024.0
+margin_right = 1300.0
 margin_bottom = 600.0
-focus_mode = 1
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-stretch = true
+stretch_mode = 3
 
-[node name="Viewport" type="Viewport" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport"]
-size = Vector2( 762, 600 )
-size_override_stretch = true
-handle_input_locally = false
-msaa = 2
-render_target_update_mode = 3
-gui_disable_input = true
-shadow_atlas_size = 1024
-
-[node name="Spatial" type="Spatial" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport"]
-visible = false
-
-[node name="SpatialSync" type="Spatial" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport/Spatial"]
-visible = false
+[node name="Viewport_Render" type="TextureRect" parent="Interface/VRSketcherInterface/HBoxContainer/AspectRatioContainer"]
+margin_top = -219.0
+margin_right = 1038.0
+margin_bottom = 819.0
+mouse_filter = 0
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+flip_v = true
 script = ExtResource( 2 )
-sync_on_start = false
-
-[node name="Camera" type="Camera" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport/Spatial/SpatialSync"]
-visible = false
-
-[node name="ColorPreview" parent="Interface/VRSketcherInterface/HBoxContainer/Render_Viewport" instance=ExtResource( 7 )]
+target_viewport_path = NodePath("../../../../../Viewport")
 
 [node name="ControllerSelection" parent="Interface" instance=ExtResource( 3 )]
 visible = false

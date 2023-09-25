@@ -34,3 +34,7 @@ script = ExtResource( 12 )
 pixel_per_world_unit = 512
 
 [node name="Tools_Menu" parent="Tools_Menu" instance=ExtResource( 9 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1200.0
+margin_bottom = 600.0

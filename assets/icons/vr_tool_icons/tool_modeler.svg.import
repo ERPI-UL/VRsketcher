@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BoxMesh.svg-f373a9211d93c640558cd4e5aa7e801d.stex"
+path="res://.import/tool_modeler.svg-af84b0cc36291af42ef8745e5b29300d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/vr_tool_icons/BoxMesh.svg"
-dest_files=[ "res://.import/BoxMesh.svg-f373a9211d93c640558cd4e5aa7e801d.stex" ]
+source_file="res://assets/icons/vr_tool_icons/tool_modeler.svg"
+dest_files=[ "res://.import/tool_modeler.svg-af84b0cc36291af42ef8745e5b29300d.stex" ]
 
 [params]
 

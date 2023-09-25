@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   sodipodi:docname="pen_draw_line.svg"
+   sodipodi:docname="tool_pen_draw_circle.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,11 +25,11 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="4.1020923"
-     inkscape:cx="161.9905"
-     inkscape:cy="135.17492"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
-     inkscape:window-x="2391"
+     inkscape:cx="162.23428"
+     inkscape:cy="135.4187"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -39,9 +39,11 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <path
-       style="fill:none;stroke:#ffffff;stroke-width:5.29167;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-       d="M 6.0854161,61.647914 61.647916,6.0854182"
-       id="path1685" />
+    <circle
+       style="opacity:1;fill:none;stroke:#ffffff;stroke-width:5.29167;stroke-linecap:round"
+       id="path1570"
+       cx="33.866665"
+       cy="33.866665"
+       r="26.458332" />
   </g>
 </svg>

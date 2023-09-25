@@ -1,6 +1,9 @@
 extends Control
 
-onready var render_viewport : Viewport = get_node("VRSketcherInterface/HBoxContainer/Render_Viewport/Viewport");
+onready var render_viewport : Viewport = get_node("../Viewport");
+
+func _ready() -> void :
+	EventBus.connect("vr_enable_color_correction", self, "enable_vr_color_correction");
 
 func take_screenshot() -> void :
 	var directory : Directory = Directory.new();
@@ -30,3 +33,10 @@ func take_screenshot() -> void :
 	screenshot.save_png(file_name);
 	
 	print("Saved screenshot to : " + file_name);
+
+func enable_vr_color_correction(value : bool) -> void :
+	var m : ShaderMaterial = null;
+	if value == true :
+		m = ShaderMaterial.new();
+		m.shader = load("res://shaders/vr_color_correction.tres");
+		(get_node("VRSketcherInterface/HBoxContainer/AspectRatioContainer/TextureRect") as Control).material = m;

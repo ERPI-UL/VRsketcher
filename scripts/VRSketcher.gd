@@ -47,9 +47,7 @@ func set_controller(controller : Node, enable_vr : bool) -> void :
 	
 	get_node(controller_viewport_path).add_child(controller);
 	
-	(get_node(camera_sync_path) as SpatialSync).node_to_sync_to = camera;
-	
-	EventBus.connect("paint_color_changed", self, "update_color_preview");
+	#(get_node(camera_sync_path) as SpatialSync).node_to_sync_to = camera;
 
 func get_children_recursive (root : Node) -> Array :
 	var children : Array = [];
@@ -77,9 +75,6 @@ func apply_display_settings():
 func set_environment_exposure(value : float = 1.0) -> void :
 	world_environment.environment.tonemap_exposure = value;
 	hdri_manager.current_exposure = value;
-
-func update_color_preview(color : Color) -> void :
-	(get_node("Interface/VRSketcherInterface/HBoxContainer/Render_Viewport/ColorPreview/MarginContainer/Control/TextureRect") as Control).self_modulate = color;
 
 func open_project() -> void :
 	project_manager.visible = false;

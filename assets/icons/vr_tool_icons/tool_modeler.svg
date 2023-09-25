@@ -7,7 +7,7 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="svg135"
-   sodipodi:docname="BoxMesh.svg"
+   sodipodi:docname="tool_modeler.svg"
    width="256"
    height="256"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
@@ -27,36 +27,38 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="4.4967572"
-     inkscape:cx="151.55366"
-     inkscape:cy="121.08726"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
-     inkscape:window-x="2391"
+     inkscape:zoom="2.2483786"
+     inkscape:cx="80.724839"
+     inkscape:cy="140.76811"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg135" />
   <g
      id="g534"
-     transform="translate(-4.3175793,2.8909737)">
+     transform="matrix(0.99927932,0,0,1,-4.2222207,2.8909737)"
+     style="stroke-width:1.00036">
     <path
        d="M 114.41074,46.493589 22.238247,92.579829 V 187.6755 l 92.172493,46.08625 92.17247,-46.08625 V 92.579829 Z m 0,27.84926 51.87993,25.953141 -51.87993,25.91363 -51.866783,-25.91363 z m -65.837503,46.784121 52.670003,26.33499 v 51.89311 L 48.573237,172.99374 Z m 131.674983,0 v 51.86677 l -52.67,26.36133 v -51.89311 z"
        fill="#ffca5f"
        fill-rule="nonzero"
        id="path133"
-       style="fill:#ffffff;stroke-width:1" />
+       style="fill:#ffffff;stroke-width:1.00036" />
     <g
        id="g528"
-       transform="translate(0,-13.787714)">
+       transform="translate(0,-13.787714)"
+       style="stroke-width:1.00036">
       <rect
-         style="fill:#ffffff;stroke-width:4;stroke-linecap:round"
+         style="fill:#ffffff;stroke-width:4.00144;stroke-linecap:round"
          id="rect470"
          width="22.238247"
          height="66.714745"
          x="197.92041"
          y="30.244017" />
       <rect
-         style="fill:#ffffff;stroke-width:4;stroke-linecap:round"
+         style="fill:#ffffff;stroke-width:4.00144;stroke-linecap:round"
          id="rect524"
          width="22.238247"
          height="66.714745"

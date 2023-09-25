@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pen_draw_circle.svg-7574ca401434014ecd681e7dd26309bd.stex"
+path="res://.import/tool_measurements_protractor.svg-78afb35085535007b160fb41ab3e81cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/vr_tool_icons/pen_draw_circle.svg"
-dest_files=[ "res://.import/pen_draw_circle.svg-7574ca401434014ecd681e7dd26309bd.stex" ]
+source_file="res://assets/icons/vr_tool_icons/tool_measurements_protractor.svg"
+dest_files=[ "res://.import/tool_measurements_protractor.svg-78afb35085535007b160fb41ab3e81cb.stex" ]
 
 [params]
 

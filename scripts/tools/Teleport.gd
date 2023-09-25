@@ -55,6 +55,9 @@ func stop_tool_use() -> void :
 	var root_node : Node = self;
 	while (root_node is ARVROrigin) == false :
 		root_node = root_node.get_parent();
+		if root_node == null :
+			EventBus.emit_signal("tooltip_update_text", "Works only in VR mode");
+			return;
 
 	var camera_node : ARVRCamera = null;
 	for c in root_node.get_children() :

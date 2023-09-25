@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ScriptCreate.svg-11a95373c615d3332178385ac93ca68a.stex"
+path="res://.import/tool_move.svg-c1d029e86a88d6a346a180317181e003.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/vr_tool_icons/ScriptCreate.svg"
-dest_files=[ "res://.import/ScriptCreate.svg-11a95373c615d3332178385ac93ca68a.stex" ]
+source_file="res://assets/icons/vr_tool_icons/tool_move.svg"
+dest_files=[ "res://.import/tool_move.svg-c1d029e86a88d6a346a180317181e003.stex" ]
 
 [params]
 

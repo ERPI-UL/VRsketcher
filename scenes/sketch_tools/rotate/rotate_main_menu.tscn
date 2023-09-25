@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/icons/vr_tool_icons/ToolRotate.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/tool_rotate.svg" type="Texture" id=2]
 
 [node name="rotate_main_menu" type="GridContainer"]
 anchor_right = 1.0

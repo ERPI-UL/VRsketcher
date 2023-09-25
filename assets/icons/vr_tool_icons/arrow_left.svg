@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   sodipodi:docname="pen_draw_free.svg"
+   sodipodi:docname="arrow_left.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="2.9006173"
-     inkscape:cx="198.7508"
-     inkscape:cy="117.04405"
+     inkscape:cx="127.04192"
+     inkscape:cy="61.538625"
      inkscape:window-width="3200"
      inkscape:window-height="1721"
      inkscape:window-x="2391"
@@ -40,9 +40,9 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:5.29167;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-       d="m 6.0854161,61.647914 c 0,-28.449483 13.8365629,-37.181029 28.6932529,-25.939029 14.856691,11.242 26.869247,0.0019 26.869247,-29.6234668"
-       id="path1685"
-       sodipodi:nodetypes="czc" />
+       id="rect950"
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:0.999997"
+       d="M 62.475185,23.128047 H 42.644149 V 5.7953344 L 5.5862094,33.866667 42.644149,61.937998 V 44.605285 h 19.831036 c 0,-7.159079 0,-14.318158 0,-21.477238 z"
+       sodipodi:nodetypes="cccccccc" />
   </g>
 </svg>

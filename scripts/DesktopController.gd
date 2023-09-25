@@ -14,15 +14,20 @@ onready var h_pivot : Spatial = get_node("H_Pivot");
 onready var v_pivot : Spatial = get_node("H_Pivot/V_Pivot");
 onready var camera : Camera = get_node("H_Pivot/V_Pivot/Camera");
 
+onready var tools_menu : Control = get_node("Tools_Menu");
+var tools_menu_visible : bool = false;
+
+func _ready() -> void :
+	tools_menu.visible = false;
+
 func _physics_process(delta : float) -> void :
+	"""
 	if Input.is_action_just_pressed("ui_cancel") == true :
-		print(Input.mouse_mode)
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED :
 			Input.mouse_mode = 0;
-
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE :
 			Input.mouse_mode = 2;
-
+	"""
 	var speed : float = walk_speed;
 	if Input.is_action_pressed("run") == true :
 		speed = run_speed;
@@ -61,21 +66,28 @@ func _physics_process(delta : float) -> void :
 	v_pivot.rotate_x(deg2rad(look_input.y) * -v_sensitivity * delta);
 
 	v_pivot.rotation_degrees.x = clamp(v_pivot.rotation_degrees.x, -90.0, 90.0);
-	
-	if Input.is_action_just_pressed("tool_use") == true :
-		get_current_tool().start_tool_use();
-		
-	if Input.is_action_just_released("tool_use") == true :
-		get_current_tool().stop_tool_use();
-	
-	if Input.is_action_just_pressed("tool_switch") == true :
-		switch_tool();
-	
-	if Input.is_action_just_pressed("tool_switch_mode") == true :
-		get_current_tool().switch_tool_mode();
 
-	if Input.is_action_just_pressed("model_material_switch") == true :
-		MaterialLibrary.switch_material();
+	if Input.is_action_just_pressed("tools_menu_toogle") == true :
+			tools_menu_visible = !tools_menu_visible;
+			show_tools_menu(tools_menu_visible);
+
+	if tools_menu_visible == false :
+		if Input.is_action_just_pressed("tool_use") == true :
+			if current_tool != null :
+				current_tool.start_tool_use();
+		if Input.is_action_just_released("tool_use") == true :
+			if current_tool != null :
+				current_tool.stop_tool_use();
+
+		if Input.is_action_just_pressed("tool_shortcut_up") == true :
+			switch_to_shortcut(Enums.ShortcutDirection.UP);
+		if Input.is_action_just_pressed("tool_shortcut_down") == true :
+			switch_to_shortcut(Enums.ShortcutDirection.DOWN);
+		if Input.is_action_just_pressed("tool_shortcut_left") == true :
+			switch_to_shortcut(Enums.ShortcutDirection.LEFT);
+		if Input.is_action_just_pressed("tool_shortcut_right") == true :
+			switch_to_shortcut(Enums.ShortcutDirection.RIGHT);
+
 
 func get_move_input() -> Vector2 :
 	var move_input : Vector2 = Vector2.ZERO;
@@ -102,3 +114,5 @@ func get_look_input() -> Vector2 :
 	look_input.y += Input.get_action_strength("look_down");
 	return look_input;
 
+func show_tools_menu(value : bool) -> void :
+	tools_menu.visible = value;

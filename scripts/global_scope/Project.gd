@@ -32,12 +32,16 @@ func new_project(project_name : String, project_path : String) -> void :
 
 		project_data_file.store_string(to_json(
 			{
-				"project_name" : project_name,
-				"project_path" : full_project_path,
-				"hdri_index" : 0,
-				"current_exposure" : 1.0,
-				"scene_models_data" : [],
-				"scene_line_drawings" : []
+				"project_name"			: project_name,
+				"project_path"			: full_project_path,
+				"hdri_index"			: 0,
+				"current_exposure"		: 1.0,
+				"scene_models_data"		: [],
+				"scene_line_drawings"	: [],
+				"tool_shortcut_up"		: "TOOL_NONE",
+				"tool_shortcut_down"	: "TOOL_NONE",
+				"tool_shortcut_left"	: "TOOL_NONE",
+				"tool_shortcut_right"	: "TOOL_NONE",
 			}
 		));
 		project_data_file.close();
@@ -140,7 +144,11 @@ func save_project() -> void :
 				"scene_imported_models_data"	: current_project["scene_imported_models_data"],
 				"scene_drawn_models_data"		: current_project["scene_drawn_models_data"],
 				"scene_line_drawings"			: current_project["scene_line_drawings"],
-				"scene_measurements"			: current_project["scene_measurements"]
+				"scene_measurements"			: current_project["scene_measurements"],
+				"tool_shortcut_up"				: current_project["tool_shortcut_up"],
+				"tool_shortcut_down"			: current_project["tool_shortcut_down"],
+				"tool_shortcut_left"			: current_project["tool_shortcut_left"],
+				"tool_shortcut_right"			: current_project["tool_shortcut_right"],
 			}
 
 		project_data_file.store_string(to_json(project_data));
@@ -274,6 +282,15 @@ func load_project(index : int) -> void :
 				else :
 					current_project["scene_measurements"] = [];
 
+				if current_project.has("tool_shortcut_up") == false :
+					current_project["tool_shortcut_up"] = "TOOL_NONE";
+				if current_project.has("tool_shortcut_down") == false :
+					current_project["tool_shortcut_down"] = "TOOL_NONE";
+				if current_project.has("tool_shortcut_left") == false :
+					current_project["tool_shortcut_left"] = "TOOL_NONE";
+				if current_project.has("tool_shortcut_right") == false :
+					current_project["tool_shortcut_right"] = "TOOL_NONE";
+
 			print(current_project);
 
 			project_data_file.close();
@@ -356,7 +373,6 @@ func load_application_data() -> void :
 	application_data["recent_projects"] = found_projects;
 	
 	emit_signal("recent_projects_list_updated");
-
 
 	save_application_data();
 

@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/DesktopController.gd" type="Script" id=1]
-[ext_resource path="res://scenes/tools/ToolsDesktop.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Tooltip.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/CameraDataUpdater.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui/tools_menu/Tools_Menu.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
-tools_path = NodePath("H_Pivot/V_Pivot/Camera/Tools")
+tools_root_path = NodePath("H_Pivot/V_Pivot/Camera/Tools_Root")
 tooltip_path = NodePath("H_Pivot/V_Pivot/Camera/Tooltip")
 gravity = Vector3( 0, 0, 0 )
 
@@ -28,8 +28,14 @@ current = true
 far = 120.0
 script = ExtResource( 4 )
 
-[node name="Tools" parent="H_Pivot/V_Pivot/Camera" instance=ExtResource( 2 )]
+[node name="Tools_Root" type="Spatial" parent="H_Pivot/V_Pivot/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
 
 [node name="Tooltip" parent="H_Pivot/V_Pivot/Camera" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 50
+follow_viewport_enable = true
+
+[node name="Tools_Menu" parent="." instance=ExtResource( 5 )]

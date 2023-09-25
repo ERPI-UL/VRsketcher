@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Clear.svg-114a103b2ca76a93f595378b01630fb7.stex"
+path="res://.import/arrow_down.svg-5fd4c69f4023fd808379aaa3bbe62356.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/vr_tool_icons/Clear.svg"
-dest_files=[ "res://.import/Clear.svg-114a103b2ca76a93f595378b01630fb7.stex" ]
+source_file="res://assets/icons/vr_tool_icons/arrow_down.svg"
+dest_files=[ "res://.import/arrow_down.svg-5fd4c69f4023fd808379aaa3bbe62356.stex" ]
 
 [params]
 
