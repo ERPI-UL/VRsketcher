@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui_components/tool_mode_item/ToolModeItem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/circle.svg" type="Texture" id=2]
 
 [node name="pen_sub_menu" type="GridContainer"]
@@ -62,7 +62,7 @@ mode_type = 1
 tool_mode_name = "Orange"
 tool_icon = ExtResource( 2 )
 target_mode_index = 4
-icon_tint_color = Color( 1, 0.588235, 0, 1 )
+icon_tint_color = Color( 1, 0.329412, 0, 1 )
 
 [node name="Violet" parent="." instance=ExtResource( 1 )]
 margin_left = 329.0

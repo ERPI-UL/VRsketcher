@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scripts/tools/Eraser.gd" type="Script" id=1]
+[ext_resource path="res://scenes/sketch_tools/eraser/Eraser.gd" type="Script" id=1]
 
 [sub_resource type="CubeMesh" id=13]
 size = Vector3( 0.015, 0.05, 0.04 )

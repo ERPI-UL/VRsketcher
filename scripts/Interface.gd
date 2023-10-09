@@ -39,4 +39,4 @@ func enable_vr_color_correction(value : bool) -> void :
 	if value == true :
 		m = ShaderMaterial.new();
 		m.shader = load("res://shaders/vr_color_correction.tres");
-		(get_node("VRSketcherInterface/HBoxContainer/AspectRatioContainer/TextureRect") as Control).material = m;
+		(get_node("VRSketcherInterface/HBoxContainer/AspectRatioContainer/Viewport_Render") as Control).material = m;

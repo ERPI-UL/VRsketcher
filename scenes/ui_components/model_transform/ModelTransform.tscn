@@ -1,0 +1,236 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/ui_components/model_transform/ModelTransform.gd" type="Script" id=1]
+
+[node name="ModelTransform" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="Model_Scale" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 24.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="Model_Scale"]
+margin_top = 5.0
+margin_right = 941.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Scale"
+
+[node name="Scale" type="SpinBox" parent="Model_Scale"]
+margin_left = 949.0
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 75, 0 )
+focus_mode = 1
+min_value = 0.001
+max_value = 1000.0
+step = 0.001
+value = 0.1
+exp_edit = true
+allow_greater = true
+align = 2
+
+[node name="Model_Position" type="VBoxContainer" parent="."]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 130.0
+custom_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Model_Position"]
+margin_right = 1024.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Model_Position/HBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Position"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Model_Position"]
+margin_top = 22.0
+margin_right = 1024.0
+margin_bottom = 102.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Model_Position/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Model_Position/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "X :"
+align = 2
+
+[node name="Position_X" type="SpinBox" parent="Model_Position/VBoxContainer/HBoxContainer"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -100.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Model_Position/VBoxContainer"]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="Model_Position/VBoxContainer/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Y :"
+align = 2
+
+[node name="Position_Y" type="SpinBox" parent="Model_Position/VBoxContainer/HBoxContainer2"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -100.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Model_Position/VBoxContainer"]
+margin_top = 56.0
+margin_right = 1024.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Model_Position/VBoxContainer/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Z :"
+align = 2
+
+[node name="Position_Z" type="SpinBox" parent="Model_Position/VBoxContainer/HBoxContainer3"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -100.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="Model_Rotation" type="VBoxContainer" parent="."]
+margin_top = 134.0
+margin_right = 1024.0
+margin_bottom = 236.0
+custom_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Model_Rotation"]
+margin_right = 1024.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Model_Rotation/HBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rotation"
+
+[node name="Reset_Rotation" type="ToolButton" parent="Model_Rotation/HBoxContainer"]
+visible = false
+margin_left = 976.0
+margin_right = 1024.0
+margin_bottom = 22.0
+text = "Reset"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Model_Rotation"]
+margin_top = 22.0
+margin_right = 1024.0
+margin_bottom = 102.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Model_Rotation/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Model_Rotation/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "X :"
+align = 2
+
+[node name="Rotation_X" type="SpinBox" parent="Model_Rotation/VBoxContainer/HBoxContainer"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -360.0
+max_value = 360.0
+value = -90.0
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Model_Rotation/VBoxContainer"]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="Model_Rotation/VBoxContainer/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Y :"
+align = 2
+
+[node name="Rotation_Y" type="SpinBox" parent="Model_Rotation/VBoxContainer/HBoxContainer2"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -360.0
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Model_Rotation/VBoxContainer"]
+margin_top = 56.0
+margin_right = 1024.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Model_Rotation/VBoxContainer/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 946.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Z :"
+align = 2
+
+[node name="Rotation_Z" type="SpinBox" parent="Model_Rotation/VBoxContainer/HBoxContainer3"]
+margin_left = 950.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 1
+min_value = -360.0
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[connection signal="value_changed" from="Model_Scale/Scale" to="." method="set_model_scale"]
+[connection signal="value_changed" from="Model_Position/VBoxContainer/HBoxContainer/Position_X" to="." method="set_model_position"]
+[connection signal="value_changed" from="Model_Position/VBoxContainer/HBoxContainer2/Position_Y" to="." method="set_model_position"]
+[connection signal="value_changed" from="Model_Position/VBoxContainer/HBoxContainer3/Position_Z" to="." method="set_model_position"]
+[connection signal="value_changed" from="Model_Rotation/VBoxContainer/HBoxContainer/Rotation_X" to="." method="set_model_rotation"]
+[connection signal="value_changed" from="Model_Rotation/VBoxContainer/HBoxContainer2/Rotation_Y" to="." method="set_model_rotation"]
+[connection signal="value_changed" from="Model_Rotation/VBoxContainer/HBoxContainer3/Rotation_Z" to="." method="set_model_rotation"]

@@ -2,7 +2,7 @@ extends Control
 
 export(NodePath) var models_manager_path : NodePath = "";
 
-var model_item_template : PackedScene = load("res://scenes/ui_components/Model_Item.tscn");
+var model_item_template : PackedScene = load("res://scenes/ui_components/model_item/ModelItem.tscn");
 
 onready var target_models_manager : ModelsManager = get_node(models_manager_path);
 

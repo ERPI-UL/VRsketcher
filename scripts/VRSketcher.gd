@@ -229,6 +229,24 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 			(primitive_mesh as SphereMesh).radius = (model_data["size"] as Vector3).y;
 			(primitive_mesh as SphereMesh).radial_segments = 32;
 			(primitive_mesh as SphereMesh).rings = 16;
+		"Cylinder" :
+			drawn_model.model_filename = "Cylinder";
+			drawn_model.inspector_name = "Cylinder";
+			primitive_mesh = CylinderMesh.new();
+			(primitive_mesh as CylinderMesh).top_radius = (model_data["size"] as Vector3).x;
+			(primitive_mesh as CylinderMesh).height =(model_data["size"] as Vector3).y;
+			(primitive_mesh as CylinderMesh).bottom_radius = (model_data["size"] as Vector3).z;
+			(primitive_mesh as CylinderMesh).radial_segments = 16;
+			(primitive_mesh as CylinderMesh).rings = 0;
+		"Cone" :
+			drawn_model.model_filename = "Cone";
+			drawn_model.inspector_name = "Cone";
+			primitive_mesh = CylinderMesh.new();
+			(primitive_mesh as CylinderMesh).top_radius = 0.0;
+			(primitive_mesh as CylinderMesh).height =(model_data["size"] as Vector3).y;
+			(primitive_mesh as CylinderMesh).bottom_radius = (model_data["size"] as Vector3).z;
+			(primitive_mesh as CylinderMesh).radial_segments = 16;
+			(primitive_mesh as CylinderMesh).rings = 0;
 		_ :
 			pass;
 

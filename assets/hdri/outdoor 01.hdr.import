@@ -2,30 +2,28 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.s3tc.stex"
-path.etc="res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.etc.stex"
+path="res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/hdri/outdoor 01.hdr"
-dest_files=[ "res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.s3tc.stex", "res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.etc.stex" ]
+dest_files=[ "res://.import/outdoor 01.hdr-a4f0c9455fdc5150c2f4a5f9cd666c9d.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.9
 compress/hdr_mode=1
 compress/bptc_ldr=0
 compress/normal_map=2
-flags/repeat=true
+flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=false
-flags/srgb=1
+flags/anisotropic=true
+flags/srgb=0
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

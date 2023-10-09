@@ -1,0 +1,173 @@
+extends Controller
+
+const TOUCHPAD_DEAD_ZONE : float = 0.5;
+const TOOLS_MENU_DISPLAY_DISTANCE : float = 2.0;
+
+onready var camera				: ARVRCamera		= get_node("ARVRCamera");
+onready var controller			: ARVRController	= get_node("ARVRController");
+
+onready var interface_controller : XRInterfaceController = get_node("ARVRController/XRInterfaceController");
+
+var trackpad_vector : Vector2 = Vector2.ZERO;
+
+
+var interface : ARVRInterface
+
+onready var tools_menu : XRInterface = get_node("Tools_Menu");
+var tools_menu_visible : bool = false;
+
+func _ready() -> void :
+	initialise();
+
+	controller.controller_id = 1;
+	controller.connect("button_pressed", self, "input_pressed");
+	controller.connect("button_release", self, "input_released");
+
+	tools_menu.visible = false;
+
+func _process(delta: float) -> void :
+	trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1))
+	
+	if controller.get_is_active() == false :
+		if controller.controller_id == 1 :
+			controller.controller_id = 2;
+		else :
+			controller.controller_id = 1;
+
+# Initialize the VR session
+# Params : None
+# Returns : 
+# - true : the VR has been initialized
+# - false : otherwise
+func initialise() -> bool :
+	if Engine.editor_hint:
+		print("Can't initialise while in the editor");
+		return false;
+
+	if interface :
+		# we are already initialised
+		return true;
+
+	interface = ARVRServer.find_interface("OpenXR");
+	if interface and interface.initialize():
+		print("OpenXR Interface initialized");
+
+		get_viewport().arvr = true;
+
+		OS.vsync_enabled = false;
+		Engine.target_fps = 90;
+		Engine.iterations_per_second = 90;
+
+		EventBus.emit_signal("vr_enable_color_correction", true);
+		return true;
+	else:
+		interface = null;
+		return false
+
+# Called when a button is pressed on the VR controller
+# Params :
+# - button_index : index of the button that was pressed
+# Returns : Nothing
+func input_pressed(button_index : int) -> void :
+	var input_code : int = get_input_code(button_index);
+
+	match input_code :
+		Enums.InputCode.BUTTON_MENU :
+			tools_menu_visible = !tools_menu_visible;
+			show_tools_menu(tools_menu_visible);
+		Enums.InputCode.BUTTON_A :
+			tools_menu_visible = !tools_menu_visible;
+			show_tools_menu(tools_menu_visible);
+		Enums.InputCode.BUTTON_B :
+			pass;
+		Enums.InputCode.BUTTON_GRIP :
+			pass;
+		Enums.InputCode.BUTTON_TRIGGER :
+			if tools_menu_visible == false :
+				if current_tool != null :
+					current_tool.start_tool_use();
+			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
+				interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);
+		Enums.InputCode.BUTTON_STICK :
+			pass;
+		Enums.InputCode.STICK_BUTTON_UP :
+			switch_to_shortcut(Enums.ShortcutDirection.UP);
+		Enums.InputCode.STICK_BUTTON_DOWN :
+			switch_to_shortcut(Enums.ShortcutDirection.DOWN);
+		Enums.InputCode.STICK_BUTTON_LEFT :
+			switch_to_shortcut(Enums.ShortcutDirection.LEFT);
+		Enums.InputCode.STICK_BUTTON_RIGHT :
+			switch_to_shortcut(Enums.ShortcutDirection.RIGHT);
+		_ :
+			pass;
+
+# Called when a button is released on the VR controller
+# Params :
+# - button_index : index of the button that was released
+# Returns : Nothing
+func input_released(button_index : int) -> void :
+	var input_code : int = get_input_code(button_index);
+	
+	match input_code :
+		Enums.InputCode.BUTTON_MENU :
+			pass;
+		Enums.InputCode.BUTTON_A :
+			pass;
+		Enums.InputCode.BUTTON_B :
+			pass;
+		Enums.InputCode.BUTTON_GRIP :
+			pass;
+		Enums.InputCode.BUTTON_TRIGGER :
+			if tools_menu_visible == false :
+				if current_tool != null :
+					current_tool.stop_tool_use();
+			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
+				interface_controller.interface_send_mouse_button_released(BUTTON_LEFT);
+		Enums.InputCode.BUTTON_STICK :
+			pass;
+		Enums.InputCode.STICK_BUTTON_UP :
+			if tools_menu_visible == false :
+				if current_tool != null :
+					current_tool.stop_tool_use();
+		Enums.InputCode.STICK_BUTTON_DOWN :
+			pass;
+		Enums.InputCode.STICK_BUTTON_LEFT :
+			pass;
+		Enums.InputCode.STICK_BUTTON_RIGHT :
+			pass;
+		_ :
+			pass;
+
+# Maps the given button index to its corresponding InputCode
+# Params :
+# - button_index : the button index to map
+# Returns : the corresponding InputCode
+func get_input_code(button_index : int) -> int :
+	#For usual buttons, the button index already corresponds to the right InputCode
+	#Map stick to usable inputs
+	if button_index == Enums.InputCode.BUTTON_STICK :
+		
+		trackpad_vector = Vector2(controller.get_joystick_axis(0), controller.get_joystick_axis(1));
+		
+		if (trackpad_vector.x > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
+			return Enums.InputCode.STICK_BUTTON_RIGHT;
+		if (trackpad_vector.x < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.y) < TOUCHPAD_DEAD_ZONE) :
+			return Enums.InputCode.STICK_BUTTON_LEFT;
+		if (trackpad_vector.y > TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
+			return Enums.InputCode.STICK_BUTTON_UP;
+		if (trackpad_vector.y < -TOUCHPAD_DEAD_ZONE) && (abs(trackpad_vector.x) < TOUCHPAD_DEAD_ZONE) :
+			return Enums.InputCode.STICK_BUTTON_DOWN;
+
+	return button_index;
+
+func show_tools_menu(value : bool) -> void :
+	tools_menu.show_interface(value);
+	
+	interface_controller.set_enabled(value);
+	
+	if value == true :
+		var display_offset : Vector3 = -camera.global_transform.basis.z * TOOLS_MENU_DISPLAY_DISTANCE;
+		tools_menu.global_transform = camera.global_transform;
+		tools_menu.global_transform.origin += display_offset;
+		tools_menu.rotation_degrees.z = 0.0;
+

@@ -107,38 +107,37 @@ func load_debug_settings() -> void :
 func save_debug_settings() -> void :
 	var debug_settings_file : File = File.new();
 
-	debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.WRITE);
+	if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.WRITE) == OK :
+		var settings : Dictionary = {
+			"enable_tool_teleport"						: enable_tool_teleport,
+			"enable_tool_pen"							: enable_tool_pen,
+			"enable_tool_eraser"						: enable_tool_eraser,
+			"enable_tool_measurements"					: enable_tool_measurements,
+			"enable_tool_material_painter"				: enable_tool_material_painter,
+			"enable_tool_grab"							: enable_tool_grab,
+			"enable_tool_move"							: enable_tool_move,
+			"enable_tool_rotate"						: enable_tool_rotate,
+			"enable_tool_modeler"						: enable_tool_modeler,
 
-	var settings : Dictionary = {
-		"enable_tool_teleport"						: enable_tool_teleport,
-		"enable_tool_pen"							: enable_tool_pen,
-		"enable_tool_eraser"						: enable_tool_eraser,
-		"enable_tool_measurements"					: enable_tool_measurements,
-		"enable_tool_material_painter"				: enable_tool_material_painter,
-		"enable_tool_grab"							: enable_tool_grab,
-		"enable_tool_move"							: enable_tool_move,
-		"enable_tool_rotate"						: enable_tool_rotate,
-		"enable_tool_modeler"						: enable_tool_modeler,
+			"enable_function_hdri_switch"				: enable_function_hdri_switch,
+			"enable_function_global_material_switch"	: enable_function_global_material_switch,
 
-		"enable_function_hdri_switch"				: enable_function_hdri_switch,
-		"enable_function_global_material_switch"	: enable_function_global_material_switch,
+			"spectator_camera_01_position_x"			: spectator_camera_01_position_x,
+			"spectator_camera_01_position_y"			: spectator_camera_01_position_y,
+			"spectator_camera_01_position_z"			: spectator_camera_01_position_z,
 
-		"spectator_camera_01_position_x"			: spectator_camera_01_position_x,
-		"spectator_camera_01_position_y"			: spectator_camera_01_position_y,
-		"spectator_camera_01_position_z"			: spectator_camera_01_position_z,
+			"spectator_camera_01_rotation_x"			: spectator_camera_01_rotation_x,
+			"spectator_camera_01_rotation_y"			: spectator_camera_01_rotation_y,
+			"spectator_camera_01_rotation_z"			: spectator_camera_01_rotation_z,
 
-		"spectator_camera_01_rotation_x"			: spectator_camera_01_rotation_x,
-		"spectator_camera_01_rotation_y"			: spectator_camera_01_rotation_y,
-		"spectator_camera_01_rotation_z"			: spectator_camera_01_rotation_z,
+			"spectator_camera_02_position_x"			: spectator_camera_02_position_x,
+			"spectator_camera_02_position_y"			: spectator_camera_02_position_y,
+			"spectator_camera_02_position_z"			: spectator_camera_02_position_z,
 
-		"spectator_camera_02_position_x"			: spectator_camera_02_position_x,
-		"spectator_camera_02_position_y"			: spectator_camera_02_position_y,
-		"spectator_camera_02_position_z"			: spectator_camera_02_position_z,
-
-		"spectator_camera_02_rotation_x"			: spectator_camera_02_rotation_x,
-		"spectator_camera_02_rotation_y"			: spectator_camera_02_rotation_y,
-		"spectator_camera_02_rotation_z"			: spectator_camera_02_rotation_z
-	};
-	
-	debug_settings_file.store_string(to_json(settings));
-	debug_settings_file.close();
+			"spectator_camera_02_rotation_x"			: spectator_camera_02_rotation_x,
+			"spectator_camera_02_rotation_y"			: spectator_camera_02_rotation_y,
+			"spectator_camera_02_rotation_z"			: spectator_camera_02_rotation_z
+		};
+		
+		debug_settings_file.store_string(to_json(settings));
+		debug_settings_file.close();

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui_components/tool_mode_item/ToolModeItem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/vr_tool_icons/tool_pen_draw_line.svg" type="Texture" id=2]
 [ext_resource path="res://assets/icons/vr_tool_icons/tool_pen_draw_circle.svg" type="Texture" id=3]
 [ext_resource path="res://assets/icons/vr_tool_icons/tool_pen_draw_free.svg" type="Texture" id=4]

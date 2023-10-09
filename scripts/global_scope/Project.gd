@@ -88,6 +88,14 @@ func save_project() -> void :
 				"Sphere" :
 					model_size.x = ((model as Model3D).meshes[0] as SphereMesh).height;
 					model_size.y = ((model as Model3D).meshes[0] as SphereMesh).radius;
+				"Cylinder" :
+					model_size.x = ((model as Model3D).meshes[0] as CylinderMesh).top_radius;
+					model_size.y = ((model as Model3D).meshes[0] as CylinderMesh).height;
+					model_size.z = ((model as Model3D).meshes[0] as CylinderMesh).bottom_radius;
+				"Cone" :
+					model_size.x = 0.0;
+					model_size.y = ((model as Model3D).meshes[0] as CylinderMesh).height;
+					model_size.z = ((model as Model3D).meshes[0] as CylinderMesh).bottom_radius;
 				_ :
 					pass;
 

@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/ui/create_project_dialog/CreateProjectDialog.gd" type="Script" id=1]
+[ext_resource path="res://assets/icons/icon_load.svg" type="Texture" id=2]
+[ext_resource path="res://assets/themes/dark_base.tres" type="Theme" id=3]
+
+[node name="CreateProjectDialog" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -125.0
+margin_right = 150.0
+margin_bottom = 125.0
+mouse_filter = 1
+theme = ExtResource( 3 )
+popup_exclusive = true
+window_title = "New Project"
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 294.0
+margin_bottom = 246.0
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+margin_right = 288.0
+margin_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 12
+columns = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
+margin_right = 101.0
+margin_bottom = 22.0
+text = "Project name :"
+
+[node name="Project_Name" type="LineEdit" parent="PanelContainer/VBoxContainer/GridContainer"]
+margin_left = 113.0
+margin_right = 288.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
+margin_top = 27.0
+margin_right = 101.0
+margin_bottom = 49.0
+text = "Project path :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/GridContainer"]
+margin_left = 113.0
+margin_top = 26.0
+margin_right = 288.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Project_Path" type="LineEdit" parent="PanelContainer/VBoxContainer/GridContainer/HBoxContainer"]
+margin_right = 143.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Open_File_System_Dialog" type="Button" parent="PanelContainer/VBoxContainer/GridContainer/HBoxContainer"]
+margin_left = 147.0
+margin_right = 175.0
+margin_bottom = 24.0
+icon = ExtResource( 2 )
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 220.0
+margin_right = 288.0
+margin_bottom = 242.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 8.0
+margin_right = 128.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 120, 0 )
+text = "Cancel"
+
+[node name="Create" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 160.0
+margin_right = 280.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 120, 0 )
+text = "Create project"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/HBoxContainer/Open_File_System_Dialog" to="." method="open_file_dialog"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="cancel_project_creation"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Create" to="." method="confirm_project_creation"]
