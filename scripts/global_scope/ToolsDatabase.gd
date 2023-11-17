@@ -74,6 +74,14 @@ var tools : Dictionary = {
 		"tool"		: load("res://scenes/sketch_tools/measurement_tool/MeasurementTool.tscn").instance(),
 		"main_menu"	: load("res://scenes/sketch_tools/measurement_tool/measurements_main_menu.tscn").instance(),
 		"sub_menu"	: null
+	},
+
+	"TOOL_NOTE"			: {
+		"name"		: "Note",
+		"icon"		: load("res://assets/icons/vr_tool_icons/tool_note.svg"),
+		"tool"		: load("res://scenes/sketch_tools/note_tool/NoteTool.tscn").instance(),
+		"main_menu"	: load("res://scenes/sketch_tools/note_tool/note_main_menu.tscn").instance(),
+		"sub_menu"	: null
 	}
 }
 

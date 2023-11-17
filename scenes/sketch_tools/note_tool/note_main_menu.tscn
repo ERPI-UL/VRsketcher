@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_top_right.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_left.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_bottom_right.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_bottom_left.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_top_left.svg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_top.svg" type="Texture" id=6]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_bottom.svg" type="Texture" id=7]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_arrow_right.svg" type="Texture" id=8]
+[ext_resource path="res://assets/icons/vr_tool_icons/note_tool_icons/note_tool_simple.svg" type="Texture" id=9]
+[ext_resource path="res://scenes/ui_components/tool_mode_item/ToolModeItem.tscn" type="PackedScene" id=10]
+
+[node name="note_main_menu" type="GridContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="Simple" parent="." instance=ExtResource( 10 )]
+margin_left = 165.0
+margin_top = 49.0
+margin_right = 265.0
+margin_bottom = 149.0
+tool_mode_name = "Simple"
+tool_icon = ExtResource( 9 )
+
+[node name="Gauche" parent="." instance=ExtResource( 10 )]
+margin_left = 600.0
+margin_top = 49.0
+margin_right = 700.0
+margin_bottom = 149.0
+tool_mode_name = "Flèche gauche"
+tool_icon = ExtResource( 2 )
+target_mode_index = 3
+
+[node name="Droite" parent="." instance=ExtResource( 10 )]
+margin_left = 1035.0
+margin_top = 49.0
+margin_right = 1135.0
+margin_bottom = 149.0
+tool_mode_name = "Flèche droite"
+tool_icon = ExtResource( 8 )
+target_mode_index = 4
+
+[node name="Haut_Gauche" parent="." instance=ExtResource( 10 )]
+margin_left = 165.0
+margin_top = 250.0
+margin_right = 265.0
+margin_bottom = 350.0
+tool_mode_name = "Flèche haut gauche"
+tool_icon = ExtResource( 5 )
+target_mode_index = 5
+
+[node name="Haut" parent="." instance=ExtResource( 10 )]
+margin_left = 600.0
+margin_top = 250.0
+margin_right = 700.0
+margin_bottom = 350.0
+tool_mode_name = "Flèche haut"
+tool_icon = ExtResource( 6 )
+target_mode_index = 1
+
+[node name="Haut_Droit" parent="." instance=ExtResource( 10 )]
+margin_left = 1035.0
+margin_top = 250.0
+margin_right = 1135.0
+margin_bottom = 350.0
+tool_mode_name = "Flèche haut droit"
+tool_icon = ExtResource( 1 )
+target_mode_index = 6
+
+[node name="Bas_Gauche" parent="." instance=ExtResource( 10 )]
+margin_left = 165.0
+margin_top = 451.0
+margin_right = 265.0
+margin_bottom = 551.0
+tool_mode_name = "Flèche bas gauche"
+tool_icon = ExtResource( 4 )
+target_mode_index = 7
+
+[node name="Bas" parent="." instance=ExtResource( 10 )]
+margin_left = 600.0
+margin_top = 451.0
+margin_right = 700.0
+margin_bottom = 551.0
+tool_mode_name = "Flèche bas"
+tool_icon = ExtResource( 7 )
+target_mode_index = 2
+
+[node name="Bas_Droit" parent="." instance=ExtResource( 10 )]
+margin_left = 1035.0
+margin_top = 451.0
+margin_right = 1135.0
+margin_bottom = 551.0
+tool_mode_name = "Flèche bas droit"
+tool_icon = ExtResource( 3 )
+target_mode_index = 8

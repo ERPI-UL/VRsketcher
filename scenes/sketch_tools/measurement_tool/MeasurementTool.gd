@@ -1,11 +1,6 @@
 extends SketchTool
 class_name MeasurementTool
 
-var modes	: Array		= [
-	"Distance",
-	"Angle"
-];
-
 var start_position			: Vector3		= Vector3.ZERO;
 var end_position			: Vector3		= Vector3.ZERO;
 
@@ -18,7 +13,7 @@ func _ready() -> void :
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
-		match (modes[mode_main_index] as String) :
+		match (modes_main[mode_main_index] as String) :
 			"Distance" :
 				pass;
 			"Angle" :

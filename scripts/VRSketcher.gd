@@ -3,46 +3,47 @@ class_name VRSketcher
 
 var camera : Camera = null;
 
-export(NodePath) var controller_viewport_path	: NodePath				= "";
-export(NodePath) var camera_sync_path			: NodePath				= "";
+export(NodePath) var controller_viewport_path	: NodePath			= "";
+export(NodePath) var camera_sync_path			: NodePath			= "";
 
-onready var world								: Spatial				= get_node("World");
-onready var world_environment					: WorldEnvironment		= get_node("WorldEnvironment");
+onready var world								: Spatial			= get_node("World");
+onready var world_environment					: WorldEnvironment	= get_node("WorldEnvironment");
 
-
-onready var manager_imported_models				: ModelsManager			= get_node("Model_Managers/Imported_Models");
-onready var manager_drawn_models				: ModelsManager			= get_node("Model_Managers/Drawn_Models");
+onready var manager_imported_models				: ModelsManager		= get_node("Model_Managers/Imported_Models");
+onready var manager_drawn_models				: ModelsManager		= get_node("Model_Managers/Drawn_Models");
+onready var manager_notes						: NotesManager		= get_node("Model_Managers/Notes");
 
 onready var hdri_manager						: Node				= get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI");
 
-onready var scene_imported_models				: Spatial				= get_node("Scene_Objects/Imported_Models");
-onready var scene_lines							: Spatial				= get_node("Scene_Objects/Lines");
-onready var scene_measurements					: Spatial				= get_node("Scene_Objects/Measurements");
-onready var scene_drawn_models					: Spatial				= get_node("Scene_Objects/Drawn_Models");
+onready var scene_imported_models				: Spatial			= get_node("Scene_Objects/Imported_Models");
+onready var scene_lines							: Spatial			= get_node("Scene_Objects/Lines");
+onready var scene_measurements					: Spatial			= get_node("Scene_Objects/Measurements");
+onready var scene_drawn_models					: Spatial			= get_node("Scene_Objects/Drawn_Models");
+onready var scene_notes							: Spatial			= get_node("Scene_Objects/Notes");
 
-onready var project_manager						: Control				= get_node("Interface/ProjectManager");
-onready var vr_sketcher_interface				: Control				= get_node("Interface/VRSketcherInterface");
-onready var controller_selection				: Control				= get_node("Interface/ControllerSelection");
+onready var project_manager						: Control			= get_node("Interface/ProjectManager");
+onready var vr_sketcher_interface				: Control			= get_node("Interface/VRSketcherInterface");
+onready var controller_selection				: Control			= get_node("Interface/ControllerSelection");
 
-onready var import_smooth_shading				: CheckButton			= get_node("Interface/ModelImportWindow/Import_Panel/Import_Smooth_Shading");
+onready var import_smooth_shading				: CheckButton		= get_node("Interface/ModelImportWindow/Import_Panel/Import_Smooth_Shading");
 
 
 func _ready() -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
-	
+
 	Project.connect("open_project", self, "open_project");
 
 	project_manager.visible = true;
 	vr_sketcher_interface.visible = false;
 	controller_selection.visible = false;
-	
+
 func set_controller(controller : Node, enable_vr : bool) -> void :
 	for child in get_children_recursive(controller) :
 		if child is Camera :
 			camera = child;
 			break;
-			
+
 	(get_node(controller_viewport_path) as Viewport).arvr = enable_vr;
 	
 	get_node(controller_viewport_path).add_child(controller);
@@ -91,6 +92,10 @@ func open_project() -> void :
 	if Project.current_project.has("scene_drawn_models_data") == true :
 		for model_data in Project.current_project["scene_drawn_models_data"] :
 			load_drawn_model(model_data);
+
+	if Project.current_project.has("scene_notes_data") == true :
+		for note_data in Project.current_project["scene_notes_data"] :
+			load_note(note_data);
 
 	var paint_materials : Array = [
 		"res://materials/paint_materials/Blue.tres",
@@ -272,6 +277,37 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 	print("drawn model loaded");
 
 	return drawn_model;
+
+func load_note(note_data : Dictionary) -> Note3D :
+	var note : Note3D = load("res://scenes/sketch_tools/note_tool/Note3D.tscn").instance();
+
+	note.show_arrow_top_left = note_data["show_arrow_top_left"] as bool;
+	note.show_arrow_top = note_data["show_arrow_top"] as bool;
+	note.show_arrow_top_right = note_data["show_arrow_top_right"] as bool;
+	note.show_arrow_left = note_data["show_arrow_left"] as bool;
+	note.show_arrow_right = note_data["show_arrow_right"] as bool;
+	note.show_arrow_bottom_left = note_data["show_arrow_bottom_left"] as bool;
+	note.show_arrow_bottom = note_data["show_arrow_bottom"] as bool;
+	note.show_arrow_bottom_right = note_data["show_arrow_bottom_right"] as bool;
+
+	scene_notes.add_child(note);
+
+	note.inspector_unfolded = note_data["inspector_unfolded"] as bool;
+
+	note.global_transform.origin = note_data["position"] as Vector3;
+	note.rotation_degrees = note_data["rotation"] as Vector3;
+	note.scale = Vector3.ONE * note_data["scale"] as float;
+
+	note.note_interactable = note_data["note_interactable"] as bool;
+	note.update_interaction_area();
+
+	note.set_inspector_name(note_data["note_name"]);
+	note.set_text(note_data["note_text"]);
+
+	manager_notes.add_note(note);
+
+	print("note loaded");
+	return note;
 
 func save_project() -> void :
 	Project.save_project();

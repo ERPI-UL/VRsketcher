@@ -11,15 +11,18 @@ export(Color, RGBA) var ray_color : Color = Color.cyan;
 export(float) var gizmo_ray_thickness : float = 0.01;
 export(float) var gizmo_end_radius : float = 0.02;
 
-
-
 var raycast : RayCast = null;
 var gizmo_ray : MeshInstance = null;
 var gizmo_end : MeshInstance = null;
 
 var interface : XRInterface = null;
+var hover_state : bool = false;
+var previous_hover_state : bool = false;
 
 var controller_signal_connection_silenced : bool = true;
+
+signal xr_interface_entered();
+signal xr_interface_exited();
 
 func _ready() -> void :
 	var gizmo_material : SpatialMaterial = SpatialMaterial.new();
@@ -70,10 +73,13 @@ func _physics_process(delta : float) -> void :
 			if raycast.get_collider() is XRInterface :
 				interface = raycast.get_collider();
 				interface.interface_set_mouse_position_from_world_position(raycast.get_collision_point());
+				hover_state = true;
 			else :
 				interface = null;
+				hover_state = false;
 		else :
 			interface = null;
+			hover_state = false;
 
 		#Update gizmo
 		gizmo_ray.translation.z = -collision_distance / 2.0;
@@ -81,6 +87,14 @@ func _physics_process(delta : float) -> void :
 		gizmo_end.translation.z = -collision_distance;
 	else :
 		interface = null;
+		hover_state = false;
+
+	#Handle xr interface hovering
+	if previous_hover_state == false && hover_state == true :
+		emit_signal("xr_interface_entered");
+	elif previous_hover_state == true && hover_state == false :
+		emit_signal("xr_interface_exited");
+	previous_hover_state = hover_state;
 
 func set_enabled(value : bool) -> void :
 	enabled = value;

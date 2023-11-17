@@ -10,12 +10,13 @@ func _ready():
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed = DebugSettings.enable_tool_move;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed = DebugSettings.enable_tool_rotate;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed = DebugSettings.enable_tool_modeler;
-	
-	
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Note") as CheckButton).pressed = DebugSettings.enable_tool_note;
+
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).pressed = DebugSettings.enable_function_hdri_switch;
 	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Global_Material_Switch") as CheckButton).pressed = DebugSettings.enable_function_global_material_switch;
-	
-	
+
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Disable_Welcome_Splash") as CheckButton).pressed = DebugSettings.disable_welcome_splash;
+
 	(get_node("PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01") as ModelTransform).set_model_transform(
 		Vector3(
 			DebugSettings.spectator_camera_01_position_x,
@@ -55,9 +56,12 @@ func save_debug_settings() -> void :
 	DebugSettings.enable_tool_move = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed;
 	DebugSettings.enable_tool_rotate = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed;
 	DebugSettings.enable_tool_modeler = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed;
+	DebugSettings.enable_tool_note = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Note") as CheckButton).pressed;
 
 	DebugSettings.enable_function_hdri_switch = (get_node("PanelContainer/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).pressed;
 	DebugSettings.enable_function_global_material_switch = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Global_Material_Switch") as CheckButton).pressed;
+
+	DebugSettings.disable_welcome_splash = (get_node("PanelContainer/ScrollContainer/VBoxContainer/Disable_Welcome_Splash") as CheckButton).pressed;
 
 	var spectator_camera_01 : SpectatorCamera = get_tree().root.get_node("VRSketcher").get_node("Spectator_Cameras/SpectatorCamera_01") as SpectatorCamera;
 	var spectator_camera_02 : SpectatorCamera = get_tree().root.get_node("VRSketcher").get_node("Spectator_Cameras/SpectatorCamera_02") as SpectatorCamera;

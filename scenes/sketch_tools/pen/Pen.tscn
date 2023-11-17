@@ -21,7 +21,7 @@ script = ExtResource( 1 )
 paint_collision_layer = 2
 
 [node name="Graphics" type="Spatial" parent="."]
-transform = Transform( 0.542381, -0.249865, -0.0582265, -0.176519, -0.462252, 0.339359, -0.186182, -0.289639, -0.491371, 0.00404515, 0.0248212, 0.0117489 )
+transform = Transform( 0.502641, -0.324834, -0.0428362, -0.245745, -0.425644, 0.344146, -0.216705, -0.270758, -0.489621, 0.00404515, 0.0248212, 0.0117489 )
 
 [node name="Body" type="MeshInstance" parent="Graphics"]
 transform = Transform( 0.02, 0, 0, 0, 0.1, 0, 0, 0, 0.02, 0, 0, 0 )

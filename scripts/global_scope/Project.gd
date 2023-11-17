@@ -114,6 +114,34 @@ func save_project() -> void :
 			);
 	current_project["scene_drawn_models_data"] = scene_drawn_models_data;
 
+
+	var scene_notes_data : Array = [];
+	for note in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_notes.notes :
+		if note != null :
+			scene_notes_data.append(
+				{
+					"inspector_unfolded"		: (note as Note3D).inspector_unfolded,
+					"position"					: (note as Note3D).global_transform.origin,
+					"rotation"					: (note as Note3D).rotation_degrees,
+					"scale"						: (note as Note3D).scale.x,
+					"note_interactable"			: (note as Note3D).note_interactable,
+					"note_name"					: (note as Note3D).inspector_name,
+					"note_text"					: (note as Note3D).note_text,
+
+					"show_arrow_top_left"		: (note as Note3D).show_arrow_top_left,
+					"show_arrow_top"			: (note as Note3D).show_arrow_top,
+					"show_arrow_top_right"		: (note as Note3D).show_arrow_top_right,
+					"show_arrow_left"			: (note as Note3D).show_arrow_left,
+					"show_arrow_right"			: (note as Note3D).show_arrow_right,
+					"show_arrow_bottom_left"	: (note as Note3D).show_arrow_bottom_left,
+					"show_arrow_bottom"			: (note as Note3D).show_arrow_bottom,
+					"show_arrow_bottom_right"	: (note as Note3D).show_arrow_bottom_right,
+				}
+			);
+
+	current_project["scene_notes_data"] = scene_notes_data;
+
+
 	var scene_line_drawings : Array = [];
 	for line in (get_tree().root.get_node("VRSketcher") as VRSketcher).scene_lines.get_children() :
 		scene_line_drawings.append(
@@ -151,6 +179,7 @@ func save_project() -> void :
 				"current_exposure"				: (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure,
 				"scene_imported_models_data"	: current_project["scene_imported_models_data"],
 				"scene_drawn_models_data"		: current_project["scene_drawn_models_data"],
+				"scene_notes_data"				: current_project["scene_notes_data"],
 				"scene_line_drawings"			: current_project["scene_line_drawings"],
 				"scene_measurements"			: current_project["scene_measurements"],
 				"tool_shortcut_up"				: current_project["tool_shortcut_up"],
@@ -266,6 +295,87 @@ func load_project(index : int) -> void :
 							model_data["size"] = parse_Vector3_from_String(model_data["size"]);
 						else :
 							model_data["size"] = Vector3.ONE;
+				else :
+					current_project["scene_drawn_models_data"] = [];
+
+
+				if current_project.has("scene_notes_data") == true :
+					for note_data in current_project["scene_notes_data"] :
+						if note_data.has("inspector_unfolded") == true :
+							note_data["inspector_unfolded"] = bool(note_data["inspector_unfolded"]);
+						else :
+							note_data["inspector_unfolded"] = true;
+
+						if note_data.has("position") == true :
+							note_data["position"] = parse_Vector3_from_String(note_data["position"]);
+						else :
+							note_data["position"] = Vector3.ZERO;
+
+						if note_data.has("rotation") == true :
+							note_data["rotation"] = parse_Vector3_from_String(note_data["rotation"]);
+						else :
+							note_data["rotation"] = Vector3.ZERO;
+
+						if note_data.has("scale") == true :
+							note_data["scale"] = float(note_data["scale"]);
+						else :
+							note_data["scale"] = 1.0;
+
+						if note_data.has("note_name") == true :
+							note_data["note_name"] = note_data["note_name"];
+						else :
+							note_data["note_name"] = "";
+
+						if note_data.has("note_text") == true :
+							note_data["note_text"] = note_data["note_text"];
+						else :
+							note_data["note_text"] = "";
+							
+
+						if note_data.has("note_interactable") == true :
+							note_data["note_interactable"] = bool(note_data["note_interactable"]);
+						else :
+							note_data["note_interactable"] = true;
+
+						if note_data.has("show_arrow_top") == true :
+							note_data["show_arrow_top"] = bool(note_data["show_arrow_top"]);
+						else :
+							note_data["show_arrow_top"] = true;
+
+						if note_data.has("show_arrow_bottom") == true :
+							note_data["show_arrow_bottom"] = bool(note_data["show_arrow_bottom"]);
+						else :
+							note_data["show_arrow_bottom"] = true;
+
+						if note_data.has("show_arrow_left") == true :
+							note_data["show_arrow_left"] = bool(note_data["show_arrow_left"]);
+						else :
+							note_data["show_arrow_left"] = true;
+
+						if note_data.has("show_arrow_right") == true :
+							note_data["show_arrow_right"] = bool(note_data["show_arrow_right"]);
+						else :
+							note_data["show_arrow_right"] = true;
+
+						if note_data.has("show_arrow_top_left") == true :
+							note_data["show_arrow_top_left"] = bool(note_data["show_arrow_top_left"]);
+						else :
+							note_data["show_arrow_top_left"] = true;
+							
+						if note_data.has("show_arrow_top_right") == true :
+							note_data["show_arrow_top_right"] = bool(note_data["show_arrow_top_right"]);
+						else :
+							note_data["show_arrow_top_right"] = true;
+
+						if note_data.has("show_arrow_bottom_left") == true :
+							note_data["show_arrow_bottom_left"] = bool(note_data["show_arrow_bottom_left"]);
+						else :
+							note_data["show_arrow_bottom_left"] = true;
+
+						if note_data.has("show_arrow_bottom_right") == true :
+							note_data["show_arrow_bottom_right"] = bool(note_data["show_arrow_bottom_right"]);
+						else :
+							note_data["show_arrow_bottom_right"] = true;
 				else :
 					current_project["scene_drawn_models_data"] = [];
 

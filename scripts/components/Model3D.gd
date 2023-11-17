@@ -25,7 +25,7 @@ signal position_changed(new_value);
 signal rotation_changed(new_value);
 signal scale_changed(new_value);
 signal material_override_changed(new_value);
-signal model_interactable_changed(new_changed);
+signal model_interactable_changed(new_value);
 
 func _ready() -> void :
 	MaterialLibrary.connect("material_selection_changed", self, "set_material");

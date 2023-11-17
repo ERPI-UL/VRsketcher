@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_shortcut/ToolShortcut.gd" type="Script" id=2]
-[ext_resource path="res://assets/icons/vr_tool_icons/arrow_up.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_up.svg" type="Texture" id=3]
 
 [node name="ToolShortcut" type="Control"]
 rect_min_size = Vector2( 100, 100 )

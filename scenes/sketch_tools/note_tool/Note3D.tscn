@@ -1,0 +1,182 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/themes/dark.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/ui_components/XRInterface.gd" type="Script" id=2]
+[ext_resource path="res://scripts/components/Note3D.gd" type="Script" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_up.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_right.svg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_bottom.svg" type="Texture" id=6]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_bottom_right.svg" type="Texture" id=7]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_bottom_left.svg" type="Texture" id=8]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_top_left.svg" type="Texture" id=9]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_top_right.svg" type="Texture" id=10]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow_triangle/arrow_triangle_left.svg" type="Texture" id=11]
+[ext_resource path="res://assets/fonts/GlacialIndifference-Bold.otf" type="DynamicFontData" id=12]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 12 )
+
+[node name="Note3D" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="XRInterface" type="Area" parent="."]
+script = ExtResource( 2 )
+
+[node name="GridContainer" type="GridContainer" parent="XRInterface"]
+margin_right = 1024.0
+margin_bottom = 512.0
+columns = 3
+
+[node name="arrow_top_left" type="Control" parent="XRInterface/GridContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_top_left"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_top" type="Control" parent="XRInterface/GridContainer"]
+margin_left = 54.0
+margin_right = 970.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_top"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_top_right" type="Control" parent="XRInterface/GridContainer"]
+margin_left = 974.0
+margin_right = 1024.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_top_right"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_left" type="Control" parent="XRInterface/GridContainer"]
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 458.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_left"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="Panel" type="Panel" parent="XRInterface/GridContainer"]
+margin_left = 54.0
+margin_top = 54.0
+margin_right = 970.0
+margin_bottom = 458.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="XRInterface/GridContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="XRInterface/GridContainer/Panel/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 912.0
+margin_bottom = 400.0
+
+[node name="Label" type="Label" parent="XRInterface/GridContainer/Panel/MarginContainer/VBoxContainer"]
+margin_right = 908.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 1 )
+text = "Note"
+align = 1
+valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="XRInterface/GridContainer/Panel/MarginContainer/VBoxContainer"]
+margin_top = 41.0
+margin_right = 908.0
+margin_bottom = 396.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 2 )
+
+[node name="arrow_right" type="Control" parent="XRInterface/GridContainer"]
+margin_left = 974.0
+margin_top = 54.0
+margin_right = 1024.0
+margin_bottom = 458.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_right"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_bottom_left" type="Control" parent="XRInterface/GridContainer"]
+margin_top = 462.0
+margin_right = 50.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_bottom_left"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_bottom" type="Control" parent="XRInterface/GridContainer"]
+margin_left = 54.0
+margin_top = 462.0
+margin_right = 970.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_bottom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="arrow_bottom_right" type="Control" parent="XRInterface/GridContainer"]
+margin_left = 974.0
+margin_top = 462.0
+margin_right = 1024.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="TextureRect" type="TextureRect" parent="XRInterface/GridContainer/arrow_bottom_right"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6

@@ -3,7 +3,7 @@ extends Control
 onready var root : Control = get_node("GridContainer");
 
 func _ready():
-	var template : PackedScene = load("res://scenes/ui_components/tool_mode_item/Tool_Mode_Item.tscn"); 
+	var template : PackedScene = load("res://scenes/ui_components/tool_mode_item/ToolModeItem.tscn"); 
 
 	var i = 0;
 	for m in MaterialLibrary.materials :

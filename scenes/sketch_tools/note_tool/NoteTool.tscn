@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/gizmos/Pen_Gizmo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/sketch_tools/note_tool/NoteTool.gd" type="Script" id=2]
+
+[node name="NoteTool" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Graphics" type="Spatial" parent="."]
+
+[node name="Pen_Gizmo" parent="Graphics" instance=ExtResource( 1 )]
+transform = Transform( 0.424264, -0.212132, 0.367423, 0, 0.519615, 0.3, -0.424264, -0.212132, 0.367423, 0.02, -0.065, 0.02 )
+__meta__ = {
+"_editor_description_": ""
+}

@@ -11,6 +11,7 @@ var render_target : MeshInstance = null;
 
 var mouse_position : Vector2 = Vector2.ZERO;
 
+
 func _ready() -> void :
 	for c in get_children() :
 		if c is Control :
@@ -28,6 +29,7 @@ func _ready() -> void :
 		viewport.keep_3d_linear = true;
 		add_child(viewport);
 		viewport.add_child(interface);
+		viewport.name = "Viewport";
 
 		render_target = MeshInstance.new();
 		render_target.mesh = QuadMesh.new();

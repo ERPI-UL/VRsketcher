@@ -47,20 +47,19 @@ func start_tool_use() -> void :
 
 func stop_tool_use() -> void :
 	.stop_tool_use();
-	
+
 	raycast.visible = false;
 	raycast.enabled = false;
 	teleport_gizmo.visible = false;
-	
+
 	var root_node : Node = self;
 	while (root_node is Controller) == false :
 		root_node = root_node.get_parent();
 		if root_node == null :
-			EventBus.emit_signal("tooltip_update_text", "Works only in VR mode");
 			return;
 
-	var camera_node : ARVRCamera = null;
-	for c in root_node.get_children() :
+	var camera_node : Camera = null;
+	for c in get_children_recursive(root_node) :
 		if c is Camera :
 			camera_node = c;
 			break;
@@ -70,3 +69,11 @@ func stop_tool_use() -> void :
 
 	if root_node != null :
 		root_node.global_transform.origin = teleport_position - camera_offset;
+
+func get_children_recursive (root : Node) -> Array :
+	var children : Array = [];
+	for child in root.get_children():
+		children.append(child);
+		if child.get_child_count() > 0 :
+			children.append_array(get_children_recursive(child));
+	return children;

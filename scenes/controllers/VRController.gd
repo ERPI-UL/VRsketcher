@@ -12,9 +12,12 @@ var trackpad_vector : Vector2 = Vector2.ZERO;
 
 
 var interface : ARVRInterface
+var xr_interface_hovered : bool = false;
 
 onready var tools_menu : XRInterface = get_node("Tools_Menu");
 var tools_menu_visible : bool = false;
+
+var tools_menu_enabled : bool = false;
 
 func _ready() -> void :
 	initialise();
@@ -33,6 +36,9 @@ func _process(delta: float) -> void :
 			controller.controller_id = 2;
 		else :
 			controller.controller_id = 1;
+
+	#Hide interface controller ray when an XR interface isn't hovered
+	interface_controller.visible = (tools_menu_visible == false) || (tools_menu_visible == true && xr_interface_hovered == true);
 
 # Initialize the VR session
 # Params : None
@@ -83,7 +89,7 @@ func input_pressed(button_index : int) -> void :
 		Enums.InputCode.BUTTON_GRIP :
 			pass;
 		Enums.InputCode.BUTTON_TRIGGER :
-			if tools_menu_visible == false :
+			if tools_menu_visible == false || (tools_menu_visible == true && xr_interface_hovered == false) :
 				if current_tool != null :
 					current_tool.start_tool_use();
 			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
@@ -118,7 +124,7 @@ func input_released(button_index : int) -> void :
 		Enums.InputCode.BUTTON_GRIP :
 			pass;
 		Enums.InputCode.BUTTON_TRIGGER :
-			if tools_menu_visible == false :
+			if tools_menu_visible == false || (tools_menu_visible == true && xr_interface_hovered == false) :
 				if current_tool != null :
 					current_tool.stop_tool_use();
 			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
@@ -126,7 +132,7 @@ func input_released(button_index : int) -> void :
 		Enums.InputCode.BUTTON_STICK :
 			pass;
 		Enums.InputCode.STICK_BUTTON_UP :
-			if tools_menu_visible == false :
+			if tools_menu_visible == false || (tools_menu_visible == true && xr_interface_hovered == false) :
 				if current_tool != null :
 					current_tool.stop_tool_use();
 		Enums.InputCode.STICK_BUTTON_DOWN :
@@ -161,13 +167,22 @@ func get_input_code(button_index : int) -> int :
 	return button_index;
 
 func show_tools_menu(value : bool) -> void :
-	tools_menu.show_interface(value);
-	
 	interface_controller.set_enabled(value);
-	
+
+	if tools_menu_enabled == false :
+		return;
+
+	tools_menu.show_interface(value);
 	if value == true :
 		var display_offset : Vector3 = -camera.global_transform.basis.z * TOOLS_MENU_DISPLAY_DISTANCE;
 		tools_menu.global_transform = camera.global_transform;
 		tools_menu.global_transform.origin += display_offset;
 		tools_menu.rotation_degrees.z = 0.0;
 
+func set_xr_interface_hovered(value : bool) -> void :
+	xr_interface_hovered = value;
+
+func enable_tools_menu() -> void :
+	tools_menu_enabled = true;
+	tools_menu_visible = false;
+	interface_controller.set_enabled(false);

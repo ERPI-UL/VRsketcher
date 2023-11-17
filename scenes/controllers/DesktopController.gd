@@ -29,7 +29,7 @@ func _physics_process(delta : float) -> void :
 			Input.mouse_mode = 2;
 	"""
 	var speed : float = walk_speed;
-	if Input.is_action_pressed("run") == true :
+	if is_action_pressed("run") == true :
 		speed = run_speed;
 
 	var right : Vector3 = camera.global_transform.basis.x;
@@ -41,9 +41,9 @@ func _physics_process(delta : float) -> void :
 	move = move.normalized() * speed;
 	
 	var vertical_movement : Vector3 = Vector3.ZERO;
-	if Input.is_action_pressed("move_upwards") == true :
+	if is_action_pressed("move_upwards") == true :
 		vertical_movement.y += walk_speed;
-	if Input.is_action_pressed("move_downwards") == true :
+	if is_action_pressed("move_downwards") == true :
 		vertical_movement.y -= walk_speed;
 	
 	move += vertical_movement
@@ -67,52 +67,70 @@ func _physics_process(delta : float) -> void :
 
 	v_pivot.rotation_degrees.x = clamp(v_pivot.rotation_degrees.x, -90.0, 90.0);
 
-	if Input.is_action_just_pressed("tools_menu_toogle") == true :
+	if is_action_just_pressed("tools_menu_toogle") == true :
 			tools_menu_visible = !tools_menu_visible;
 			show_tools_menu(tools_menu_visible);
 
 	if tools_menu_visible == false :
-		if Input.is_action_just_pressed("tool_use") == true :
+		if is_action_just_pressed("tool_use") == true :
 			if current_tool != null :
 				current_tool.start_tool_use();
-		if Input.is_action_just_released("tool_use") == true :
+		if is_action_just_released("tool_use") == true :
 			if current_tool != null :
 				current_tool.stop_tool_use();
 
-		if Input.is_action_just_pressed("tool_shortcut_up") == true :
+		if is_action_just_pressed("tool_shortcut_up") == true :
 			switch_to_shortcut(Enums.ShortcutDirection.UP);
-		if Input.is_action_just_pressed("tool_shortcut_down") == true :
+		if is_action_just_pressed("tool_shortcut_down") == true :
 			switch_to_shortcut(Enums.ShortcutDirection.DOWN);
-		if Input.is_action_just_pressed("tool_shortcut_left") == true :
+		if is_action_just_pressed("tool_shortcut_left") == true :
 			switch_to_shortcut(Enums.ShortcutDirection.LEFT);
-		if Input.is_action_just_pressed("tool_shortcut_right") == true :
+		if is_action_just_pressed("tool_shortcut_right") == true :
 			switch_to_shortcut(Enums.ShortcutDirection.RIGHT);
 
 
 func get_move_input() -> Vector2 :
 	var move_input : Vector2 = Vector2.ZERO;
 	
-	var left_input = Input.get_action_strength("move_left");
-	if Input.is_action_pressed("move_left") == true :
+	var left_input = get_action_strength("move_left");
+	if is_action_pressed("move_left") == true :
 		left_input += clamp(left_input + 1.0, 0.0, 1.0);
 	
-	var right_input = Input.get_action_strength("move_right");
-	if Input.is_action_pressed("move_right") == true :
+	var right_input = get_action_strength("move_right");
+	if is_action_pressed("move_right") == true :
 		right_input += clamp(right_input + 1.0, 0.0, 1.0);
 	
 	move_input.x -= left_input;
 	move_input.x += right_input;
-	move_input.y -= Input.get_action_strength("move_up");
-	move_input.y += Input.get_action_strength("move_down");
+	move_input.y -= get_action_strength("move_up");
+	move_input.y += get_action_strength("move_down");
 	return move_input;
 
 func get_look_input() -> Vector2 :
 	var look_input : Vector2 = Vector2.ZERO;
-	look_input.x -= Input.get_action_strength("look_left");
-	look_input.x += Input.get_action_strength("look_right");
-	look_input.y -= Input.get_action_strength("look_up");
-	look_input.y += Input.get_action_strength("look_down");
+	look_input.x -= get_action_strength("look_left");
+	look_input.x += get_action_strength("look_right");
+	look_input.y -= get_action_strength("look_up");
+	look_input.y += get_action_strength("look_down");
 	return look_input;
 
 func show_tools_menu(value : bool) -> void :
 	tools_menu.visible = value;
+
+
+func is_action_pressed(action : String) -> bool :
+	return Input.is_action_pressed("gamepad_" + action) || (KeyboardInputState.enabled && Input.is_action_pressed("keyboard_" + action));
+
+func is_action_just_pressed(action : String) -> bool :
+	return Input.is_action_just_pressed("gamepad_" + action) || (KeyboardInputState.enabled && Input.is_action_just_pressed("keyboard_" + action));
+
+func is_action_just_released(action : String) -> bool :
+	return Input.is_action_just_released("gamepad_" + action) || (KeyboardInputState.enabled && Input.is_action_just_released("keyboard_" + action));
+
+func get_action_strength(action) -> float :
+	return clamp(
+		Input.get_action_strength("gamepad_" + action) + (float(KeyboardInputState.enabled) * Input.get_action_strength("keyboard_" + action)),
+		0.0,
+		1.0
+	)
+	

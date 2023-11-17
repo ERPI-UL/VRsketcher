@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_item/ToolItem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/vr_tool_icons/tool_measurements.svg" type="Texture" id=2]
@@ -14,15 +14,16 @@
 [ext_resource path="res://scenes/ui/tools_menu/ToolsMenu.gd" type="Script" id=12]
 [ext_resource path="res://assets/icons/vr_tool_icons/WorldEnvironment.svg" type="Texture" id=13]
 [ext_resource path="res://scripts/settings/VRToolItemEnabler.gd" type="Script" id=14]
-[ext_resource path="res://assets/icons/vr_tool_icons/arrow_left.svg" type="Texture" id=15]
-[ext_resource path="res://assets/icons/vr_tool_icons/arrow_right.svg" type="Texture" id=16]
-[ext_resource path="res://assets/icons/vr_tool_icons/arrow_down.svg" type="Texture" id=17]
-[ext_resource path="res://assets/icons/vr_tool_icons/arrow_up.svg" type="Texture" id=18]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_left.svg" type="Texture" id=15]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_right.svg" type="Texture" id=16]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_down.svg" type="Texture" id=17]
+[ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_up.svg" type="Texture" id=18]
 [ext_resource path="res://scenes/ui_components/tool_shortcut/ToolShortcut.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/icons/vr_tool_icons/tool_note.svg" type="Texture" id=20]
 
 [node name="ToolsMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 1300.0
+margin_bottom = 600.0
 theme = ExtResource( 11 )
 script = ExtResource( 12 )
 
@@ -279,6 +280,18 @@ tool_icon = ExtResource( 2 )
 [node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer/TOOL_MEASUREMENT"]
 script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_measurements"
+
+[node name="TOOL_NOTE" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 416.0
+margin_top = 104.0
+margin_right = 516.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_NOTE"
+tool_icon = ExtResource( 20 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer/TOOL_NOTE"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_note"
 
 [node name="panel_shortcuts" type="PanelContainer" parent="CenterContainer/VBoxContainer/tools_panel"]
 margin_left = 640.0
