@@ -52,3 +52,5 @@ text = "TOOL NAME"
 align = 1
 valign = 1
 clip_text = true
+
+[connection signal="mouse_entered" from="Button" to="." method="tool_item_hover_entered"]

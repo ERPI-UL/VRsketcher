@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ui/vr_welcome_splash/VRWelcomeSplash.gd" type="Script" id=1]
-[ext_resource path="res://assets/splash.png" type="Texture" id=2]
+[ext_resource path="res://assets/splash_vive_cosmos.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/GlacialIndifference-Bold.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/themes/ui_theme_dark.tres" type="Theme" id=20]
 
@@ -22,25 +22,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-margin_left = 496.0
+margin_left = 646.0
 margin_top = 96.0
-margin_right = 2104.0
+margin_right = 1954.0
 margin_bottom = 1104.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 1604.0
+margin_right = 1304.0
 margin_bottom = 1004.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
-margin_right = 1600.0
+margin_right = 1300.0
 margin_bottom = 64.0
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 1532.0
+margin_right = 1232.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -50,8 +50,8 @@ align = 1
 valign = 1
 
 [node name="Button" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 1536.0
-margin_right = 1600.0
+margin_left = 1236.0
+margin_right = 1300.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 8
@@ -60,7 +60,7 @@ text = "X"
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 margin_top = 68.0
-margin_right = 1600.0
+margin_right = 1300.0
 margin_bottom = 1000.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -70,9 +70,9 @@ custom_constants/margin_bottom = 16
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
 margin_top = 16.0
-margin_right = 1600.0
+margin_right = 1300.0
 margin_bottom = 916.0
-rect_min_size = Vector2( 1600, 900 )
+rect_min_size = Vector2( 1300, 900 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )

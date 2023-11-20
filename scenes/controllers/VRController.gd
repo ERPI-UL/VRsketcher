@@ -38,7 +38,15 @@ func _process(delta: float) -> void :
 			controller.controller_id = 1;
 
 	#Hide interface controller ray when an XR interface isn't hovered
+	var previous_state : bool = interface_controller.visible;
 	interface_controller.visible = (tools_menu_visible == false) || (tools_menu_visible == true && xr_interface_hovered == true);
+	
+	#Stop tool use if tool is used when hovering the tools menu
+	if interface_controller.visible == true && previous_state == false :
+		if current_tool != null :
+			if current_tool.tool_in_use == true :
+				current_tool.stop_tool_use();
+	
 
 # Initialize the VR session
 # Params : None

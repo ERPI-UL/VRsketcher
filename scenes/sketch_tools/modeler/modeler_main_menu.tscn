@@ -45,7 +45,7 @@ margin_left = 711.0
 margin_top = 250.0
 margin_right = 811.0
 margin_bottom = 350.0
-tool_mode_name = "Sphere"
+tool_mode_name = "Cylindre"
 tool_icon = ExtResource( 5 )
 target_mode_index = 3
 
@@ -54,6 +54,6 @@ margin_left = 929.0
 margin_top = 250.0
 margin_right = 1029.0
 margin_bottom = 350.0
-tool_mode_name = "Sphere"
+tool_mode_name = "Cone"
 tool_icon = ExtResource( 6 )
 target_mode_index = 4

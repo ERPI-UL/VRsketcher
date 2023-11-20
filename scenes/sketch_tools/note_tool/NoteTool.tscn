@@ -9,7 +9,7 @@ script = ExtResource( 2 )
 [node name="Graphics" type="Spatial" parent="."]
 
 [node name="Pen_Gizmo" parent="Graphics" instance=ExtResource( 1 )]
-transform = Transform( 0.424264, -0.212132, 0.367423, 0, 0.519615, 0.3, -0.424264, -0.212132, 0.367423, 0.02, -0.065, 0.02 )
+transform = Transform( 0.3, 0.3, -0.424264, -0.424264, 0.424264, 0, 0.3, 0.3, 0.424264, -0.03, -0.03, -0.03 )
 __meta__ = {
 "_editor_description_": ""
 }

@@ -62,7 +62,7 @@ var tools : Dictionary = {
 		"sub_menu"	: null
 	},
 	"TOOL_MATERIAL_PAINT"	: {
-		"name"		: "Peindre",
+		"name"		: "Texturer",
 		"icon"		: load("res://assets/icons/vr_tool_icons/tool_texture_paint.svg"),
 		"tool"		: load("res://scenes/sketch_tools/material_painter/MaterialPainter.tscn").instance(),
 		"main_menu"	: load("res://scenes/sketch_tools/material_painter/material_painter_main_menu.tscn").instance(),
