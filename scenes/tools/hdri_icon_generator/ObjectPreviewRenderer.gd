@@ -28,7 +28,10 @@ var render_list : Array = [
 	["sky 02", "res://assets/hdri/sky 02.hdr"],
 	["sky 03", "res://assets/hdri/sky 03.hdr"],
 	
-	["studio 01", "res://assets/hdri/studio 01.hdr"]
+	["studio 01", "res://assets/hdri/studio 01.hdr"],
+	
+	["alien 01", "res://assets/hdri/alien_01.hdr"],
+	["alien 02", "res://assets/hdri/alien_02.hdr"]
 ];
 
 var render_path : String = "res://assets/hdri/icons/";

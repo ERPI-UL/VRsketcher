@@ -14,3 +14,5 @@ signal tool_sub_mode_switch(sub_mode_index);
 signal tooltip_update_text(tooltip_text);
 
 signal vr_enable_color_correction(value);
+
+signal tools_menu_tooltip_update_text(tooltip_text);

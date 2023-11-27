@@ -38,7 +38,18 @@ func _physics_process(_delta : float) -> void :
 
 				size = max(h_start.distance_to(h_end), v_start.distance_to(v_end));
 
+				var x_axis : Vector3 = Vector3(diagonal.x, 0.0, diagonal.z).normalized();
+				var y_axis : Vector3 = Vector3.UP;
+				var z_axis : Vector3 = x_axis.cross(y_axis);
+				current_note.global_transform.basis = Basis(x_axis, y_axis, z_axis);
+				
+				if CameraData.direction_forward.dot(current_note.global_transform.basis.z) > 0.0 :
+					current_note.rotate_y(deg2rad(180.0));
+
 			current_note.global_transform.origin = (start_position + end_position) / 2.0;
+			
+
+			
 			current_note.scale = Vector3(size, size, 1.0);
 
 func load_tool_modes() -> void :
@@ -90,7 +101,6 @@ func start_tool_use() -> void :
 			current_note.show_arrow_bottom_right = true;
 
 	(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_notes.add_child(current_note);
-	current_note.global_transform.basis = Basis(CameraData.direction_right, CameraData.direction_up, -CameraData.direction_forward);
 
 func stop_tool_use() -> void :
 	.stop_tool_use();
@@ -99,5 +109,6 @@ func stop_tool_use() -> void :
 			current_note.queue_free();
 		else :
 			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_notes.add_note(current_note);
+			current_note.global_transform.basis = Basis(CameraData.direction_right, CameraData.direction_up, -CameraData.direction_forward);
 		current_note = null;
 

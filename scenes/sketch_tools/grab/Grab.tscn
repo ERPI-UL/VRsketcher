@@ -13,6 +13,7 @@ script = ExtResource( 2 )
 transform = Transform( 0.471799, -0.370683, 0, 0.370683, 0.471799, 0, 0, 0, 0.6, 0, 0, 0 )
 
 [node name="Area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0195987, -0.0120918, -0.0674113 )
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]

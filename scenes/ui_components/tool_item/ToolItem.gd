@@ -21,4 +21,4 @@ func select_tool() -> void :
 	EventBus.emit_signal("tool_switch_tool", target_tool_name);
 
 func tool_item_hover_entered() -> void :
-	emit_signal("tool_item_hovered", label.text);
+	EventBus.emit_signal("tools_menu_tooltip_update_text", label.text);

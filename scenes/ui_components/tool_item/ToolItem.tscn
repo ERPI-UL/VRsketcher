@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/icons/vr_tool_icons/CanvasLayer.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/ui_components/tool_item/ToolItem.gd" type="Script" id=2]
+[ext_resource path="res://scripts/ui_components/TooltipHovering.gd" type="Script" id=3]
 
 [node name="ToolItem" type="Control"]
 rect_min_size = Vector2( 100, 100 )
@@ -53,4 +54,7 @@ align = 1
 valign = 1
 clip_text = true
 
-[connection signal="mouse_entered" from="Button" to="." method="tool_item_hover_entered"]
+[node name="TooltipHovering" type="Node" parent="Button/VBoxContainer/Label"]
+script = ExtResource( 3 )
+
+[connection signal="mouse_entered" from="Button" to="Button/VBoxContainer/Label/TooltipHovering" method="update_tooltip"]

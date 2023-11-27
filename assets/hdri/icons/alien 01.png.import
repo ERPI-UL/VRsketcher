@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/alien_01.hdr-9506617e0d84707e931b1f8d410ada03.stex"
+path="res://.import/alien 01.png-1b0f6eb90c757b93aa64678ad3aeaf1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hdri/alien_01.hdr"
-dest_files=[ "res://.import/alien_01.hdr-9506617e0d84707e931b1f8d410ada03.stex" ]
+source_file="res://assets/hdri/icons/alien 01.png"
+dest_files=[ "res://.import/alien 01.png-1b0f6eb90c757b93aa64678ad3aeaf1b.stex" ]
 
 [params]
 

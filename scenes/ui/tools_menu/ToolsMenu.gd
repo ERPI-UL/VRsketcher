@@ -7,6 +7,7 @@ func _ready():
 	tools_main_menu_root.visible = false;
 	tools_sub_menu_root.visible = false;
 	EventBus.connect("tool_switch_tool", self, "update_tool_menus");
+	EventBus.connect("tools_menu_tooltip_update_text", self, "set_tooltip_text");
 
 func update_tool_menus(tool_name : String) -> void :
 	#Clean previous menus
@@ -37,7 +38,6 @@ func switch_global_material() -> void :
 	MaterialLibrary.switch_material();
 
 func set_tooltip_text(text : String) -> void :
-	print(text)
 	(get_node("CenterContainer/VBoxContainer/PanelContainer/tooltip") as Label).text = text;
 	
 	

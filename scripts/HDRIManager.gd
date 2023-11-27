@@ -3,7 +3,7 @@ class_name HDRIManager
 
 var hdri_list : Array = [
 	["default sky", 	"res://default_sky.tres",				"res://assets/hdri/icons/default sky.png"],
-	
+
 	["city 01",			"res://assets/hdri/city 01.hdr",		"res://assets/hdri/icons/city 01.png"],
 	["city 02",			"res://assets/hdri/city 02.hdr",		"res://assets/hdri/icons/city 02.png"],
 	["city 03",			"res://assets/hdri/city 03.hdr",		"res://assets/hdri/icons/city 03.png"],
@@ -11,9 +11,9 @@ var hdri_list : Array = [
 	["city 05",			"res://assets/hdri/city 05.hdr",		"res://assets/hdri/icons/city 05.png"],
 	["city 06",			"res://assets/hdri/city 06.hdr",		"res://assets/hdri/icons/city 06.png"],
 	["city 07",			"res://assets/hdri/city 07.hdr",		"res://assets/hdri/icons/city 07.png"],
-	
+
 	["forest 01",		"res://assets/hdri/forest 01.hdr",		"res://assets/hdri/icons/forest 01.png"],
-	
+
 	["interior 01",		"res://assets/hdri/interior 01.hdr",	"res://assets/hdri/icons/interior 01.png"],
 	["interior 02",		"res://assets/hdri/interior 02.hdr",	"res://assets/hdri/icons/interior 02.png"],
 	["interior 03",		"res://assets/hdri/interior 03.hdr",	"res://assets/hdri/icons/interior 03.png"],
@@ -21,16 +21,19 @@ var hdri_list : Array = [
 	["interior 05",		"res://assets/hdri/interior 05.hdr",	"res://assets/hdri/icons/interior 05.png"],
 	["interior 06",		"res://assets/hdri/interior 06.hdr",	"res://assets/hdri/icons/interior 06.png"],
 	["interior 07",		"res://assets/hdri/interior 07.hdr",	"res://assets/hdri/icons/interior 07.png"],
-	
+
 	["outdoor 01",		"res://assets/hdri/outdoor 01.hdr",		"res://assets/hdri/icons/outdoor 01.png"],
 	["outdoor 02",		"res://assets/hdri/outdoor 02.hdr",		"res://assets/hdri/icons/outdoor 02.png"],
 	["outdoor 03",		"res://assets/hdri/outdoor 03.hdr",		"res://assets/hdri/icons/outdoor 03.png"],
-	
+
 	["sky 0",			"res://assets/hdri/sky 01.hdr",			"res://assets/hdri/icons/sky 01.png"],
 	["sky 0",			"res://assets/hdri/sky 02.hdr",			"res://assets/hdri/icons/sky 02.png"],
 	["sky 0",			"res://assets/hdri/sky 03.hdr",			"res://assets/hdri/icons/sky 03.png"],
-	
-	["studio 01",		"res://assets/hdri/studio 01.hdr",		"res://assets/hdri/icons/studio 01.png"]
+
+	["studio 01",		"res://assets/hdri/studio 01.hdr",		"res://assets/hdri/icons/studio 01.png"],
+
+	["alien 01",		"res://assets/hdri/alien 01.hdr",		"res://assets/hdri/icons/alien 01.png"],
+	["alien 02",		"res://assets/hdri/alien 02.hdr",		"res://assets/hdri/icons/alien 02.png"]
 ]
 
 var current_hdri_index : int = 0;

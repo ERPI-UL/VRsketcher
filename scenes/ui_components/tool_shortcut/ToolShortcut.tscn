@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://scripts/ui_components/TooltipHovering.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui_components/tool_shortcut/ToolShortcut.gd" type="Script" id=2]
 [ext_resource path="res://assets/icons/vr_tool_icons/arrow/arrow_up.svg" type="Texture" id=3]
 
@@ -56,3 +57,8 @@ margin_bottom = 96.0
 align = 1
 valign = 1
 clip_text = true
+
+[node name="TooltipHovering" type="Node" parent="Button/VBoxContainer/Label"]
+script = ExtResource( 1 )
+
+[connection signal="mouse_entered" from="Button" to="Button/VBoxContainer/Label/TooltipHovering" method="update_tooltip"]
