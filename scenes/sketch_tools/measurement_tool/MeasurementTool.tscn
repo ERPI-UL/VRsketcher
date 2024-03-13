@@ -3,9 +3,9 @@
 [ext_resource path="res://scenes/sketch_tools/measurement_tool/MeasurementTool.gd" type="Script" id=1]
 [ext_resource path="res://scenes/gizmos/Gizmo_Position.tscn" type="PackedScene" id=2]
 
-[node name="MeasurementTool" type="Spatial"]
+[node name="MeasurementTool" type="Node3D"]
 script = ExtResource( 1 )
 
-[node name="Graphics" type="Spatial" parent="."]
+[node name="Graphics" type="Node3D" parent="."]
 
 [node name="Gizmo_Position" parent="Graphics" instance=ExtResource( 2 )]

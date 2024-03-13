@@ -3,33 +3,33 @@ class_name MaterialPainter
 
 var current_material_index	: int			= -1;
 
-onready var interaction_area	: Area		= get_node("Area");
-onready var material_preview	: MeshInstance	= get_node("Graphics/Material_Preview");
+@onready var interaction_area	: Area3D		= get_node("Area3D");
+@onready var material_preview	: MeshInstance3D	= get_node("Graphics/Material_Preview");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Peindre"]
 	];
 
 	modes_sub = [];
 	for m in MaterialLibrary.materials :
-		modes_sub.append(((m as SpatialMaterial).resource_path.rsplit("/", true, 1)[1] as String).split(".")[0]);
+		modes_sub.append(((m as StandardMaterial3D).resource_path.rsplit("/", true, 1)[1] as String).split(".")[0]);
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 	if interacted_object != null :
 		pass;
 		(interacted_object as Model3D).set_override_material(current_material_index);
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 
 func set_tool_main_mode(mode_index : int) -> void :
-	.set_tool_main_mode(mode_index);
+	super.set_tool_main_mode(mode_index);
 
 func set_tool_sub_mode(mode_index : int) -> void :
 	current_material_index = mode_index;

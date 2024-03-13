@@ -4,10 +4,10 @@ class_name Eraser
 var is_erasing : bool = false;
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Effacer"]
 	];
@@ -17,11 +17,11 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 	is_erasing = true;
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 	is_erasing = false;
 
 func erase_line(node : Node) -> void :

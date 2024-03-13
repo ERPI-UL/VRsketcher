@@ -4,10 +4,10 @@ class_name Move
 var start_position				: Vector3	= Vector3.ZERO;
 var start_offset				: Vector3	= Vector3.ZERO;
 
-onready var interaction_area	: Area		= get_node("Area");
+@onready var interaction_area	: Area3D		= get_node("Area3D");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -48,7 +48,7 @@ func _physics_process(_delta : float) -> void :
 					interacted_object.global_transform.origin = base_model_position + move_distance * (direction * direction_sign);
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Déplacement Libre"],
 		
@@ -66,11 +66,11 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 	
 	start_position = global_transform.origin;
 	if interacted_object != null :
 		start_offset = global_transform.origin - interacted_object.global_transform.origin;
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();

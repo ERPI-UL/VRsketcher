@@ -1,22 +1,22 @@
-extends Spatial
+extends Node3D
 class_name Controller
 
-export(NodePath) var tools_root_path : NodePath = "";
-onready var tools_root : Spatial = get_node(tools_root_path);
+@export var tools_root_path: NodePath = "";
+@onready var tools_root : Node3D = get_node(tools_root_path);
 
-export(NodePath) var tooltip_path : NodePath = "";
-onready var tooltip : Spatial = get_node(tooltip_path);
+@export var tooltip_path: NodePath = "";
+@onready var tooltip : Node3D = get_node(tooltip_path);
 
 var current_tool : SketchTool = null;
 var current_tool_name : String = "";
 
 func _ready() -> void :
-	EventBus.connect("tool_switch_tool", self, "switch_to_tool");
+	EventBus.connect("tool_switch_tool", Callable(self, "switch_to_tool"));
 
-	EventBus.connect("tool_main_mode_switch", self, "switch_to_tool_main_mode");
-	EventBus.connect("tool_sub_mode_switch", self, "switch_to_tool_sub_mode");
+	EventBus.connect("tool_main_mode_switch", Callable(self, "switch_to_tool_main_mode"));
+	EventBus.connect("tool_sub_mode_switch", Callable(self, "switch_to_tool_sub_mode"));
 	
-	EventBus.connect("tool_set_shortcut", self, "set_tool_shortcut");
+	EventBus.connect("tool_set_shortcut", Callable(self, "set_tool_shortcut"));
 
 func switch_to_tool(tool_name : String) -> void :
 	var new_tool : SketchTool = ToolsDatabase.get_tool(tool_name);

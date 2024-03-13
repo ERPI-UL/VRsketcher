@@ -3,18 +3,18 @@ extends Controller
 const TOUCHPAD_DEAD_ZONE : float = 0.5;
 const TOOLS_MENU_DISPLAY_DISTANCE : float = 2.0;
 
-onready var camera				: ARVRCamera		= get_node("ARVRCamera");
-onready var controller			: ARVRController	= get_node("ARVRController");
+@onready var camera				: XRCamera3D		= get_node("XRCamera3D");
+@onready var controller			: XRController3D	= get_node("XRController3D");
 
-onready var interface_controller : XRInterfaceController = get_node("ARVRController/XRInterfaceController");
+@onready var interface_controller : XRInterfaceController = get_node("XRController3D/XRInterfaceController");
 
 var trackpad_vector : Vector2 = Vector2.ZERO;
 
 
-var interface : ARVRInterface
+var interface : XRInterface
 var xr_interface_hovered : bool = false;
 
-onready var tools_menu : XRInterface = get_node("Tools_Menu");
+@onready var tools_menu : XRInterface = get_node("Tools_Menu");
 var tools_menu_visible : bool = false;
 
 var tools_menu_enabled : bool = false;
@@ -23,8 +23,8 @@ func _ready() -> void :
 	initialise();
 
 	controller.controller_id = 1;
-	controller.connect("button_pressed", self, "input_pressed");
-	controller.connect("button_release", self, "input_released");
+	controller.connect("button_pressed", Callable(self, "input_pressed"));
+	controller.connect("button_released", Callable(self, "input_released"));
 
 	tools_menu.visible = false;
 
@@ -54,7 +54,7 @@ func _process(delta: float) -> void :
 # - true : the VR has been initialized
 # - false : otherwise
 func initialise() -> bool :
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		print("Can't initialise while in the editor");
 		return false;
 
@@ -62,15 +62,15 @@ func initialise() -> bool :
 		# we are already initialised
 		return true;
 
-	interface = ARVRServer.find_interface("OpenXR");
+	interface = XRServer.find_interface("OpenXR");
 	if interface and interface.initialize():
 		print("OpenXR Interface initialized");
 
 		get_viewport().arvr = true;
 
-		OS.vsync_enabled = false;
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (false;) else DisplayServer.VSYNC_DISABLED)
 		Engine.target_fps = 90;
-		Engine.iterations_per_second = 90;
+		Engine.physics_ticks_per_second = 90;
 
 		EventBus.emit_signal("vr_enable_color_correction", true);
 		return true;
@@ -101,7 +101,7 @@ func input_pressed(button_index : int) -> void :
 				if current_tool != null :
 					current_tool.start_tool_use();
 			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
-				interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);
+				interface_controller.interface_send_mouse_button_pressed(MOUSE_BUTTON_LEFT);
 		Enums.InputCode.BUTTON_STICK :
 			pass;
 		Enums.InputCode.STICK_BUTTON_UP :
@@ -136,7 +136,7 @@ func input_released(button_index : int) -> void :
 				if current_tool != null :
 					current_tool.stop_tool_use();
 			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
-				interface_controller.interface_send_mouse_button_released(BUTTON_LEFT);
+				interface_controller.interface_send_mouse_button_released(MOUSE_BUTTON_LEFT);
 		Enums.InputCode.BUTTON_STICK :
 			pass;
 		Enums.InputCode.STICK_BUTTON_UP :

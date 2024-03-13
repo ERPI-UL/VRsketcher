@@ -2,10 +2,10 @@
 
 [ext_resource path="res://scenes/sketch_tools/teleport/Teleport.gd" type="Script" id=1]
 
-[sub_resource type="CubeMesh" id=6]
+[sub_resource type="BoxMesh" id=6]
 size = Vector3( 0.01, 1, 0.01 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="StandardMaterial3D" id=7]
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 albedo_color = Color( 0, 0, 0, 1 )
@@ -25,11 +25,11 @@ rings = 1
 
 [sub_resource type="Shader" id=9]
 code = "shader_type spatial;
-render_mode blend_mix, cull_disabled, depth_draw_alpha_prepass, ambient_light_disabled;
+render_mode blend_mix, cull_disabled, depth_prepass_alpha, ambient_light_disabled;
 
-uniform vec4 color : hint_color;
+uniform vec4 color : source_color;
 uniform float emission_strengh : hint_range(0.0, 10.0, 0.1) = 1.0;
-uniform sampler2D gradient : hint_white;
+uniform sampler2D gradient : hint_default_white;
 
 void fragment()
 {
@@ -42,10 +42,10 @@ void fragment()
 
 [sub_resource type="Gradient" id=11]
 interpolation_mode = 2
-offsets = PoolRealArray( 0, 0.452614, 0.480392 )
-colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+offsets = PackedFloat32Array( 0, 0.452614, 0.480392 )
+colors = PackedColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture2D" id=12]
 gradient = SubResource( 11 )
 width = 512
 
@@ -55,27 +55,27 @@ shader_param/color = Color( 0.0509804, 1, 0.443137, 1 )
 shader_param/emission_strengh = 1.0
 shader_param/gradient = SubResource( 12 )
 
-[node name="Teleport" type="Spatial"]
+[node name="Teleport" type="Node3D"]
 script = ExtResource( 1 )
 teleport_gizmo_path = NodePath("TeleportGizmo")
 
-[node name="RayCast" type="RayCast" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = true
-cast_to = Vector3( 0, 0, -20 )
+target_position = Vector3( 0, 0, -20 )
 
-[node name="RayGraphics" type="Spatial" parent="RayCast"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+[node name="RayGraphics" type="Node3D" parent="RayCast3D"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="RayCast/RayGraphics"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D/RayGraphics"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 mesh = SubResource( 6 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 7 )
 
-[node name="TeleportGizmo" type="Spatial" parent="."]
+[node name="TeleportGizmo" type="Node3D" parent="."]
 
-[node name="MeshInstance" type="MeshInstance" parent="TeleportGizmo"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TeleportGizmo"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 mesh = SubResource( 8 )
 skeleton = NodePath("../../../..")
 material/0 = SubResource( 10 )

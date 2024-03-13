@@ -1,12 +1,12 @@
 extends Control
 class_name ToolItem
 
-export(String) var target_tool_name : String = "TOOL_NAME";
-export(Texture) var tool_icon : Texture = null;
-export(Color) var icon_tint_color : Color = Color.white;
+@export var target_tool_name: String = "TOOL_NAME";
+@export var tool_icon: Texture2D = null;
+@export var icon_tint_color: Color = Color.WHITE;
 
-onready var label : Label = get_node("Button/VBoxContainer/Label") as Label;
-onready var icon : TextureRect = get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect;
+@onready var label : Label = get_node("Button/VBoxContainer/Label") as Label;
+@onready var icon : TextureRect = get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect;
 
 signal tool_item_hovered(tool_name);
 
@@ -15,7 +15,7 @@ func _ready() -> void :
 	icon.texture = tool_icon;
 	icon.self_modulate = icon_tint_color;
 	
-	(get_node("Button") as Button).connect("pressed", self, "select_tool");
+	(get_node("Button") as Button).connect("pressed", Callable(self, "select_tool"));
 
 func select_tool() -> void :
 	EventBus.emit_signal("tool_switch_tool", target_tool_name);

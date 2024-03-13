@@ -1,8 +1,8 @@
-tool
+@tool
 extends Container
 class_name FlexGridContainer
 
-var columns: int = 1 setget set_columns
+var columns: int = 1: set = set_columns
 
 func _notification(p_what):
 	if get_child_count() <= 0 :
@@ -14,13 +14,13 @@ func _notification(p_what):
 			var col_expanded: Array # Columns which have the SIZE_EXPAND flag set.
 			var row_expanded: Array # Rows which have the SIZE_EXPAND flag set.
 
-			var hsep = get_constant("hseparation", "GridContainer")
-			var vsep = get_constant("vseparation", "GridContainer")
+			var hsep = get_theme_constant("h_separation", "GridContainer")
+			var vsep = get_theme_constant("v_separation", "GridContainer")
 			
 			var min_columns = 1
 			
 			if get_child_count() > 0:
-				min_columns = int(floor(rect_size.x / (get_child(0).get_combined_minimum_size().x + hsep)))
+				min_columns = int(floor(size.x / (get_child(0).get_combined_minimum_size().x + hsep)))
 			
 			self.columns = max(min_columns, 1)
 			
@@ -136,13 +136,13 @@ func _notification(p_what):
 				col_ofs += s.x + hsep
 				
 		NOTIFICATION_THEME_CHANGED:
-			minimum_size_changed()
+			emit_signal("minimum_size_changed")
 
 func _get_minimum_size():
 #	Only worry about max height, not width (since it does width automatically)
 	var row_minh: Dictionary
 
-	var vsep = get_constant("vseparation", "GridContainer")
+	var vsep = get_theme_constant("v_separation", "GridContainer")
 
 	var max_row = 0
 
@@ -175,4 +175,4 @@ func _get_minimum_size():
 
 func set_columns(p_columns: int):
 	columns = p_columns
-	minimum_size_changed()
+	emit_signal("minimum_size_changed")

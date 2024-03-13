@@ -6,9 +6,7 @@ func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 
 	var current_mesh_data : Dictionary = {};
 
-	var file : File = File.new();
-
-	var error = file.open(path, File.READ);
+	var error = FileAccess.open(path, FileAccess.READ);
 	if error != OK :
 		print(error);
 		return [];
@@ -21,8 +19,8 @@ func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 		}
 		meshes.append(current_mesh_data);
 
-		while file.eof_reached() == false :
-			var line : Array = file.get_line().split(" ", false);
+		while FileAccess.open(path, FileAccess.READ).eof_reached() == false :
+			var line : Array = FileAccess.open(path, FileAccess.READ).get_line().split(" ", false);
 
 			if line != null && line.size() > 0 :
 				match line[0] :

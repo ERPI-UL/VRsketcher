@@ -1,16 +1,16 @@
 extends Control
 class_name ToolShortcut
 
-export(Enums.ShortcutDirection) var shortcut_direction : int = Enums.ShortcutDirection.UP;
-export(Texture) var arrow_icon : Texture = null;
-export(Color) var icon_tint_color : Color = Color.white;
+@export var shortcut_direction : int = Enums.ShortcutDirection.UP; # (Enums.ShortcutDirection)
+@export var arrow_icon: Texture2D = null;
+@export var icon_tint_color: Color = Color.WHITE;
 
 func _ready() -> void :
 	(get_node("Button/Arrow_Icon") as TextureRect).texture = arrow_icon;
 
-	(get_node("Button") as Button).connect("pressed", self, "set_shortcut");
+	(get_node("Button") as Button).connect("pressed", Callable(self, "set_shortcut"));
 	
-	Project.connect("open_project", self, "update_shortcut");
+	Project.connect("open_project", Callable(self, "update_shortcut"));
 	update_shortcut();
 
 func set_shortcut() -> void :
@@ -31,7 +31,7 @@ func update_shortcut() -> void :
 	set_icon(ToolsDatabase.get_tool_icon(shortcut_tool));
 	set_label(ToolsDatabase.get_tool_name(shortcut_tool));
 
-func set_icon(icon : Texture) -> void :
+func set_icon(icon : Texture2D) -> void :
 	(get_node("Button/VBoxContainer/MarginContainer/TextureRect") as TextureRect).texture = icon;
 
 func set_label(label : String) -> void :

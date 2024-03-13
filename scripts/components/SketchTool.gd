@@ -1,10 +1,10 @@
-extends Spatial
+extends Node3D
 class_name SketchTool
 
-onready var INTERACTION_OVERLAY_MATERIAL : Material = load("res://materials/interaction_overlay_material.tres");
+@onready var INTERACTION_OVERLAY_MATERIAL : Material = load("res://materials/interaction_overlay_material.tres");
 
 var tool_in_use			: bool		= false;
-var interacted_object	: Spatial	= null;
+var interacted_object	: Node3D	= null;
 
 var mode_main_index		: int		= 0;
 var mode_sub_index		: int		= 0;
@@ -50,7 +50,7 @@ func object_enter_hover(node : Node) -> void :
 			interacted_object = node.get_parent();
 			if interacted_object is Model3D == true :
 				(interacted_object as Model3D).set_overlay_material(INTERACTION_OVERLAY_MATERIAL);
-		elif node is Area == true :
+		elif node is Area3D == true :
 			interacted_object = node;
 
 func object_exit_hover(node : Node) -> void :

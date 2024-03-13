@@ -1,21 +1,21 @@
 extends Node
 
 func _ready():
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Teleport") as CheckButton).pressed = DebugSettings.enable_tool_teleport;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Pen") as CheckButton).pressed = DebugSettings.enable_tool_pen;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Eraser") as CheckButton).pressed = DebugSettings.enable_tool_eraser;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Measurements") as CheckButton).pressed = DebugSettings.enable_tool_measurements;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Material_Painter") as CheckButton).pressed = DebugSettings.enable_tool_material_painter;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Grab") as CheckButton).pressed = DebugSettings.enable_tool_grab;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed = DebugSettings.enable_tool_move;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed = DebugSettings.enable_tool_rotate;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed = DebugSettings.enable_tool_modeler;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Note") as CheckButton).pressed = DebugSettings.enable_tool_note;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Teleport") as CheckButton).button_pressed = DebugSettings.enable_tool_teleport;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Pen") as CheckButton).button_pressed = DebugSettings.enable_tool_pen;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Eraser") as CheckButton).button_pressed = DebugSettings.enable_tool_eraser;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Measurements") as CheckButton).button_pressed = DebugSettings.enable_tool_measurements;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Material_Painter") as CheckButton).button_pressed = DebugSettings.enable_tool_material_painter;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Grab") as CheckButton).button_pressed = DebugSettings.enable_tool_grab;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Move") as CheckButton).button_pressed = DebugSettings.enable_tool_move;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Rotate") as CheckButton).button_pressed = DebugSettings.enable_tool_rotate;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Modeler") as CheckButton).button_pressed = DebugSettings.enable_tool_modeler;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Note") as CheckButton).button_pressed = DebugSettings.enable_tool_note;
 
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).pressed = DebugSettings.enable_function_hdri_switch;
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Global_Material_Switch") as CheckButton).pressed = DebugSettings.enable_function_global_material_switch;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).button_pressed = DebugSettings.enable_function_hdri_switch;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Global_Material_Switch") as CheckButton).button_pressed = DebugSettings.enable_function_global_material_switch;
 
-	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Disable_Welcome_Splash") as CheckButton).pressed = DebugSettings.disable_welcome_splash;
+	(get_node("PanelContainer/ScrollContainer/VBoxContainer/Disable_Welcome_Splash") as CheckButton).button_pressed = DebugSettings.disable_welcome_splash;
 
 	(get_node("PanelContainer2/ScrollContainer/VBoxContainer/Transform_Camera_01") as ModelTransform).set_model_transform(
 		Vector3(

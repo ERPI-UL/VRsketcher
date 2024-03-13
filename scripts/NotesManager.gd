@@ -10,6 +10,6 @@ func add_note(note : Note3D) -> void :
 	emit_signal("notes_list_changed");
 
 func remove_note(note : Note3D) -> void :
-	notes.remove(notes.find(note));
+	notes.remove_at(notes.find(note));
 	note.queue_free();
 	emit_signal("notes_list_changed");

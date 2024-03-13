@@ -1,17 +1,17 @@
-extends MeshInstance
+extends MeshInstance3D
 class_name Line
 
 const EPSILON : float = 0.1;
 
 var points : Array = [];
-export(float) var thickness : float = 0.1 setget set_thickness, get_thickness;
-export(bool) var generate_collisions : bool = true;
+@export var thickness: float = 0.1: get = get_thickness, set = set_thickness;
+@export var generate_collisions: bool = true;
 
 var material_index : int = -1;
 
 func _ready() -> void:
 	extra_cull_margin = 1000.0;
-	set_cast_shadows_setting(GeometryInstance.SHADOW_CASTING_SETTING_OFF);
+	set_cast_shadows_setting(GeometryInstance3D.SHADOW_CASTING_SETTING_OFF);
 
 func add_point(new_point : Vector3) -> void :
 	points.append(new_point);
@@ -70,8 +70,8 @@ func render_line() -> void :
 				var next_right : Vector3 = next_forward.cross(Vector3.UP);
 				var next_up: Vector3 = next_forward.cross(next_right);
 				
-				to_right = from_right.linear_interpolate(next_right, 1.0);
-				to_up = from_up.linear_interpolate(next_up, 1.0);
+				to_right = from_right.lerp(next_right, 1.0);
+				to_up = from_up.lerp(next_up, 1.0);
 			"""
 			from_right *= thickness / 2.0;
 			from_up *= thickness / 2.0;

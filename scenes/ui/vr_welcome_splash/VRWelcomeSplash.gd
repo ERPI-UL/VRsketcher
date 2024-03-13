@@ -3,7 +3,7 @@ extends Node
 signal splash_closed();
 
 func _ready() -> void :
-	yield(get_tree(), "idle_frame");
+	await get_tree().idle_frame;
 
 	if (DebugSettings.get("disable_welcome_splash") as bool) == true :
 		close_welcome_splash();

@@ -6,10 +6,10 @@ var end_position			: Vector3		= Vector3.ZERO;
 
 var current_measurement		: Measurement	= null;
 
-onready var tool_gizmo		: Spatial		= get_node("Graphics/Gizmo_Position");
+@onready var tool_gizmo		: Node3D		= get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -29,7 +29,7 @@ func _physics_process(_delta : float) -> void :
 			current_measurement.middle_point = (start_position + end_position) / 2.0;
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Distance"],
 		["Angle"]
@@ -40,7 +40,7 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 	
 	start_position = tool_gizmo.global_transform.origin;
 	end_position = tool_gizmo.global_transform.origin;
@@ -55,7 +55,7 @@ func start_tool_use() -> void :
 	(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_measurements.add_child(current_measurement);
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 	
 	if current_measurement != null :
 		current_measurement.use_areas_position = true;

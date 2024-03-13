@@ -1,16 +1,16 @@
 extends SketchTool
 class_name Grab
 
-var original_parent : Spatial = null;
-var grabbed_object : Spatial = null;
+var original_parent : Node3D = null;
+var grabbed_object : Node3D = null;
 
-onready var interaction_area	: Area		= get_node("Area");
+@onready var interaction_area	: Area3D		= get_node("Area3D");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Saisir"]
 	];
@@ -20,13 +20,13 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 
 	if interacted_object != null :
 		grabbed_object = interacted_object;
 		original_parent = grabbed_object.get_parent();
 		
-		var original_transform : Transform = grabbed_object.global_transform;
+		var original_transform : Transform3D = grabbed_object.global_transform;
 		
 		if original_parent != null :
 			original_parent.remove_child(grabbed_object);
@@ -34,10 +34,10 @@ func start_tool_use() -> void :
 		grabbed_object.global_transform = original_transform;
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 	
 	if grabbed_object != null :
-		var new_transform : Transform = grabbed_object.global_transform;
+		var new_transform : Transform3D = grabbed_object.global_transform;
 		remove_child(grabbed_object);
 		if original_parent != null :
 			original_parent.add_child(grabbed_object);

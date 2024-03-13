@@ -17,10 +17,10 @@ var reference_forward_direction			: Vector3		= Vector3.FORWARD;
 
 var current_model						: Model3D		= null;
 
-onready var tool_gizmo					: Spatial		= get_node("Graphics/Gizmo_Position");
+@onready var tool_gizmo					: Node3D		= get_node("Graphics/Gizmo_Position");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -36,11 +36,11 @@ func _physics_process(_delta : float) -> void :
 
 			match (modes[mode_main_index] as String) :
 				"Box" :
-					(current_model.meshes[0] as CubeMesh).size.x = abs(draw_vector_length * cos(reference_right_direction.angle_to(draw_vector)));
-					(current_model.meshes[0] as CubeMesh).size.y = abs(end_position.y - start_position.y);
-					(current_model.meshes[0] as CubeMesh).size.z = abs(draw_vector_length * cos(reference_forward_direction.angle_to(draw_vector)));
+					(current_model.meshes[0] as BoxMesh).size.x = abs(draw_vector_length * cos(reference_right_direction.angle_to(draw_vector)));
+					(current_model.meshes[0] as BoxMesh).size.y = abs(end_position.y - start_position.y);
+					(current_model.meshes[0] as BoxMesh).size.z = abs(draw_vector_length * cos(reference_forward_direction.angle_to(draw_vector)));
 				"Cube" :
-					(current_model.meshes[0] as CubeMesh).size = Vector3.ONE * (draw_vector_length / sqrt(3.0));
+					(current_model.meshes[0] as BoxMesh).size = Vector3.ONE * (draw_vector_length / sqrt(3.0));
 				"Sphere" :
 					(current_model.meshes[0] as SphereMesh).height = draw_vector_length;
 					(current_model.meshes[0] as SphereMesh).radius = draw_vector_length / 2.0;
@@ -59,7 +59,7 @@ func _physics_process(_delta : float) -> void :
 					pass;
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Box"],
 		["Cube"],
@@ -74,7 +74,7 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 
 	start_position = tool_gizmo.global_transform.origin;
 	end_position = tool_gizmo.global_transform.origin;
@@ -93,13 +93,13 @@ func start_tool_use() -> void :
 		"Box" :
 			current_model.model_filename = "Box";
 			current_model.inspector_name = "Box";
-			current_model.add_mesh(CubeMesh.new());
-			(current_model.meshes[0] as CubeMesh).size = Vector3.ONE * 0.05;
+			current_model.add_mesh(BoxMesh.new());
+			(current_model.meshes[0] as BoxMesh).size = Vector3.ONE * 0.05;
 		"Cube" :
 			current_model.model_filename = "Cube";
 			current_model.inspector_name = "Cube";
-			current_model.add_mesh(CubeMesh.new());
-			(current_model.meshes[0] as CubeMesh).size = Vector3.ONE * 0.05;
+			current_model.add_mesh(BoxMesh.new());
+			(current_model.meshes[0] as BoxMesh).size = Vector3.ONE * 0.05;
 		"Sphere" :
 			current_model.model_filename = "Sphere";
 			current_model.inspector_name = "Sphere";
@@ -132,7 +132,7 @@ func start_tool_use() -> void :
 	(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_drawn_models.add_child(current_model);
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 	
 	if current_model != null :
 		if start_position.distance_to(end_position) < 0.01 :

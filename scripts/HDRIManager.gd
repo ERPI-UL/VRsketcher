@@ -39,7 +39,7 @@ var hdri_list : Array = [
 var current_hdri_index : int = 0;
 var current_exposure : float = 1.0;
 
-onready var items_root : Control = get_node("ScrollContainer/HDRI_Manager");
+@onready var items_root : Control = get_node("ScrollContainer/HDRI_Manager");
 
 
 func _ready() -> void :
@@ -51,12 +51,12 @@ func _ready() -> void :
 		item_button.flat = true;
 		item_button.expand_icon = true;
 		item_button.icon = load(hdri_list[i][2] as String);
-		item_button.icon_align = Button.ALIGN_CENTER;
-		item_button.rect_min_size = Vector2(75, 75);
-		item_button.hint_tooltip = hdri_list[i][0];
+		item_button.icon_alignment = Button.IconAlignment.CENTER
+		item_button.custom_minimum_size = Vector2(75, 75);
+		item_button.tooltip_text = hdri_list[i][0];
 		item_button.name = hdri_list[i][0];
 		
-		item_button.connect("pressed", self, "set_environement_hdri", [i]);
+		item_button.connect("pressed", Callable(self, "set_environement_hdri").bind(i));
 		
 		items_root.add_child(item_button);
 
@@ -68,6 +68,6 @@ func set_environement_hdri(index : int = 0) -> void :
 	if current_hdri_index == 0 :
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = load("res://default_sky.tres");
 	else :
-		var panorama : PanoramaSky = PanoramaSky.new();
+		var panorama : Sky = Sky.new();
 		panorama.panorama = load(hdri_list[current_hdri_index][1]);
 		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = panorama;

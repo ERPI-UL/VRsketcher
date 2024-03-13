@@ -21,16 +21,13 @@ func _ready() -> void :
 func new_project(project_name : String, project_path : String) -> void :
 	var full_project_path : String = project_path + "/" + project_name;
 	
-	var dir : Directory = Directory.new();
 	
-	if dir.dir_exists(full_project_path) == false :
-		dir.make_dir(full_project_path);
-		dir.make_dir_recursive(full_project_path + "/" + IMPORT_PATH_MODELS);
-			
-		var project_data_file : File = File.new();
-		project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.WRITE);
-
-		project_data_file.store_string(to_json(
+	if DirAccess.dir_exists_absolute(full_project_path) == false:
+		DirAccess.make_dir_absolute(full_project_path);
+		DirAccess.make_dir_recursive_absolute(full_project_path + "/" + IMPORT_PATH_MODELS);
+		
+		var project_data_file = FileAccess.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, FileAccess.WRITE);
+		project_data_file.store_string(JSON.new().stringify(
 			{
 				"project_name"			: project_name,
 				"project_path"			: full_project_path,
@@ -57,7 +54,7 @@ func new_project(project_name : String, project_path : String) -> void :
 		load_application_data();
 
 func save_project() -> void :
-	yield(get_tree(), "idle_frame");
+	await get_tree().idle_frame;
 	var scene_imported_models_data : Array = [];
 	for model in (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_imported_models.models :
 		if model != null :
@@ -82,9 +79,9 @@ func save_project() -> void :
 			var model_size : Vector3 = Vector3.ZERO;
 			match (model as Model3D).model_filename :
 				"Box" :
-					model_size = ((model as Model3D).meshes[0] as CubeMesh).size;
+					model_size = ((model as Model3D).meshes[0] as BoxMesh).size;
 				"Cube" :
-					model_size = ((model as Model3D).meshes[0] as CubeMesh).size;
+					model_size = ((model as Model3D).meshes[0] as BoxMesh).size;
 				"Sphere" :
 					model_size.x = ((model as Model3D).meshes[0] as SphereMesh).height;
 					model_size.y = ((model as Model3D).meshes[0] as SphereMesh).radius;
@@ -167,10 +164,10 @@ func save_project() -> void :
 
 	var full_project_path : String = current_project["project_path"];
 	
-	var project_data_file : File = File.new();
-	if project_data_file.file_exists(full_project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
+	#var project_data_file : File = File.new();
+	if FileAccess.file_exists(full_project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
 		
-		project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.WRITE);
+		var project_data_file = FileAccess.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, FileAccess.WRITE);
 
 		var project_data : Dictionary = {
 				"project_name"					: current_project["project_name"],
@@ -188,7 +185,7 @@ func save_project() -> void :
 				"tool_shortcut_right"			: current_project["tool_shortcut_right"],
 			}
 
-		project_data_file.store_string(to_json(project_data));
+		project_data_file.store_string(JSON.new().stringify(project_data));
 		project_data_file.close();
 		
 		print(project_data)
@@ -201,10 +198,13 @@ func load_project(index : int) -> void :
 
 	var full_project_path : String = target_project["project_path"];
 	
-	var project_data_file : File = File.new();
-	if project_data_file.file_exists(full_project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
-		if project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.READ) == OK :
-			var parse_result : JSONParseResult = JSON.parse(project_data_file.get_as_text());
+	#var project_data_file : File = File.new();
+	if FileAccess.file_exists(full_project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
+		if FileAccess.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, FileAccess.READ) :
+			var project_data_file = FileAccess.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, FileAccess.READ)
+			var test_json_conv = JSON.new()
+			test_json_conv.parse(project_data_file.get_as_text());
+			var parse_result : JSON = test_json_conv.get_data()
 			if parse_result.error == OK :
 				current_project = parse_result.result;
 
@@ -422,9 +422,12 @@ func import_project(path : String) -> void :
 
 	#Update project's name and path in projectdata.vrsk file
 	var project_data : Dictionary = {};
-	var file : File = File.new();
-	if file.open(path, File.READ) == OK :
-		var parse_result : JSONParseResult = JSON.parse(file.get_as_text());
+	#var file : File = File.new();
+	if FileAccess.open(path, FileAccess.READ) :
+		var test_json_conv = JSON.new()
+		var file = FileAccess.open(path, FileAccess.READ);
+		test_json_conv.parse(file.get_as_text());
+		var parse_result : JSON = test_json_conv.get_data()
 		if parse_result.error == OK :
 			project_data = parse_result.result;
 			
@@ -433,8 +436,8 @@ func import_project(path : String) -> void :
 
 			file.close();
 
-			if file.open(path, File.WRITE) == OK :
-				file.store_string(to_json(project_data));
+			if file.open(path, FileAccess.WRITE) :
+				file.store_string(JSON.new().stringify(project_data));
 				file.close();
 			else :
 				print("Error while importing project");
@@ -461,19 +464,22 @@ func import_project(path : String) -> void :
 func save_application_data() -> void :
 	print(application_data)
 	
-	var file : File = File.new();
-	file.open(APPDATA_PATH, File.WRITE);
-	file.store_string(to_json(application_data));
+	#var file : FileAccess = File.new();
+	var file = FileAccess.open(APPDATA_PATH, FileAccess.WRITE);
+	file.store_string(JSON.new().stringify(application_data));
 	file.close();
 
 func load_application_data() -> void :
-	var file : File = File.new();
-	if file.file_exists(APPDATA_PATH) == false :
+	#var file : File = File.new();
+	if FileAccess.file_exists(APPDATA_PATH) == false :
 		save_application_data();
 
 	#Recent projects list
-	if file.open(APPDATA_PATH, File.READ) == OK :
-		var parse_result : JSONParseResult = JSON.parse(file.get_as_text());
+	if FileAccess.open(APPDATA_PATH, FileAccess.READ) :
+		var test_json_conv = JSON.new()
+		var file = FileAccess.open(APPDATA_PATH, FileAccess.READ)
+		test_json_conv.parse(file.get_as_text());
+		var parse_result : JSON = test_json_conv.get_data()
 		if parse_result.error == OK :
 			application_data["recent_projects"] = parse_result.result["recent_projects"]
 
@@ -481,11 +487,11 @@ func load_application_data() -> void :
 	var found_projects : Array = [];
 	for project in application_data["recent_projects"] :
 		var project_path : String = (project as Dictionary)["project_path"] as String;
-		var project_file : File = File.new();
+		#var project_file : File = File.new();
 		
 		print(project_path + "/" + MASTER_PROJECT_FILE_NAME)
 		
-		if project_file.file_exists(project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
+		if FileAccess.file_exists(project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
 			found_projects.append(project);
 
 	application_data["recent_projects"] = found_projects;
