@@ -177,7 +177,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 
 			#Copy model in the import directory if it isn't there yet
 			var local_model_file =FileAccess.open(Project.get_imported_models_directory_path() + "/" + model_name,FileAccess.READ);
-			if local_model_file.file_exists(Project.get_imported_models_directory_path() + "/" + model_name) == false :
+			if FileAccess.file_exists(Project.get_imported_models_directory_path() + "/" + model_name) == false :
 				if dir.file_exists(model_path) == true :
 					dir.copy(model_path, Project.get_imported_models_directory_path() + "/" + model_name);
 

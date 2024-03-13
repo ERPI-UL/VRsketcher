@@ -10,17 +10,19 @@ func _ready() -> void :
 	size = preview_resolution;
 
 func save_screenshot() -> void :
-	render_target_v_flip = false;
+	var viewport := get_viewport();
+	viewport.set_render_target_v_flip(false);
 	size = export_resolution;
 	await get_tree().idle_frame;
 	await get_tree().idle_frame;
 	
 	
-	var directory : DirAccess = DirAccess.new();	
 	var path : String = OS.get_executable_path().get_base_dir() + "/screenshots";
 	
-	if directory.dir_exists(path) == false :
-		directory.make_dir(path);
+	var dir=DirAccess.open(path);
+	
+	if dir.dir_exists(path) == false :
+		dir.make_dir(path);
 
 	var date : Dictionary = Time.get_datetime_dict_from_system();
 	
@@ -45,7 +47,7 @@ func save_screenshot() -> void :
 	print("Saved screenshot to : " + file_name);
 	
 	
-	render_target_v_flip = true;
+	viewport.render_target_v_flip = true;
 	size = preview_resolution;
 	
 func set_camera_position(value : Vector3) -> void :

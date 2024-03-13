@@ -51,7 +51,7 @@ func _ready() -> void :
 		item_button.flat = true;
 		item_button.expand_icon = true;
 		item_button.icon = load(hdri_list[i][2] as String);
-		item_button.icon_alignment = Button.IconAlignment.CENTER
+		item_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER;
 		item_button.custom_minimum_size = Vector2(75, 75);
 		item_button.tooltip_text = hdri_list[i][0];
 		item_button.name = hdri_list[i][0];

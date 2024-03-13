@@ -1,5 +1,5 @@
 extends Node
 class_name Importer
 
-func import_model_file(path : String) -> Array :
+func import_model_file(_path : String) -> Array :
 	return [];

@@ -27,7 +27,7 @@ func new_project(project_name : String, project_path : String) -> void :
 		DirAccess.make_dir_recursive_absolute(full_project_path + "/" + IMPORT_PATH_MODELS);
 		
 		var project_data_file = FileAccess.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, FileAccess.WRITE);
-		project_data_file.store_string(JSON.new().stringify(
+		project_data_file.store_string(JSON.stringify(
 			{
 				"project_name"			: project_name,
 				"project_path"			: full_project_path,
@@ -185,7 +185,7 @@ func save_project() -> void :
 				"tool_shortcut_right"			: current_project["tool_shortcut_right"],
 			}
 
-		project_data_file.store_string(JSON.new().stringify(project_data));
+		project_data_file.store_string(JSON.stringify(project_data));
 		project_data_file.close();
 		
 		print(project_data)
@@ -437,7 +437,7 @@ func import_project(path : String) -> void :
 			file.close();
 
 			if file.open(path, FileAccess.WRITE) :
-				file.store_string(JSON.new().stringify(project_data));
+				file.store_string(JSON.stringify(project_data));
 				file.close();
 			else :
 				print("Error while importing project");
@@ -466,7 +466,7 @@ func save_application_data() -> void :
 	
 	#var file : FileAccess = File.new();
 	var file = FileAccess.open(APPDATA_PATH, FileAccess.WRITE);
-	file.store_string(JSON.new().stringify(application_data));
+	file.store_string(JSON.stringify(application_data));
 	file.close();
 
 func load_application_data() -> void :

@@ -51,9 +51,9 @@ func process_binary_stl(file, surface_tool) -> void :
 	
 	for _i in range(number_of_facets) :
 		# first there will be 3 floats for the normals
-		var normal_x = file.get_float();
-		var normal_y = file.get_float();
-		var normal_z = file.get_float();
+		var _normal_x = file.get_float();
+		var _normal_y = file.get_float();
+		var _normal_z = file.get_float();
 		#surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
 		
 		# then there wil be 3 vertices
@@ -101,9 +101,9 @@ func process_ascii_stl(file, surface_tool) -> void :
 				
 				# first 2 items of the parts array should be "facet" and "normal"
 				# the next 3 items should be the normals
-				var normal_x = float(parts[2]);
-				var normal_y = float(parts[3]);
-				var normal_z = float(parts[4]);
+				var _normal_x = float(parts[2]);
+				var _normal_y = float(parts[3]);
+				var _normal_z = float(parts[4]);
 				#surface_tool.add_normal(Vector3(normal_x, normal_y, normal_z));
 				
 				parsing_state = PARSE_STATE.FACET;

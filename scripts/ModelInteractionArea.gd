@@ -10,7 +10,7 @@ func _ready():
 	collision_layer = interaction_collision_layer;
 	collision_mask = interaction_collision_mask;
 
-func set_interaction_area(position : Vector3, size : Vector3) -> void :
+func set_interaction_area(_position : Vector3, size : Vector3) -> void :
 	var interaction_area_min_size : float = 0.03;
 
 	var abs_diff : Vector3 = Vector3.ONE * interaction_area_min_size - size;
@@ -22,5 +22,5 @@ func set_interaction_area(position : Vector3, size : Vector3) -> void :
 		max(interaction_area_min_size, size.z)
 	);
 
-	(get_node("CollisionShape3D") as Node3D).position = position + area_size - (abs_diff);
+	(get_node("CollisionShape3D") as Node3D).position = _position + area_size - (abs_diff);
 	(get_node("CollisionShape3D").shape as BoxShape3D).extents = area_size;

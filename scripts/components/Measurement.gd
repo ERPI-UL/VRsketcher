@@ -74,7 +74,7 @@ func _ready() -> void :
 	add_child(measure_text);
 	measure_text.scale = Vector3.ONE * 0.1;
 
-func _process(delta : float) -> void :
+func _process(_delta : float) -> void :
 	if (start_area == null || end_area == null) && mode == MeasureMode.DISTANCE :
 		queue_free();
 		return;

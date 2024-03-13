@@ -37,7 +37,7 @@ func fold_item(override : bool = false, value : bool = true) -> void :
 		fold_container.visible = value;
 		btn_fold.button_pressed = value;
 	else :
-		target_note.inspector_unfolded = btn_fold.pressed;
+		target_note.inspector_unfolded = btn_fold.get("pressed");
 		fold_container.visible = target_note.inspector_unfolded;
 
 func delete_note() -> void :

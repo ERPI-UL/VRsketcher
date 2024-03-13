@@ -22,7 +22,7 @@ func _ready() -> void :
 	teleport_gizmo.visible = false;
 
 
-func _physics_process(delta : float) -> void :
+func _physics_process(_delta : float) -> void :
 	if raycast.is_colliding() == true :
 		teleport_position = lerp(teleport_position, raycast.get_collision_point(), 0.5);
 		teleport_gizmo.global_transform.origin = teleport_position;

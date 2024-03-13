@@ -92,8 +92,8 @@ func refresh_material() -> void :
 		if c is MeshInstance3D :
 			c.set_surface_override_material(0, material);
 
-func set_overlay_material(material : Material) -> void :
+func set_overlay_material(_material : Material) -> void :
 	for c in get_children() :
 		if c is MeshInstance3D :
-			c.material_overlay = material;
+			c.material_overlay = _material;
 

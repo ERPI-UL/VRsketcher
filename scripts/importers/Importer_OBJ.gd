@@ -2,7 +2,7 @@ extends Importer
 
 func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 	var meshes : Array = [];
-	var file_unit : String = "meter";
+	var _file_unit : String = "meter";
 
 	var current_mesh_data : Dictionary = {};
 
