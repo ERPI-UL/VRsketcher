@@ -1,38 +1,37 @@
 extends Node
 class_name VRSketcher
 
-var camera : Camera = null;
+var camera : Camera3D = null;
+@export var controller_viewport_path: NodePath = NodePath("");
+@export var camera_sync_path: NodePath = NodePath("");
 
-export(NodePath) var controller_viewport_path	: NodePath			= "";
-export(NodePath) var camera_sync_path			: NodePath			= "";
+@onready var world								: Node3D			= get_node("World");
+@onready var world_environment					: WorldEnvironment	= get_node("WorldEnvironment");
 
-onready var world								: Spatial			= get_node("World");
-onready var world_environment					: WorldEnvironment	= get_node("WorldEnvironment");
+@onready var manager_imported_models				: ModelsManager		= get_node("Model_Managers/Imported_Models");
+@onready var manager_drawn_models				: ModelsManager		= get_node("Model_Managers/Drawn_Models");
+@onready var manager_notes						: NotesManager		= get_node("Model_Managers/Notes");
 
-onready var manager_imported_models				: ModelsManager		= get_node("Model_Managers/Imported_Models");
-onready var manager_drawn_models				: ModelsManager		= get_node("Model_Managers/Drawn_Models");
-onready var manager_notes						: NotesManager		= get_node("Model_Managers/Notes");
+@onready var hdri_manager						: Node				= get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI");
 
-onready var hdri_manager						: Node				= get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/Environment_HDRI");
+@onready var scene_imported_models				: Node3D			= get_node("Scene_Objects/Imported_Models");
+@onready var scene_lines							: Node3D			= get_node("Scene_Objects/Lines");
+@onready var scene_measurements					: Node3D			= get_node("Scene_Objects/Measurements");
+@onready var scene_drawn_models					: Node3D			= get_node("Scene_Objects/Drawn_Models");
+@onready var scene_notes							: Node3D			= get_node("Scene_Objects/Notes");
 
-onready var scene_imported_models				: Spatial			= get_node("Scene_Objects/Imported_Models");
-onready var scene_lines							: Spatial			= get_node("Scene_Objects/Lines");
-onready var scene_measurements					: Spatial			= get_node("Scene_Objects/Measurements");
-onready var scene_drawn_models					: Spatial			= get_node("Scene_Objects/Drawn_Models");
-onready var scene_notes							: Spatial			= get_node("Scene_Objects/Notes");
+@onready var project_manager						: Control			= get_node("Interface/ProjectManager");
+@onready var vr_sketcher_interface				: Control			= get_node("Interface/VRSketcherInterface");
+@onready var controller_selection				: Control			= get_node("Interface/ControllerSelection");
 
-onready var project_manager						: Control			= get_node("Interface/ProjectManager");
-onready var vr_sketcher_interface				: Control			= get_node("Interface/VRSketcherInterface");
-onready var controller_selection				: Control			= get_node("Interface/ControllerSelection");
-
-onready var import_smooth_shading				: CheckButton		= get_node("Interface/ModelImportWindow/Import_Panel/Import_Smooth_Shading");
+@onready var import_smooth_shading				: CheckButton		= get_node("Interface/ModelImportWindow/Import_Panel/Import_Smooth_Shading");
 
 
 func _ready() -> void :
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.x;
 	(get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/X_Resolution/SpinBox") as SpinBox).value = get_viewport().size.y;
 
-	Project.connect("open_project", self, "open_project");
+	Project.connect("open_project", Callable(self, "open_project"));
 
 	project_manager.visible = true;
 	vr_sketcher_interface.visible = false;
@@ -40,11 +39,11 @@ func _ready() -> void :
 
 func set_controller(controller : Node, enable_vr : bool) -> void :
 	for child in get_children_recursive(controller) :
-		if child is Camera :
+		if child is Camera3D :
 			camera = child;
 			break;
 
-	(get_node(controller_viewport_path) as Viewport).arvr = enable_vr;
+	(get_node(controller_viewport_path) as SubViewport).arvr = enable_vr;
 	
 	get_node(controller_viewport_path).add_child(controller);
 	
@@ -67,8 +66,11 @@ func apply_display_settings():
 	var fullscreen = (get_node("Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/TabedContainer/Display/VSplitContainer/VBoxContainer/Fullscreen/CheckBox") as CheckBox).pressed;
 
 	get_viewport().size = Vector2(x_resolution, y_resolution);
-	OS.window_size = Vector2(x_resolution, y_resolution);
-	OS.window_fullscreen = fullscreen;
+	get_window().size = Vector2(x_resolution, y_resolution);
+	if fullscreen:
+		get_tree().set_window_fullscreen(true)
+	else:
+		get_tree().set_window_fullscreen(false)
 	
 	if camera != null :
 		camera.fov = fov;
@@ -154,7 +156,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 	if local_model == true :
 		model_path = Project.get_imported_models_directory_path() + "/" + model_path;
 
-	var dir : Directory = Directory.new();
+	var dir= DirAccess.open(model_path);
 	if dir.file_exists(model_path) == true :
 
 		var extension : String = model_path.rsplit(".", true, 1)[1];
@@ -174,7 +176,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			model.model_filename = model_name;
 
 			#Copy model in the import directory if it isn't there yet
-			var local_model_file : File = File.new();
+			var local_model_file =FileAccess.open(Project.get_imported_models_directory_path() + "/" + model_name,FileAccess.READ);
 			if local_model_file.file_exists(Project.get_imported_models_directory_path() + "/" + model_name) == false :
 				if dir.file_exists(model_path) == true :
 					dir.copy(model_path, Project.get_imported_models_directory_path() + "/" + model_name);
@@ -193,7 +195,7 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 
 			model.global_transform.origin = model_data["position"] as Vector3;
 			model.rotation_degrees = model_data["rotation"] as Vector3;
-			model.scale = Vector3.ONE * model_data["scale"] as float;
+			model.scale = Vector3.ONE * model_data["scale"];
 
 			model.override_material_index = model_data["material_override"] as int;
 			model.set_material(null);
@@ -219,13 +221,13 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 		"Box" :
 			drawn_model.model_filename = "Box";
 			drawn_model.inspector_name = "Box";
-			primitive_mesh = CubeMesh.new();
-			(primitive_mesh as CubeMesh).size = model_data["size"] as Vector3;
+			primitive_mesh = BoxMesh.new();
+			(primitive_mesh as BoxMesh).size = model_data["size"] as Vector3;
 		"Cube" :
 			drawn_model.model_filename = "Cube";
 			drawn_model.inspector_name = "Cube";
-			primitive_mesh = CubeMesh.new();
-			(primitive_mesh as CubeMesh).size = model_data["size"] as Vector3;
+			primitive_mesh = BoxMesh.new();
+			(primitive_mesh as BoxMesh).size = model_data["size"] as Vector3;
 		"Sphere" :
 			drawn_model.model_filename = "Sphere";
 			drawn_model.inspector_name = "Sphere";
@@ -265,7 +267,7 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 
 	drawn_model.global_transform.origin = model_data["position"] as Vector3;
 	drawn_model.rotation_degrees = model_data["rotation"] as Vector3;
-	drawn_model.scale = Vector3.ONE * model_data["scale"] as float;
+	drawn_model.scale = Vector3.ONE * model_data["scale"];
 
 	drawn_model.override_material_index = model_data["material_override"] as int;
 	drawn_model.set_material(null);
@@ -279,7 +281,7 @@ func load_drawn_model(model_data : Dictionary) -> Model3D :
 	return drawn_model;
 
 func load_note(note_data : Dictionary) -> Note3D :
-	var note : Note3D = load("res://scenes/sketch_tools/note_tool/Note3D.tscn").instance();
+	var note : Note3D = load("res://scenes/sketch_tools/note_tool/Note3D.tscn").instantiate();
 
 	note.show_arrow_top_left = note_data["show_arrow_top_left"] as bool;
 	note.show_arrow_top = note_data["show_arrow_top"] as bool;
@@ -296,7 +298,7 @@ func load_note(note_data : Dictionary) -> Note3D :
 
 	note.global_transform.origin = note_data["position"] as Vector3;
 	note.rotation_degrees = note_data["rotation"] as Vector3;
-	note.scale = Vector3.ONE * note_data["scale"] as float;
+	note.scale = Vector3.ONE * note_data["scale"];
 
 	note.note_interactable = note_data["note_interactable"] as bool;
 	note.update_interaction_area();

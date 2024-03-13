@@ -1,6 +1,6 @@
 extends Node
 
-export(String) var linked_debug_settings : String = "";
+@export var linked_debug_settings: String = "";
 
 func _ready() :
 	var item : Control = get_parent();

@@ -1,19 +1,19 @@
-extends Spatial;
+extends Node3D;
 class_name XRInterfaceController
 
-export(bool) var enabled : bool = false;
+@export var enabled: bool = false;
 
-export(float, 0.1, 20.0) var max_ray_length : float = 10.0;
+@export var max_ray_length : float = 10.0; # (float, 0.1, 20.0)
 
-export(int, LAYERS_3D_PHYSICS) var collision_mask : int = 0x00000000;
+@export var collision_mask : int = 0x00000000; # (int, LAYERS_3D_PHYSICS)
 
-export(Color, RGBA) var ray_color : Color = Color.cyan;
-export(float) var gizmo_ray_thickness : float = 0.01;
-export(float) var gizmo_end_radius : float = 0.02;
+@export var ray_color : Color = Color.CYAN; # (Color, RGBA)
+@export var gizmo_ray_thickness: float = 0.01;
+@export var gizmo_end_radius: float = 0.02;
 
-var raycast : RayCast = null;
-var gizmo_ray : MeshInstance = null;
-var gizmo_end : MeshInstance = null;
+var raycast : RayCast3D = null;
+var gizmo_ray : MeshInstance3D = null;
+var gizmo_end : MeshInstance3D = null;
 
 var interface : XRInterface = null;
 var hover_state : bool = false;
@@ -25,14 +25,14 @@ signal xr_interface_entered();
 signal xr_interface_exited();
 
 func _ready() -> void :
-	var gizmo_material : SpatialMaterial = SpatialMaterial.new();
-	gizmo_material.params_cull_mode = SpatialMaterial.CULL_BACK;
-	gizmo_material.albedo_color = Color.black;
+	var gizmo_material : StandardMaterial3D = StandardMaterial3D.new();
+	gizmo_material.params_cull_mode = StandardMaterial3D.CULL_BACK;
+	gizmo_material.albedo_color = Color.BLACK;
 	gizmo_material.emission_enabled = true;
 	gizmo_material.emission = ray_color;
 	
-	raycast = RayCast.new();
-	raycast.cast_to = Vector3(0.0, 0.0, -max_ray_length);
+	raycast = RayCast3D.new();
+	raycast.target_position = Vector3(0.0, 0.0, -max_ray_length);
 	raycast.collide_with_areas = true;
 	raycast.collide_with_bodies = true;
 	raycast.collision_mask = collision_mask;
@@ -40,7 +40,7 @@ func _ready() -> void :
 	add_child(raycast);
 	
 	#Create ray gizmo meshes
-	gizmo_ray = MeshInstance.new();
+	gizmo_ray = MeshInstance3D.new();
 	gizmo_ray.material_overlay = gizmo_material;
 	gizmo_ray.mesh = CylinderMesh.new();
 	(gizmo_ray.mesh as CylinderMesh).height = 1.0;
@@ -51,7 +51,7 @@ func _ready() -> void :
 	add_child(gizmo_ray);
 	gizmo_ray.rotation_degrees.x = 90.0;
 
-	gizmo_end = MeshInstance.new();
+	gizmo_end = MeshInstance3D.new();
 	gizmo_end.material_overlay = gizmo_material;
 	gizmo_end.mesh = SphereMesh.new();
 	(gizmo_end.mesh as SphereMesh).radius = gizmo_end_radius;
@@ -82,9 +82,9 @@ func _physics_process(delta : float) -> void :
 			hover_state = false;
 
 		#Update gizmo
-		gizmo_ray.translation.z = -collision_distance / 2.0;
+		gizmo_ray.position.z = -collision_distance / 2.0;
 		gizmo_ray.scale.y = -collision_distance;
-		gizmo_end.translation.z = -collision_distance;
+		gizmo_end.position.z = -collision_distance;
 	else :
 		interface = null;
 		hover_state = false;
@@ -102,10 +102,10 @@ func set_enabled(value : bool) -> void :
 	gizmo_ray.visible = value;
 	gizmo_end.visible = value;
 
-func interface_send_mouse_button_pressed(button_index : int = BUTTON_LEFT) -> void :
+func interface_send_mouse_button_pressed(button_index : int = MOUSE_BUTTON_LEFT) -> void :
 	if interface != null :
 		interface.interface_send_mouse_button_pressed(button_index);
 
-func interface_send_mouse_button_released(button_index : int = BUTTON_LEFT) -> void :
+func interface_send_mouse_button_released(button_index : int = MOUSE_BUTTON_LEFT) -> void :
 	if interface != null :
 		interface.interface_send_mouse_button_released(button_index);

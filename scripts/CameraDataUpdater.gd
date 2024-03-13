@@ -1,4 +1,4 @@
-extends Camera
+extends Camera3D
 
 func _process(delta : float) -> void :
 	CameraData.direction_right = global_transform.basis.x;

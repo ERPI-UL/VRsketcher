@@ -1,20 +1,20 @@
 extends Controller
 
-export(float) var walk_speed : float = 3.0;
-export(float) var run_speed : float = 6.0;
+@export var walk_speed: float = 3.0;
+@export var run_speed: float = 6.0;
 
-export(float) var h_sensitivity : float = 150.0;
-export(float) var v_sensitivity : float = 100.0;
+@export var h_sensitivity: float = 150.0;
+@export var v_sensitivity: float = 100.0;
 
-export(Vector3) var gravity : Vector3 = Vector3(0.0, -9.81, 0.0);
+@export var gravity: Vector3 = Vector3(0.0, -9.81, 0.0);
 
-export(float) var fov : float = 70.0;
+@export var fov: float = 70.0;
 
-onready var h_pivot : Spatial = get_node("H_Pivot");
-onready var v_pivot : Spatial = get_node("H_Pivot/V_Pivot");
-onready var camera : Camera = get_node("H_Pivot/V_Pivot/Camera");
+@onready var h_pivot : Node3D = get_node("H_Pivot");
+@onready var v_pivot : Node3D = get_node("H_Pivot/V_Pivot");
+@onready var camera : Camera3D = get_node("H_Pivot/V_Pivot/Camera3D");
 
-onready var tools_menu : Control = get_node("Tools_Menu");
+@onready var tools_menu : Control = get_node("Tools_Menu");
 var tools_menu_visible : bool = false;
 
 func _ready() -> void :
@@ -62,8 +62,8 @@ func _physics_process(delta : float) -> void :
 
 	var look_input : Vector2 = get_look_input();
 	
-	h_pivot.rotate_y(deg2rad(look_input.x) * -h_sensitivity * delta);
-	v_pivot.rotate_x(deg2rad(look_input.y) * -v_sensitivity * delta);
+	h_pivot.rotate_y(deg_to_rad(look_input.x) * -h_sensitivity * delta);
+	v_pivot.rotate_x(deg_to_rad(look_input.y) * -v_sensitivity * delta);
 
 	v_pivot.rotation_degrees.x = clamp(v_pivot.rotation_degrees.x, -90.0, 90.0);
 

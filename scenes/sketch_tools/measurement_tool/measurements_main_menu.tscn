@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/ui_components/tool_mode_item/ToolModeItem.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/icons/vr_tool_icons/tool_measurements_ruler.svg" type="Texture" id=2]
-[ext_resource path="res://assets/icons/vr_tool_icons/tool_measurements_protractor.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/vr_tool_icons/tool_measurements_ruler.svg" type="Texture2D" id=2]
+[ext_resource path="res://assets/icons/vr_tool_icons/tool_measurements_protractor.svg" type="Texture2D" id=3]
 
 [node name="measurements_main_menu" type="GridContainer"]
 anchor_right = 1.0
@@ -12,18 +12,18 @@ size_flags_vertical = 3
 columns = 2
 
 [node name="Distance" parent="." instance=ExtResource( 1 )]
-margin_left = 274.0
-margin_top = 250.0
-margin_right = 374.0
-margin_bottom = 350.0
+offset_left = 274.0
+offset_top = 250.0
+offset_right = 374.0
+offset_bottom = 350.0
 tool_mode_name = "Distance"
 tool_icon = ExtResource( 2 )
 
 [node name="Angle" parent="." instance=ExtResource( 1 )]
-margin_left = 926.0
-margin_top = 250.0
-margin_right = 1026.0
-margin_bottom = 350.0
+offset_left = 926.0
+offset_top = 250.0
+offset_right = 1026.0
+offset_bottom = 350.0
 tool_mode_name = "Angle"
 tool_icon = ExtResource( 3 )
 target_mode_index = 1

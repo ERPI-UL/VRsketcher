@@ -1,8 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture"
-path="res://.import/city 05.hdr-a0e9f4309f78df62bb8e1985cc48ed6f.stex"
+type="CompressedTexture2D"
+uid="uid://c67c1tyn12ifa"
+path="res://.godot/imported/city 05.hdr-a0e9f4309f78df62bb8e1985cc48ed6f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -10,26 +11,24 @@ metadata={
 [deps]
 
 source_file="res://assets/hdri/city 05.hdr"
-dest_files=[ "res://.import/city 05.hdr-a0e9f4309f78df62bb8e1985cc48ed6f.stex" ]
+dest_files=["res://.godot/imported/city 05.hdr-a0e9f4309f78df62bb8e1985cc48ed6f.ctex"]
 
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.9
-compress/hdr_mode=1
-compress/bptc_ldr=0
+compress/hdr_compression=1
 compress/normal_map=2
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=true
-flags/anisotropic=true
-flags/srgb=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
 process/normal_map_invert_y=false
-stream=false
-size_limit=0
-detect_3d=false
-svg/scale=1.0
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

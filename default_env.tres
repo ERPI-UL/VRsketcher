@@ -1,20 +1,14 @@
-[gd_resource type="Environment" load_steps=2 format=2]
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://cg2376b80m0ar"]
 
-[ext_resource path="res://default_sky.tres" type="ProceduralSky" id=1]
+[ext_resource type="Sky" path="res://default_sky.tres" id="1"]
 
 [resource]
 background_mode = 2
-background_sky = ExtResource( 1 )
-background_color = Color( 0.462745, 0.462745, 0.462745, 1 )
-ss_reflections_max_steps = 512
+background_color = Color(0.462745, 0.462745, 0.462745, 1)
+sky = ExtResource("1")
 ssao_radius = 0.1
 ssao_intensity = 0.5
 ssao_light_affect = 1.0
-ssao_color = Color( 0.164706, 0.164706, 0.164706, 1 )
-ssao_blur = 2
-ssao_edge_sharpness = 2.0
 glow_enabled = true
 glow_strength = 0.8
 glow_bloom = 0.05
-glow_bicubic_upscale = true
-glow_high_quality = true

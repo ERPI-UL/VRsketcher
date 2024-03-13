@@ -6,256 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Spatial",
-"class": "Controller",
-"language": "GDScript",
-"path": "res://scenes/controllers/Controller.gd"
-}, {
-"base": "WindowDialog",
-"class": "CreateProjectDialog",
-"language": "GDScript",
-"path": "res://scenes/ui/create_project_dialog/CreateProjectDialog.gd"
-}, {
-"base": "SketchTool",
-"class": "Eraser",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/eraser/Eraser.gd"
-}, {
-"base": "Node",
-"class": "Exporter",
-"language": "GDScript",
-"path": "res://scripts/exporters/Exporter.gd"
-}, {
-"base": "Node",
-"class": "Exporter_3MF",
-"language": "GDScript",
-"path": "res://scripts/exporters/Exporter_3MF.gd"
-}, {
-"base": "Node",
-"class": "Exporter_OBJ",
-"language": "GDScript",
-"path": "res://scripts/exporters/Exporter_OBJ.gd"
-}, {
-"base": "Container",
-"class": "FlexGridContainer",
-"language": "GDScript",
-"path": "res://scripts/ui_components/FlexGridContainer.gd"
-}, {
-"base": "SketchTool",
-"class": "Grab",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/grab/Grab.gd"
-}, {
-"base": "Node",
-"class": "HDRIManager",
-"language": "GDScript",
-"path": "res://scripts/HDRIManager.gd"
-}, {
-"base": "Node",
-"class": "Importer",
-"language": "GDScript",
-"path": "res://scripts/importers/Importer.gd"
-}, {
-"base": "MeshInstance",
-"class": "Line",
-"language": "GDScript",
-"path": "res://scripts/components/Line.gd"
-}, {
-"base": "SketchTool",
-"class": "MaterialPainter",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/material_painter/MaterialPainter.gd"
-}, {
-"base": "Spatial",
-"class": "Measurement",
-"language": "GDScript",
-"path": "res://scripts/components/Measurement.gd"
-}, {
-"base": "SketchTool",
-"class": "MeasurementTool",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/measurement_tool/MeasurementTool.gd"
-}, {
-"base": "Spatial",
-"class": "Model3D",
-"language": "GDScript",
-"path": "res://scripts/components/Model3D.gd"
-}, {
-"base": "Area",
-"class": "ModelInteractionArea",
-"language": "GDScript",
-"path": "res://scripts/ModelInteractionArea.gd"
-}, {
-"base": "Control",
-"class": "ModelItem",
-"language": "GDScript",
-"path": "res://scenes/ui_components/model_item/ModelItem.gd"
-}, {
-"base": "Control",
-"class": "ModelTransform",
-"language": "GDScript",
-"path": "res://scenes/ui_components/model_transform/ModelTransform.gd"
-}, {
-"base": "SketchTool",
-"class": "Modeler",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/modeler/Modeler.gd"
-}, {
-"base": "Node",
-"class": "ModelsManager",
-"language": "GDScript",
-"path": "res://scripts/ModelsManager.gd"
-}, {
-"base": "SketchTool",
-"class": "Move",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/move/Move.gd"
-}, {
-"base": "Spatial",
-"class": "Note3D",
-"language": "GDScript",
-"path": "res://scripts/components/Note3D.gd"
-}, {
-"base": "Control",
-"class": "NoteItem",
-"language": "GDScript",
-"path": "res://scenes/ui_components/notes_item/NoteItem.gd"
-}, {
-"base": "SketchTool",
-"class": "NoteTool",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/note_tool/NoteTool.gd"
-}, {
-"base": "Node",
-"class": "NotesManager",
-"language": "GDScript",
-"path": "res://scripts/NotesManager.gd"
-}, {
-"base": "SketchTool",
-"class": "Pen",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/pen/Pen.gd"
-}, {
-"base": "Node",
-"class": "ProjectItem",
-"language": "GDScript",
-"path": "res://scenes/ui_components/project_item/ProjectItem.gd"
-}, {
-"base": "SketchTool",
-"class": "Rotate",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/rotate/Rotate.gd"
-}, {
-"base": "Spatial",
-"class": "SketchTool",
-"language": "GDScript",
-"path": "res://scripts/components/SketchTool.gd"
-}, {
-"base": "Spatial",
-"class": "SpatialSync",
-"language": "GDScript",
-"path": "res://scripts/components/SpatialSync.gd"
-}, {
-"base": "Viewport",
-"class": "SpectatorCamera",
-"language": "GDScript",
-"path": "res://scenes/camera_tools/spectator_camera/SpectatorCamera.gd"
-}, {
-"base": "SketchTool",
-"class": "Teleport",
-"language": "GDScript",
-"path": "res://scenes/sketch_tools/teleport/Teleport.gd"
-}, {
-"base": "Control",
-"class": "ToolItem",
-"language": "GDScript",
-"path": "res://scenes/ui_components/tool_item/ToolItem.gd"
-}, {
-"base": "Control",
-"class": "ToolModeItem",
-"language": "GDScript",
-"path": "res://scenes/ui_components/tool_mode_item/ToolModeItem.gd"
-}, {
-"base": "Control",
-"class": "ToolShortcut",
-"language": "GDScript",
-"path": "res://scenes/ui_components/tool_shortcut/ToolShortcut.gd"
-}, {
-"base": "Node",
-"class": "ToolTip",
-"language": "GDScript",
-"path": "res://scenes/ui/tooltip/Tooltip.gd"
-}, {
-"base": "Node",
-"class": "TooltipHovering",
-"language": "GDScript",
-"path": "res://scripts/ui_components/TooltipHovering.gd"
-}, {
-"base": "Node",
-"class": "VRSketcher",
-"language": "GDScript",
-"path": "res://scripts/VRSketcher.gd"
-}, {
-"base": "Area",
-"class": "XRInterface",
-"language": "GDScript",
-"path": "res://scripts/ui_components/XRInterface.gd"
-}, {
-"base": "Spatial",
-"class": "XRInterfaceController",
-"language": "GDScript",
-"path": "res://scripts/ui_components/XRInterfaceController.gd"
-} ]
-_global_script_class_icons={
-"Controller": "",
-"CreateProjectDialog": "",
-"Eraser": "",
-"Exporter": "",
-"Exporter_3MF": "",
-"Exporter_OBJ": "",
-"FlexGridContainer": "",
-"Grab": "",
-"HDRIManager": "",
-"Importer": "",
-"Line": "",
-"MaterialPainter": "",
-"Measurement": "",
-"MeasurementTool": "",
-"Model3D": "",
-"ModelInteractionArea": "",
-"ModelItem": "",
-"ModelTransform": "",
-"Modeler": "",
-"ModelsManager": "",
-"Move": "",
-"Note3D": "",
-"NoteItem": "",
-"NoteTool": "",
-"NotesManager": "",
-"Pen": "",
-"ProjectItem": "",
-"Rotate": "",
-"SketchTool": "",
-"SpatialSync": "",
-"SpectatorCamera": "",
-"Teleport": "",
-"ToolItem": "",
-"ToolModeItem": "",
-"ToolShortcut": "",
-"ToolTip": "",
-"TooltipHovering": "",
-"VRSketcher": "",
-"XRInterface": "",
-"XRInterfaceController": ""
-}
+config_version=5
 
 [application]
 
 config/name="Vr Sketcher"
 run/main_scene="res://VRSketcher.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
 [autoload]
@@ -275,15 +32,15 @@ KeyboardInputState="*res://scripts/global_scope/KeyboardInputState.gd"
 
 [display]
 
-window/size/width=1300
+window/size/viewport_width=1300
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg" )
+enabled=PackedStringArray("res://addons/godot-openxr/plugin.cfg")
 
 [gdnative]
 
-singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib" ]
+singletons=["res://addons/godot-openxr/config/godot_openxr.gdnlib"]
 
 [gui]
 
@@ -293,206 +50,206 @@ common/drop_mouse_on_gui_input_disabled=true
 
 ui_accept={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194310,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_select={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_cancel={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_left={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_right={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_up={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_down={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 gamepad_move_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+]
 }
 gamepad_move_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+]
 }
 gamepad_move_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+]
 }
 gamepad_move_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+]
 }
 gamepad_move_upwards={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":4,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":9,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_move_downwards={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":4,"axis_value":1.0,"script":null)
+]
 }
 gamepad_look_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
+]
 }
 gamepad_look_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
+]
 }
 gamepad_look_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
+]
 }
 gamepad_look_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
- ]
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
+]
 }
 gamepad_run={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":8,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tool_use={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tool_shortcut_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tool_shortcut_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tool_shortcut_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tool_shortcut_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 gamepad_tools_menu_toogle={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 keyboard_move_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":81,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_move_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_move_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":90,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_move_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":83,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_move_upwards={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777235,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194323,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_move_downwards={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777236,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194324,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_look_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":74,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":74,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_look_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":76,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_look_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":73,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_look_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":75,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":75,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_run={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777240,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194328,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_tool_use={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 keyboard_tool_shortcut_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194320,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_tool_shortcut_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194322,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_tool_shortcut_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_tool_shortcut_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194321,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 keyboard_tools_menu_toogle={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 
 [physics]
@@ -501,9 +258,8 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+environment/defaults/default_environment="res://default_env.tres"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 quality/shadows/filter_mode=2
 gles2/compatibility/disable_half_float=true
 quality/depth/use_32_bpc_depth=true
-environment/default_environment="res://default_env.tres"

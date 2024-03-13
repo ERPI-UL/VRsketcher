@@ -38,7 +38,7 @@ var disable_welcome_splash						: bool	= false;
 var screenshot_prefix							: String = "";
 
 func _ready():
-	var file : File = File.new();
+	var file = FileAccess;
 	if file.file_exists(DEBUG_SETTINGS_FILE_PATH) == false :
 		save_debug_settings();
 	else :
@@ -47,10 +47,12 @@ func _ready():
 func load_debug_settings() -> void :
 	print("load debug settings");
 	
-	var debug_settings_file : File = File.new();
+	var debug_settings_file =FileAccess.open(DEBUG_SETTINGS_FILE_PATH, FileAccess.READ);
 	if debug_settings_file.file_exists(DEBUG_SETTINGS_FILE_PATH) == true :
-		if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.READ) == OK :
-			var parse_result : JSONParseResult = JSON.parse(debug_settings_file.get_as_text());
+		if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, FileAccess.READ) :
+			var test_json_conv = JSON.new()
+			test_json_conv.parse(debug_settings_file.get_as_text());
+			var parse_result : JSON = test_json_conv.get_data()
 			if parse_result.error == OK :
 				var settings : Dictionary = parse_result.result;
 				if settings.has("enable_tool_teleport") == true :
@@ -113,9 +115,9 @@ func load_debug_settings() -> void :
 			debug_settings_file.close();
 
 func save_debug_settings() -> void :
-	var debug_settings_file : File = File.new();
+	var debug_settings_file =FileAccess.open(DEBUG_SETTINGS_FILE_PATH, FileAccess.WRITE);
 
-	if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.WRITE) == OK :
+	if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, FileAccess.WRITE) :
 		var settings : Dictionary = {
 			"enable_tool_teleport"						: enable_tool_teleport,
 			"enable_tool_pen"							: enable_tool_pen,
@@ -150,5 +152,5 @@ func save_debug_settings() -> void :
 			"disable_welcome_splash"					: disable_welcome_splash
 		};
 		
-		debug_settings_file.store_string(to_json(settings));
+		debug_settings_file.store_string(JSON.new().stringify(settings));
 		debug_settings_file.close();

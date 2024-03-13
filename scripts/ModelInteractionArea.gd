@@ -1,8 +1,10 @@
-extends Area
+extends Area3D
 class_name ModelInteractionArea
 
-export(int, LAYERS_3D_PHYSICS)	var interaction_collision_layer		: int	= 0;
-export(int, LAYERS_3D_PHYSICS)	var interaction_collision_mask		: int	= 0;
+#@export(int, LAYERS_3D_PHYSICS)	var interaction_collision_layer		: int	= 0;
+@export()	var interaction_collision_layer		: int	= 0;
+#@export(int, LAYERS_3D_PHYSICS)	var interaction_collision_mask		: int	= 0;
+@export()	var interaction_collision_mask		: int	= 0;
 
 func _ready():
 	collision_layer = interaction_collision_layer;
@@ -20,5 +22,5 @@ func set_interaction_area(position : Vector3, size : Vector3) -> void :
 		max(interaction_area_min_size, size.z)
 	);
 
-	(get_node("CollisionShape") as Spatial).translation = position + area_size - (abs_diff);
-	(get_node("CollisionShape").shape as BoxShape).extents = area_size;
+	(get_node("CollisionShape3D") as Node3D).position = position + area_size - (abs_diff);
+	(get_node("CollisionShape3D").shape as BoxShape3D).extents = area_size;

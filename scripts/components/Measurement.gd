@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name Measurement
 
 enum MeasureMode {
@@ -12,9 +12,9 @@ var start_point		: Vector3 = Vector3.ZERO;
 var middle_point	: Vector3 = Vector3.ZERO;
 var end_point		: Vector3 = Vector3.ZERO;
 
-var start_area		: Area = null;
-var middle_area		: Area = null;
-var end_area		: Area = null;
+var start_area		: Area3D = null;
+var middle_area		: Area3D = null;
+var end_area		: Area3D = null;
 
 var line_renderer	: Line = null;
 var measure_text	: Label3D = null;
@@ -23,36 +23,36 @@ var use_areas_position : bool = true;
 
 func _ready() -> void :
 	var gizmo_position : PackedScene = load("res://scenes/gizmos/Gizmo_Position.tscn");
-	var area_shape : SphereShape = SphereShape.new();
+	var area_shape : SphereShape3D = SphereShape3D.new();
 	area_shape.radius = 0.05;
 	
 	
-	start_area = Area.new();
-	var shape : CollisionShape = CollisionShape.new();
+	start_area = Area3D.new();
+	var shape : CollisionShape3D = CollisionShape3D.new();
 	shape.shape = area_shape;
 	add_child(start_area);
 	start_area.name = "start";
 	start_area.add_child(shape);
-	start_area.add_child(gizmo_position.instance());
+	start_area.add_child(gizmo_position.instantiate());
 	start_area.global_transform.origin = start_point;
 
-	end_area = Area.new();
-	shape = CollisionShape.new();
+	end_area = Area3D.new();
+	shape = CollisionShape3D.new();
 	shape.shape = area_shape;
 	add_child(end_area);
 	end_area.name = "end";
 	end_area.add_child(shape);
-	end_area.add_child(gizmo_position.instance());
+	end_area.add_child(gizmo_position.instantiate());
 	end_area.global_transform.origin = end_point;
 
 	if mode == MeasureMode.ANGLE :
-		middle_area = Area.new();
-		shape = CollisionShape.new();
+		middle_area = Area3D.new();
+		shape = CollisionShape3D.new();
 		shape.shape = area_shape;
 		add_child(middle_area);
 		middle_area.name = "middle";
 		middle_area.add_child(shape);
-		middle_area.add_child(gizmo_position.instance());
+		middle_area.add_child(gizmo_position.instantiate());
 		middle_area.global_transform.origin = middle_point;
 
 	line_renderer = Line.new();
@@ -65,11 +65,11 @@ func _ready() -> void :
 	add_child(line_renderer);
 
 	measure_text = Label3D.new();
-	measure_text.billboard = SpatialMaterial.BILLBOARD_FIXED_Y;
+	measure_text.billboard = StandardMaterial3D.BILLBOARD_FIXED_Y;
 	if mode == MeasureMode.DISTANCE :
-		measure_text.modulate = Color.dodgerblue;
+		measure_text.modulate = Color.DODGER_BLUE;
 	else :
-		measure_text.modulate = Color.darkorange;
+		measure_text.modulate = Color.DARK_ORANGE;
 	measure_text.font = load("res://assets/fonts/3dFont.tres");
 	add_child(measure_text);
 	measure_text.scale = Vector3.ONE * 0.1;
@@ -111,6 +111,6 @@ func _process(delta : float) -> void :
 			var from_vec : Vector3 = middle_point.direction_to(start_point);
 			var to_vec : Vector3 = middle_point.direction_to(end_point);
 			
-			measure_text.text = "%.2f°" % rad2deg(from_vec.angle_to(to_vec));
+			measure_text.text = "%.2f°" % rad_to_deg(from_vec.angle_to(to_vec));
 		
 

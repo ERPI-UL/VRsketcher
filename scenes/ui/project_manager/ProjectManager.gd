@@ -2,15 +2,15 @@ extends Node
 
 var project_item_template : PackedScene = load("res://scenes/ui_components/project_item/ProjectItem.tscn");
 
-onready var import_project_dialog : FileDialog = get_node("Import_Project_Dialog");
+@onready var import_project_dialog_var : FileDialog = get_node("Import_Project_Dialog");
 
-onready var recent_projects_list : Control = get_node("Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer");
+@onready var recent_projects_list : Control = get_node("Main_Panel/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer");
 
 
-onready var create_project_dialog : CreateProjectDialog = get_node("CreateProjectDialog");
+@onready var create_project_dialog : CreateProjectDialog = get_node("CreateProjectDialog");
 
 func _ready():
-	Project.connect("recent_projects_list_updated", self, "load_recent_projects_list");
+	Project.connect("recent_projects_list_updated", Callable(self, "load_recent_projects_list"));
 	load_recent_projects_list();
 	
 func load_recent_projects_list() -> void :
@@ -18,7 +18,7 @@ func load_recent_projects_list() -> void :
 		child.queue_free();
 	
 	for i in range(0, Project.application_data["recent_projects"].size()) :
-		var item : ProjectItem = project_item_template.instance();
+		var item : ProjectItem = project_item_template.instantiate();
 		recent_projects_list.add_child(item);
 		
 		var project : Dictionary = Project.application_data["recent_projects"][i];
@@ -33,7 +33,7 @@ func open_project_creation() -> void :
 	create_project_dialog.popup_centered();
 
 func open_import_project_dialog() -> void :
-	import_project_dialog.popup_centered();
+	import_project_dialog_var.popup_centered();
 
 func import_project_dialog(path : String) -> void :
 	Project.import_project(path);

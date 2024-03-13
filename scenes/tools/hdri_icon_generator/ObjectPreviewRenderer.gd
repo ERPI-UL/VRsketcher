@@ -1,5 +1,5 @@
-tool
-extends Viewport
+@tool
+extends SubViewport
 
 var render_list : Array = [
 	["city 01", "res://assets/hdri/city 01.hdr"],
@@ -36,20 +36,20 @@ var render_list : Array = [
 
 var render_path : String = "res://assets/hdri/icons/";
 
-export(bool) var render : bool = false;
+@export var render: bool = false;
 
-onready var render_mesh : Spatial = get_node("Spatial/MeshInstance");
+@onready var render_mesh : Node3D = get_node("Node3D/MeshInstance3D");
 
 
 func _process(_delta : float) -> void :
 	if render == true :
 		render = false;
 		
-		var mat : SpatialMaterial = render_mesh.get_surface_material(0);
+		var mat : StandardMaterial3D = render_mesh.get_surface_override_material(0);
 		
 		for i in range(0, render_list.size()) :
 			mat.albedo_texture = load(render_list[i][1]);
 	
-			VisualServer.force_draw();
+			RenderingServer.force_draw();
 			var img : Image = (get_texture() as ViewportTexture).get_data();
 			img.save_png(render_path + render_list[i][0] + ".png");

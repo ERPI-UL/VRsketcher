@@ -1,10 +1,10 @@
-extends Viewport
+extends SubViewport
 class_name SpectatorCamera
 
-onready var camera : Camera = get_node("Camera");
+@onready var camera : Camera3D = get_node("Camera3D");
 
-export var preview_resolution : Vector2 = Vector2(720.0, 480.0);
-export var export_resolution : Vector2 = Vector2(1920.0, 1080.0);
+@export var preview_resolution : Vector2 = Vector2(720.0, 480.0);
+@export var export_resolution : Vector2 = Vector2(1920.0, 1080.0);
 
 func _ready() -> void :
 	size = preview_resolution;
@@ -12,11 +12,11 @@ func _ready() -> void :
 func save_screenshot() -> void :
 	render_target_v_flip = false;
 	size = export_resolution;
-	yield(get_tree(), "idle_frame");
-	yield(get_tree(), "idle_frame");
+	await get_tree().idle_frame;
+	await get_tree().idle_frame;
 	
 	
-	var directory : Directory = Directory.new();	
+	var directory : DirAccess = DirAccess.new();	
 	var path : String = OS.get_executable_path().get_base_dir() + "/screenshots";
 	
 	if directory.dir_exists(path) == false :

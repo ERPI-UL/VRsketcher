@@ -1,17 +1,17 @@
 extends SketchTool
 class_name NoteTool
 
-onready var note_template : PackedScene = load("res://scenes/sketch_tools/note_tool/Note3D.tscn");
+@onready var note_template : PackedScene = load("res://scenes/sketch_tools/note_tool/Note3D.tscn");
 
 var start_position			: Vector3		= Vector3.ZERO;
 var end_position			: Vector3		= Vector3.ZERO;
 
 var current_note			: Note3D	= null;
 
-onready var tool_gizmo		: Spatial		= get_node("Graphics/Pen_Gizmo");
+@onready var tool_gizmo		: Node3D		= get_node("Graphics/Pen_Gizmo");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -44,7 +44,7 @@ func _physics_process(_delta : float) -> void :
 				current_note.global_transform.basis = Basis(x_axis, y_axis, z_axis);
 				
 				if CameraData.direction_forward.dot(current_note.global_transform.basis.z) > 0.0 :
-					current_note.rotate_y(deg2rad(180.0));
+					current_note.rotate_y(deg_to_rad(180.0));
 
 			current_note.global_transform.origin = (start_position + end_position) / 2.0;
 			
@@ -53,7 +53,7 @@ func _physics_process(_delta : float) -> void :
 			current_note.scale = Vector3(size, size, 1.0);
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Simple"],
 
@@ -73,11 +73,11 @@ func load_tool_modes() -> void :
 	];
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 	start_position = tool_gizmo.global_transform.origin;
 	end_position = tool_gizmo.global_transform.origin;
 
-	current_note = note_template.instance();
+	current_note = note_template.instantiate();
 	current_note.inspector_name = "Note";
 
 	match mode_main_index :
@@ -103,7 +103,7 @@ func start_tool_use() -> void :
 	(get_tree().root.get_node("VRSketcher") as VRSketcher).scene_notes.add_child(current_note);
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();
 	if current_note != null :
 		if start_position.distance_to(end_position) < 0.2 :
 			current_note.queue_free();

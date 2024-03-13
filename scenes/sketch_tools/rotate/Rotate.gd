@@ -13,10 +13,10 @@ var base_object_rotation		: Basis		= Basis.IDENTITY;
 var base_tool_rotation			: Basis		= Basis.IDENTITY;
 var current_tool_rotation		: Basis		= Basis.IDENTITY;
 
-onready var interaction_area	: Area		= get_node("Area");
+@onready var interaction_area	: Area3D		= get_node("Area3D");
 
 func _ready() -> void :
-	._ready();
+	super._ready();
 
 func _physics_process(_delta : float) -> void :
 	if tool_in_use == true :
@@ -29,7 +29,7 @@ func _physics_process(_delta : float) -> void :
 				pass;
 
 func load_tool_modes() -> void :
-	.load_tool_modes();
+	super.load_tool_modes();
 	modes_main = [
 		["Rotation Libre"],
 		
@@ -48,11 +48,11 @@ func load_tool_modes() -> void :
 
 
 func start_tool_use() -> void :
-	.start_tool_use();
+	super.start_tool_use();
 
 	if interacted_object != null :
 		base_object_rotation = interacted_object.global_transform.basis;
 		base_tool_rotation = global_transform.basis;
 
 func stop_tool_use() -> void :
-	.stop_tool_use();
+	super.stop_tool_use();

@@ -4,14 +4,14 @@ class_name ModelItem
 var target_model : Model3D = null;
 var target_model_manager : ModelsManager = null;
 
-onready var btn_fold : CheckButton = get_node("VBoxContainer/HBoxContainer/Fold");
+@onready var btn_fold : CheckButton = get_node("VBoxContainer/HBoxContainer/Fold");
 
-onready var fold_container : Control = get_node("VBoxContainer/VBoxContainer");
+@onready var fold_container : Control = get_node("VBoxContainer/VBoxContainer");
 
-onready var model_name : Label = get_node("VBoxContainer/HBoxContainer/Model_Name");
-onready var model_transform : ModelTransform = get_node("VBoxContainer/VBoxContainer/ModelTransform");
-onready var model_interactable : CheckBox = get_node("VBoxContainer/VBoxContainer/HBoxContainer2/interactable_switch");
-onready var model_override_material : OptionButton = get_node("VBoxContainer/VBoxContainer/HBoxContainer/material_override");
+@onready var model_name : Label = get_node("VBoxContainer/HBoxContainer/Model_Name");
+@onready var model_transform : ModelTransform = get_node("VBoxContainer/VBoxContainer/ModelTransform");
+@onready var model_interactable : CheckBox = get_node("VBoxContainer/VBoxContainer/HBoxContainer2/interactable_switch");
+@onready var model_override_material : OptionButton = get_node("VBoxContainer/VBoxContainer/HBoxContainer/material_override");
 
 
 signal model_position_changed(value);
@@ -33,7 +33,7 @@ func set_target_model(model : Model3D) -> void :
 	model_name.text = target_model.inspector_name;
 	
 	model_transform.set_model_transform(target_model.global_transform.origin, target_model.rotation_degrees, target_model.scale.x);
-	model_interactable.pressed = model.model_interactable;
+	model_interactable.button_pressed = model.model_interactable;
 	model_override_material.selected = target_model.override_material_index + 1;
 
 	set_model_material_override(target_model.override_material_index, true);
@@ -42,9 +42,9 @@ func fold_item(override : bool = false, value : bool = true) -> void :
 	if override == true :
 		target_model.inspector_unfolded = value;
 		fold_container.visible = value;
-		btn_fold.pressed = value;
+		btn_fold.button_pressed = value;
 	else :
-		target_model.inspector_unfolded = btn_fold.pressed;
+		target_model.set("inspector_unfolded", btn_fold.pressed);
 		fold_container.visible = target_model.inspector_unfolded;
 
 func delete_model() -> void :
@@ -63,7 +63,7 @@ func set_model_interactable(value : bool) -> void :
 	target_model.set_model_interactable(value);
 	
 func update_model_interactable_changed(value : bool) -> void :
-	model_interactable.pressed = value;
+	model_interactable.button_pressed = value;
 
 func set_model_material_override(value : int, is_correct_value : bool = false) -> void :
 	if is_correct_value == true :

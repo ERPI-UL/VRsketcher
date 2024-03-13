@@ -9,8 +9,7 @@ enum PARSE_STATE {
 func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 	# STL file format: https://web.archive.org/web/20210428125112/http://www.fabbers.com/tech/STL_Format
 	
-	var file = File.new();
-	var err = file.open(path, File.READ);
+	var err = FileAccess.open(path, FileAccess.READ);
 	if err != OK :
 		return err
 	
@@ -18,6 +17,8 @@ func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES);
 	if smooth_shading == true :
 		surface_tool.add_smooth_group(true);
+	
+	var file =FileAccess.open(path, FileAccess.READ);
 	
 	if is_ascii_stl(file) :
 		process_ascii_stl(file, surface_tool);

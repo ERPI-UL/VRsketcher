@@ -1,17 +1,19 @@
 extends Control
 
-onready var render_viewport : Viewport = get_node("../Viewport");
+@onready var render_viewport : SubViewport = get_node("../SubViewport");
 
 func _ready() -> void :
-	EventBus.connect("vr_enable_color_correction", self, "enable_vr_color_correction");
+	EventBus.connect("vr_enable_color_correction", Callable(self, "enable_vr_color_correction"));
 
 func take_screenshot() -> void :
-	var directory : Directory = Directory.new();
+	#var directory : DirAccess = DirAccess.new();
 	
 	var path : String = OS.get_executable_path().get_base_dir() + "/screenshots";
 	
-	if directory.dir_exists(path) == false :
-		directory.make_dir(path);
+	var dir = DirAccess.open(path);
+	
+	if dir.dir_exists(path) == false :
+		dir.make_dir(path);
 
 	var date : Dictionary = Time.get_datetime_dict_from_system();
 	
@@ -38,5 +40,5 @@ func enable_vr_color_correction(value : bool) -> void :
 	var m : ShaderMaterial = null;
 	if value == true :
 		m = ShaderMaterial.new();
-		m.shader = load("res://shaders/vr_color_correction.tres");
+		m.gdshader = load("res://shaders/vr_color_correction.tres");
 		(get_node("VRSketcherInterface/HBoxContainer/AspectRatioContainer/Viewport_Render") as Control).material = m;

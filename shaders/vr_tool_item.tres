@@ -4,9 +4,9 @@
 code = "shader_type spatial;
 render_mode blend_mix, depth_test_disable, depth_draw_never;
 
-uniform sampler2D icon_texture : hint_white;
+uniform sampler2D icon_texture : hint_default_white;
 
-uniform vec4 tint_color : hint_color = vec4(1.0);
+uniform vec4 tint_color : source_color = vec4(1.0);
 uniform vec2 emission_strengh_range  = vec2(1.0);
 
 

@@ -8,37 +8,37 @@
 [ext_resource path="res://scenes/ui/tools_menu/ToolsMenu.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/ui_components/XRInterface.gd" type="Script" id=12]
 
-[node name="Player" type="ARVROrigin"]
+[node name="Player" type="XROrigin3D"]
 script = ExtResource( 1 )
-tools_root_path = NodePath("ARVRController/Tools_Root")
-tooltip_path = NodePath("ARVRController/Tooltip")
+tools_root_path = NodePath("XRController3D/Tools_Root")
+tooltip_path = NodePath("XRController3D/Tooltip")
 
-[node name="ARVRCamera" type="ARVRCamera" parent="."]
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
 far = 250.0
 script = ExtResource( 5 )
 
-[node name="ARVRController" type="ARVRController" parent="."]
+[node name="XRController3D" type="XRController3D" parent="."]
 
-[node name="Tools_Root" type="Spatial" parent="ARVRController"]
+[node name="Tools_Root" type="Node3D" parent="XRController3D"]
 
-[node name="Tooltip" parent="ARVRController" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
+[node name="Tooltip" parent="XRController3D" instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
 
-[node name="XRInterfaceController" type="Spatial" parent="ARVRController"]
+[node name="XRInterfaceController" type="Node3D" parent="XRController3D"]
 script = ExtResource( 8 )
 collision_mask = 134217728
 
-[node name="Tools_Menu" type="Area" parent="."]
+[node name="Tools_Menu" type="Area3D" parent="."]
 collision_layer = 134217728
 collision_mask = 0
 script = ExtResource( 12 )
 pixel_per_world_unit = 512
 
 [node name="Tools_Menu" parent="Tools_Menu" instance=ExtResource( 9 )]
-margin_right = 1200.0
+offset_right = 1200.0
 
-[node name="VRWelcomeSplash" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.5, -1.5 )
+[node name="VRWelcomeSplash" type="Area3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.5, -1.5 )
 collision_layer = 134217728
 collision_mask = 0
 script = ExtResource( 12 )
@@ -46,6 +46,6 @@ pixel_per_world_unit = 512
 
 [node name="VRWelcomeSplash" parent="VRWelcomeSplash" instance=ExtResource( 2 )]
 
-[connection signal="xr_interface_entered" from="ARVRController/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ true ]]
-[connection signal="xr_interface_exited" from="ARVRController/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ false ]]
+[connection signal="xr_interface_entered" from="XRController3D/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ true ]]
+[connection signal="xr_interface_exited" from="XRController3D/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ false ]]
 [connection signal="splash_closed" from="VRWelcomeSplash/VRWelcomeSplash" to="." method="enable_tools_menu"]

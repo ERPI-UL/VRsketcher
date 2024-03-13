@@ -60,7 +60,7 @@ func import_model_file(path : String) -> Array :
 
 	return output_meshes;
 
-func get_unit_conversion_factor(var unit : String) -> float :
+func get_unit_conversion_factor(unit : String) -> float :
 	match unit :
 		"meter"			: return 1.0;
 		"millimeter"	: return 1000.0;

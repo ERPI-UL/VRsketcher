@@ -24,19 +24,19 @@ code = "//MIT License
 shader_type spatial;
 render_mode blend_mix, cull_disabled, world_vertex_coords, shadows_disabled, unshaded;
 
-uniform vec4 grid_color : hint_color = vec4(vec3(0.0),1.0);
-uniform vec4 background_color : hint_color = vec4(vec3(0.0),0.0);
+uniform vec4 grid_color : source_color = vec4(vec3(0.0),1.0);
+uniform vec4 background_color : source_color = vec4(vec3(0.0),0.0);
 
 uniform float line_thickness : hint_range(0.001, 0.5) = 0.01;
 uniform int cell_count = 10;
 
-uniform sampler2D alpha_falloff : hint_white;
+uniform sampler2D alpha_falloff : hint_default_white;
 
 varying vec4 world_position;
 
 void vertex()
 {
-	world_position = WORLD_MATRIX * vec4(VERTEX, 1.0);
+	world_position = MODEL_MATRIX * vec4(VERTEX, 1.0);
 }
 
 void fragment()

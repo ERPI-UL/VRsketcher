@@ -1,20 +1,22 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh"
+uid="uid://dwiekj8pe2ggq"
+path="res://.godot/imported/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh"
 
 [deps]
 
-files=[ "res://.import/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh" ]
+files=["res://.godot/imported/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh"]
 
 source_file="res://3d_model_samples/obj/tinker.obj"
-dest_files=[ "res://.import/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh", "res://.import/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh" ]
+dest_files=["res://.godot/imported/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh", "res://.godot/imported/tinker.obj-94944f54daca2eda6ca8bfe644b3ddef.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

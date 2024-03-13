@@ -7,9 +7,9 @@
 [ext_resource path="res://scenes/sketch_tools/rotate/Rotate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/sketch_tools/measurement_tool/MeasurementTool.tscn" type="PackedScene" id=6]
 
-[node name="Tools" type="Spatial"]
+[node name="Tools" type="Node3D"]
 
-[node name="SketchTool" type="Spatial" parent="."]
+[node name="SketchTool" type="Node3D" parent="."]
 script = ExtResource( 3 )
 
 [node name="Pen" parent="." instance=ExtResource( 2 )]

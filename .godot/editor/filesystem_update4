@@ -1,0 +1,11 @@
+res://default_env.tres
+res://VRSketcher.tscn
+res://assets/themes/new_theme.tres
+res://assets/themes/dark.tres
+res://assets/themes/dark_base.tres
+res://scripts/Interface.gd
+res://scenes/ui_components/model_item/ModelItem.gd
+res://scenes/ui_components/model_transform/ModelTransform.gd
+res://scenes/ui/project_manager/ProjectManager.gd
+res://scripts/ui_components/FlexGridContainer.gd
+res://scripts/HDRIManager.gd

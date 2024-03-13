@@ -6,44 +6,44 @@ height = 0.6
 radial_segments = 16
 rings = 8
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="StandardMaterial3D" id=7]
 flags_unshaded = true
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 flags_unshaded = true
 albedo_color = Color( 0, 1, 0.227451, 1 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="StandardMaterial3D" id=5]
 flags_unshaded = true
 albedo_color = Color( 0.219608, 0, 1, 1 )
 
-[node name="Gizmo_Rotate" type="Spatial"]
+[node name="Gizmo_Rotate" type="Node3D"]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource( 6 )
 material/0 = SubResource( 7 )
 
-[node name="X_Axis" type="CSGTorus" parent="."]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="X_Axis" type="CSGTorus3D" parent="."]
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 material_override = SubResource( 2 )
 inner_radius = 2.6
 outer_radius = 2.8
 sides = 32
 ring_sides = 10
 
-[node name="Y_Axis" type="CSGTorus" parent="."]
+[node name="Y_Axis" type="CSGTorus3D" parent="."]
 material_override = SubResource( 4 )
 inner_radius = 2.6
 outer_radius = 2.8
 sides = 32
 ring_sides = 10
 
-[node name="Z_Axis" type="CSGTorus" parent="."]
-transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 0, 0 )
+[node name="Z_Axis" type="CSGTorus3D" parent="."]
+transform = Transform3D( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 0, 0 )
 material_override = SubResource( 5 )
 inner_radius = 2.6
 outer_radius = 2.8

@@ -1,8 +1,8 @@
 extends Control
 
 func _ready() -> void :
-	connect("mouse_entered", self, "update_mouse_presence", [true]);
-	connect("mouse_exited", self, "update_mouse_presence", [false]);
+	connect("mouse_entered", Callable(self, "update_mouse_presence").bind(true));
+	connect("mouse_exited", Callable(self, "update_mouse_presence").bind(false));
 
 func update_mouse_presence(value : bool) -> void :
 	KeyboardInputState.enabled = value;

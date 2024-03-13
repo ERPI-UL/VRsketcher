@@ -1,11 +1,11 @@
 extends Node
 
-export(Array, Resource) var materials : Array = [];
+@export var materials : Array = []; # (Array, Resource)
 
 var current_material_index : int = 0;
 
-export(int, LAYERS_3D_PHYSICS)	var paint_collision_layer		: int	= 0;
-export(int, LAYERS_3D_PHYSICS)	var paint_collision_mask		: int	= 0;
+@export	var paint_collision_layer		: int	= 0;
+@export	var paint_collision_mask		: int	= 0;
 
 signal material_selection_changed(new_material);
 

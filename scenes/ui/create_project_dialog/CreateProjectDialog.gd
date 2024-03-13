@@ -1,14 +1,14 @@
-extends WindowDialog
+extends Window
 class_name CreateProjectDialog
 
-export(NodePath) var file_system_dialog_path : NodePath = "";
-onready var file_system_dialog : FileDialog = get_node(file_system_dialog_path);
+@export var file_system_dialog_path: NodePath = "";
+@onready var file_system_dialog : FileDialog = get_node(file_system_dialog_path);
 
-onready var project_name : LineEdit = get_node("PanelContainer/VBoxContainer/GridContainer/Project_Name");
-onready var project_path : LineEdit = get_node("PanelContainer/VBoxContainer/GridContainer/HBoxContainer/Project_Path");
+@onready var project_name : LineEdit = get_node("PanelContainer/VBoxContainer/GridContainer/Project_Name");
+@onready var project_path : LineEdit = get_node("PanelContainer/VBoxContainer/GridContainer/HBoxContainer/Project_Path");
 
 func _ready() -> void:
-	if file_system_dialog.connect("dir_selected", self, "selected_directory_changed") != OK :
+	if file_system_dialog.connect("dir_selected", Callable(self, "selected_directory_changed")) != OK :
 		pass;
 
 func open_file_system_dialog() -> void :

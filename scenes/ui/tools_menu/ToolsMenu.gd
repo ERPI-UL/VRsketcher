@@ -1,13 +1,13 @@
 extends Control
 
-onready var tools_main_menu_root : Control = get_node("CenterContainer/VBoxContainer/tool_menus/main_menu");
-onready var tools_sub_menu_root : Control = get_node("CenterContainer/VBoxContainer/tool_menus/sub_menu");
+@onready var tools_main_menu_root : Control = get_node("CenterContainer/VBoxContainer/tool_menus/main_menu");
+@onready var tools_sub_menu_root : Control = get_node("CenterContainer/VBoxContainer/tool_menus/sub_menu");
 
 func _ready():
 	tools_main_menu_root.visible = false;
 	tools_sub_menu_root.visible = false;
-	EventBus.connect("tool_switch_tool", self, "update_tool_menus");
-	EventBus.connect("tools_menu_tooltip_update_text", self, "set_tooltip_text");
+	EventBus.connect("tool_switch_tool", Callable(self, "update_tool_menus"));
+	EventBus.connect("tools_menu_tooltip_update_text", Callable(self, "set_tooltip_text"));
 
 func update_tool_menus(tool_name : String) -> void :
 	#Clean previous menus
