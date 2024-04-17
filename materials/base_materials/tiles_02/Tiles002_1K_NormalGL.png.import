@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.s3tc.stex"
+path.etc2="res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.etc2.stex"
 path.etc="res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/tiles_02/Tiles002_1K_NormalGL.png"
-dest_files=[ "res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.s3tc.stex", "res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.etc.stex" ]
+dest_files=[ "res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.s3tc.stex", "res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.etc2.stex", "res://.import/Tiles002_1K_NormalGL.png-74aef13e79bb20cfe4c78effb7628dc4.etc.stex" ]
 
 [params]
 

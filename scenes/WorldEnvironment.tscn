@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/settings/EventBusValueReceiver.gd" type="Script" id=1]
+[ext_resource path="res://default_env.tres" type="Environment" id=2]
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = ExtResource( 2 )
+
+[node name="EventBusValueReceiver_sky" type="Node" parent="."]
+script = ExtResource( 1 )
+event_bus_signal_name = "environment_sky_updated"
+parent_property = "environment.background_sky"
+
+[node name="EventBusValueReceiver_exposure" type="Node" parent="."]
+script = ExtResource( 1 )
+event_bus_signal_name = "environment_set_exposure"
+parent_property = "environment.tonemap_exposure"

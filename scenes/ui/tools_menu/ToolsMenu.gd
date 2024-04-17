@@ -6,8 +6,10 @@ onready var tools_sub_menu_root : Control = get_node("CenterContainer/VBoxContai
 func _ready():
 	tools_main_menu_root.visible = false;
 	tools_sub_menu_root.visible = false;
-	EventBus.connect("tool_switch_tool", self, "update_tool_menus");
-	EventBus.connect("tools_menu_tooltip_update_text", self, "set_tooltip_text");
+	if EventBus.connect("tool_switch_tool", self, "update_tool_menus") != OK :
+		print("Can't connect EventBus signal tool_switch_tool");
+	if EventBus.connect("tools_menu_tooltip_update_text", self, "set_tooltip_text") != OK :
+		print("Can't connect EventBus signal tools_menu_tooltip_update_text");
 
 func update_tool_menus(tool_name : String) -> void :
 	#Clean previous menus
@@ -32,13 +34,11 @@ func update_tool_menus(tool_name : String) -> void :
 		tools_sub_menu_root.visible = false;
 
 func switch_hdri() -> void :
-	(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.set_environement_hdri((get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index + 1);
+	if EventBus.emit_signal("environment_next_hdri") != OK :
+		print("Can't connect EventBus signal environment_next_hdri");
 
 func switch_global_material() -> void :
 	MaterialLibrary.switch_material();
 
 func set_tooltip_text(text : String) -> void :
 	(get_node("CenterContainer/VBoxContainer/PanelContainer/tooltip") as Label).text = text;
-	
-	
-	

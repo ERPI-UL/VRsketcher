@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.s3tc.stex"
+path.etc2="res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.etc2.stex"
 path.etc="res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/wood_04/Chipboard004_1K_Roughness.png"
-dest_files=[ "res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.s3tc.stex", "res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.etc.stex" ]
+dest_files=[ "res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.s3tc.stex", "res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.etc2.stex", "res://.import/Chipboard004_1K_Roughness.png-8cde431ba3acfba19b633ff352a543f2.etc.stex" ]
 
 [params]
 

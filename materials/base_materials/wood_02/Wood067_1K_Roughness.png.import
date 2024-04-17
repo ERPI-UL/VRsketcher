@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.s3tc.stex"
+path.etc2="res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.etc2.stex"
 path.etc="res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/wood_02/Wood067_1K_Roughness.png"
-dest_files=[ "res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.s3tc.stex", "res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.etc.stex" ]
+dest_files=[ "res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.s3tc.stex", "res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.etc2.stex", "res://.import/Wood067_1K_Roughness.png-3c3a40c99cb699bf77129705af82d482.etc.stex" ]
 
 [params]
 

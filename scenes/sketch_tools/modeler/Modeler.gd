@@ -141,5 +141,8 @@ func stop_tool_use() -> void :
 			current_model.update_aabb();
 			current_model.update_interaction_area();
 
-			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models.add_model(current_model);
+			var manager : ModelsManager = (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models;
+			manager.add_model(current_model);
+			EventBus.emit_signal("scene_drawn_models_list_updated", manager.models, manager);
+
 		current_model = null;

@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.s3tc.stex"
+path.etc2="res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.etc2.stex"
 path.etc="res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/concrete_02/Concrete030_1K_Color.png"
-dest_files=[ "res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.s3tc.stex", "res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.etc.stex" ]
+dest_files=[ "res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.s3tc.stex", "res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.etc2.stex", "res://.import/Concrete030_1K_Color.png-24f80a8a4a783841f01a90c4c9558bee.etc.stex" ]
 
 [params]
 

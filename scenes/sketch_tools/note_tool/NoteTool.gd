@@ -108,7 +108,11 @@ func stop_tool_use() -> void :
 		if start_position.distance_to(end_position) < 0.2 :
 			current_note.queue_free();
 		else :
-			(get_tree().root.get_node("VRSketcher") as VRSketcher).manager_notes.add_note(current_note);
 			current_note.global_transform.basis = Basis(CameraData.direction_right, CameraData.direction_up, -CameraData.direction_forward);
+
+			var manager : NotesManager = (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_notes;
+			manager.add_note(current_note);
+			EventBus.emit_signal("scene_notes_list_updated", manager.notes, manager);
+
 		current_note = null;
 

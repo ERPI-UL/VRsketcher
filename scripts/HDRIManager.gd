@@ -26,23 +26,26 @@ var hdri_list : Array = [
 	["outdoor 02",		"res://assets/hdri/outdoor 02.hdr",		"res://assets/hdri/icons/outdoor 02.png"],
 	["outdoor 03",		"res://assets/hdri/outdoor 03.hdr",		"res://assets/hdri/icons/outdoor 03.png"],
 
-	["sky 0",			"res://assets/hdri/sky 01.hdr",			"res://assets/hdri/icons/sky 01.png"],
-	["sky 0",			"res://assets/hdri/sky 02.hdr",			"res://assets/hdri/icons/sky 02.png"],
-	["sky 0",			"res://assets/hdri/sky 03.hdr",			"res://assets/hdri/icons/sky 03.png"],
+	["sky 01",			"res://assets/hdri/sky 01.hdr",			"res://assets/hdri/icons/sky 01.png"],
+	["sky 02",			"res://assets/hdri/sky 02.hdr",			"res://assets/hdri/icons/sky 02.png"],
+	["sky 03",			"res://assets/hdri/sky 03.hdr",			"res://assets/hdri/icons/sky 03.png"],
 
 	["studio 01",		"res://assets/hdri/studio 01.hdr",		"res://assets/hdri/icons/studio 01.png"],
 
 	["alien 01",		"res://assets/hdri/alien 01.hdr",		"res://assets/hdri/icons/alien 01.png"],
 	["alien 02",		"res://assets/hdri/alien 02.hdr",		"res://assets/hdri/icons/alien 02.png"]
-]
+];
 
 var current_hdri_index : int = 0;
-var current_exposure : float = 1.0;
 
-onready var items_root : Control = get_node("ScrollContainer/HDRI_Manager");
-
+onready var items_root : Control = get_node("ScrollContainer/FlexGridContainer");
 
 func _ready() -> void :
+	if EventBus.connect("environment_set_hdri", self, "set_environement_hdri") != OK :
+		print("Can't connect EventBus signal set_environement_hdri");
+	if EventBus.connect("environment_next_hdri", self, "next_environment_hdri") != OK :
+		print("Can't connect EventBus signal next_environment_hdri");
+
 	for c in items_root.get_children() :
 		c.queue_free();
 
@@ -55,9 +58,10 @@ func _ready() -> void :
 		item_button.rect_min_size = Vector2(75, 75);
 		item_button.hint_tooltip = hdri_list[i][0];
 		item_button.name = hdri_list[i][0];
-		
-		item_button.connect("pressed", self, "set_environement_hdri", [i]);
-		
+
+		if item_button.connect("pressed", self, "set_environement_hdri", [i]) != OK :
+			print("Can't connect item_button signal set_environement_hdri");
+
 		items_root.add_child(item_button);
 
 func set_environement_hdri(index : int = 0) -> void :
@@ -65,9 +69,18 @@ func set_environement_hdri(index : int = 0) -> void :
 	if current_hdri_index >= hdri_list.size() :
 		current_hdri_index = 0;
 
+	Project.current_project["current_hdri_index"] = current_hdri_index;
+
 	if current_hdri_index == 0 :
-		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = load("res://default_sky.tres");
+		EventBus.emit_signal("environment_sky_updated", load("res://default_sky.tres"));
 	else :
 		var panorama : PanoramaSky = PanoramaSky.new();
 		panorama.panorama = load(hdri_list[current_hdri_index][1]);
-		(get_tree().root.get_node("VRSketcher") as VRSketcher).world_environment.environment.background_sky = panorama;
+		EventBus.emit_signal("environment_sky_updated", panorama);
+
+func next_environment_hdri() -> void :
+	set_environement_hdri(current_hdri_index + 1);
+
+func set_environement_exposure(value : float) -> void :
+	Project.current_project["current_exposure"] = value;
+	EventBus.emit_signal("environment_set_exposure", value);

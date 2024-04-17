@@ -15,7 +15,8 @@ func _ready() -> void :
 	icon.texture = tool_icon;
 	icon.self_modulate = icon_tint_color;
 	
-	(get_node("Button") as Button).connect("pressed", self, "select_tool");
+	if (get_node("Button") as Button).connect("pressed", self, "select_tool") != OK :
+		print("Can't connect Button signal pressed");
 
 func select_tool() -> void :
 	EventBus.emit_signal("tool_switch_tool", target_tool_name);

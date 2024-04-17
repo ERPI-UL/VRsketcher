@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Scene_Objects" type="Spatial"]
+
+[node name="Imported_Models" type="Spatial" parent="."]
+
+[node name="Drawn_Models" type="Spatial" parent="."]
+
+[node name="Lines" type="Spatial" parent="."]
+
+[node name="Measurements" type="Spatial" parent="."]
+
+[node name="Notes" type="Spatial" parent="."]

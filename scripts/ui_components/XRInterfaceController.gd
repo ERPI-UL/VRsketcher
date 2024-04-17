@@ -63,7 +63,7 @@ func _ready() -> void :
 	set_enabled(enabled);
 
 
-func _physics_process(delta : float) -> void :
+func _physics_process(_delta : float) -> void :
 	if enabled == true :
 		var collision_distance : float = max_ray_length;
 		

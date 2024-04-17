@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.s3tc.stex"
+path.etc2="res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.etc2.stex"
 path.etc="res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/concrete_01/Concrete044C_1K_NormalGL.png"
-dest_files=[ "res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.s3tc.stex", "res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.etc.stex" ]
+dest_files=[ "res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.s3tc.stex", "res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.etc2.stex", "res://.import/Concrete044C_1K_NormalGL.png-a377edd99e574e1e85351d66851ea367.etc.stex" ]
 
 [params]
 

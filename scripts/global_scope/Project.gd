@@ -9,8 +9,18 @@ var application_data : Dictionary = {
 	"recent_projects" : []
 };
 
-
-var current_project : Dictionary = {};
+var current_project : Dictionary = {
+	"project_name"			: "",
+	"project_path"			: "",
+	"hdri_index"			: 0,
+	"current_exposure"		: 1.0,
+	"scene_models_data"		: [],
+	"scene_line_drawings"	: [],
+	"tool_shortcut_up"		: "TOOL_NONE",
+	"tool_shortcut_down"	: "TOOL_NONE",
+	"tool_shortcut_left"	: "TOOL_NONE",
+	"tool_shortcut_right"	: "TOOL_NONE",
+};
 
 signal open_project();
 signal recent_projects_list_updated();
@@ -175,8 +185,8 @@ func save_project() -> void :
 		var project_data : Dictionary = {
 				"project_name"					: current_project["project_name"],
 				"project_path"					: current_project["project_path"],
-				"hdri_index"					: (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_hdri_index,
-				"current_exposure"				: (get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure,
+				"hdri_index"					: current_project["current_hdri_index"],
+				"current_exposure"				: current_project["current_exposure"],
 				"scene_imported_models_data"	: current_project["scene_imported_models_data"],
 				"scene_drawn_models_data"		: current_project["scene_drawn_models_data"],
 				"scene_notes_data"				: current_project["scene_notes_data"],
@@ -205,14 +215,16 @@ func load_project(index : int) -> void :
 	if project_data_file.file_exists(full_project_path + "/" + MASTER_PROJECT_FILE_NAME) == true :
 		if project_data_file.open(full_project_path + "/" + MASTER_PROJECT_FILE_NAME, File.READ) == OK :
 			var parse_result : JSONParseResult = JSON.parse(project_data_file.get_as_text());
+			project_data_file.close();
+			
 			if parse_result.error == OK :
 				current_project = parse_result.result;
 
 				if current_project.has("hdri_index" ) == true :
-					(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.set_environement_hdri(current_project["hdri_index"]);
+					EventBus.emit_signal("environment_set_hdri", current_project["hdri_index"]);
 
 				if current_project.has("current_exposure" ) == true :
-					(get_tree().root.get_node("VRSketcher") as VRSketcher).hdri_manager.current_exposure = current_project["current_exposure"];
+					EventBus.emit_signal("environment_set_exposure", current_project["current_exposure"]);
 
 				if current_project.has("scene_imported_models_data") == true :
 					for model_data in current_project["scene_imported_models_data"] :
@@ -409,11 +421,10 @@ func load_project(index : int) -> void :
 				if current_project.has("tool_shortcut_right") == false :
 					current_project["tool_shortcut_right"] = "TOOL_NONE";
 
-			print(current_project);
-
-			project_data_file.close();
-			
-	emit_signal("open_project");
+				print(current_project);
+				emit_signal("open_project");
+			else :
+				print("Error while loading project");
 
 func import_project(path : String) -> void :
 	print("import VRSketcher project at : " + path);

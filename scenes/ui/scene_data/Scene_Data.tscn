@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/ui/scene_data/scene_data.gd" type="Script" id=5]
+[ext_resource path="res://scripts/ui_components/NoteItemManager.gd" type="Script" id=6]
+[ext_resource path="res://scripts/ui_components/ModelItemManager.gd" type="Script" id=13]
+
+[node name="Scene_Data" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 5 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 1
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
+
+[node name="TabContainer" type="TabContainer" parent="Panel/MarginContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1299.0
+margin_bottom = 599.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Imported" type="ScrollContainer" parent="Panel/MarginContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModelItemManager_Imported" type="VBoxContainer" parent="Panel/MarginContainer/TabContainer/Imported"]
+margin_right = 1290.0
+margin_bottom = 562.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 13 )
+
+[node name="Drawn" type="ScrollContainer" parent="Panel/MarginContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 24.0
+margin_right = -5.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModelItemManager_Drawn" type="VBoxContainer" parent="Panel/MarginContainer/TabContainer/Drawn"]
+margin_right = 1288.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 13 )
+
+[node name="Notes" type="ScrollContainer" parent="Panel/MarginContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 24.0
+margin_right = -5.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NoteItemManager" type="VBoxContainer" parent="Panel/MarginContainer/TabContainer/Notes"]
+margin_right = 1288.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 6 )

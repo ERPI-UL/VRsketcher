@@ -5,14 +5,16 @@
 [ext_resource path="res://assets/themes/dark_base.tres" type="Theme" id=3]
 
 [node name="CreateProjectDialog" type="WindowDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -125.0
-margin_right = 150.0
-margin_bottom = 125.0
+margin_left = -400.0
+margin_top = -200.0
+margin_right = 400.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 800, 400 )
 mouse_filter = 1
 theme = ExtResource( 3 )
 popup_exclusive = true
@@ -29,72 +31,78 @@ anchor_bottom = 1.0
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 6.0
 margin_top = 4.0
-margin_right = 294.0
-margin_bottom = 246.0
+margin_right = 794.0
+margin_bottom = 396.0
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
-margin_right = 288.0
-margin_bottom = 216.0
+margin_right = 788.0
+margin_bottom = 341.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/hseparation = 12
+custom_constants/vseparation = 40
+custom_constants/hseparation = 40
 columns = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
-margin_right = 101.0
-margin_bottom = 22.0
+margin_right = 208.0
+margin_bottom = 47.0
 text = "Project name :"
 
 [node name="Project_Name" type="LineEdit" parent="PanelContainer/VBoxContainer/GridContainer"]
-margin_left = 113.0
-margin_right = 288.0
-margin_bottom = 22.0
+margin_left = 248.0
+margin_right = 788.0
+margin_bottom = 47.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
-margin_top = 27.0
-margin_right = 101.0
-margin_bottom = 49.0
+margin_top = 87.0
+margin_right = 208.0
+margin_bottom = 134.0
 text = "Project path :"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/GridContainer"]
-margin_left = 113.0
-margin_top = 26.0
-margin_right = 288.0
-margin_bottom = 50.0
+margin_left = 248.0
+margin_top = 87.0
+margin_right = 788.0
+margin_bottom = 134.0
 size_flags_horizontal = 3
+custom_constants/separation = 40
 
 [node name="Project_Path" type="LineEdit" parent="PanelContainer/VBoxContainer/GridContainer/HBoxContainer"]
-margin_right = 143.0
-margin_bottom = 24.0
+margin_right = 460.0
+margin_bottom = 47.0
 size_flags_horizontal = 3
 
 [node name="Open_File_System_Dialog" type="Button" parent="PanelContainer/VBoxContainer/GridContainer/HBoxContainer"]
-margin_left = 147.0
-margin_right = 175.0
-margin_bottom = 24.0
+margin_left = 500.0
+margin_right = 540.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_vertical = 5
 icon = ExtResource( 2 )
 flat = true
+expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 220.0
-margin_right = 288.0
-margin_bottom = 242.0
+margin_top = 345.0
+margin_right = 788.0
+margin_bottom = 392.0
 custom_constants/separation = 32
 alignment = 1
 
 [node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 8.0
-margin_right = 128.0
-margin_bottom = 22.0
+margin_right = 378.0
+margin_bottom = 47.0
 rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 3
 text = "Cancel"
 
 [node name="Create" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 160.0
-margin_right = 280.0
-margin_bottom = 22.0
+margin_left = 410.0
+margin_right = 788.0
+margin_bottom = 47.0
 rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 3
 text = "Create project"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/HBoxContainer/Open_File_System_Dialog" to="." method="open_file_dialog"]

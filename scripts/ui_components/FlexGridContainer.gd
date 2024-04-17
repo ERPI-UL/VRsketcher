@@ -163,7 +163,7 @@ func _get_minimum_size():
 			row_minh[row] = ms.y
 		max_row = max(row, max_row)
 
-	var ms: Vector2
+	var ms : Vector2
 
 	for e in row_minh.keys():
 		ms.y += row_minh.get(e)

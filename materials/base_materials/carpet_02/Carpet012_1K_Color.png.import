@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.s3tc.stex"
+path.etc2="res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.etc2.stex"
 path.etc="res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/carpet_02/Carpet012_1K_Color.png"
-dest_files=[ "res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.s3tc.stex", "res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.etc.stex" ]
+dest_files=[ "res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.s3tc.stex", "res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.etc2.stex", "res://.import/Carpet012_1K_Color.png-bb2226e74438ab92769114ce750fd893.etc.stex" ]
 
 [params]
 

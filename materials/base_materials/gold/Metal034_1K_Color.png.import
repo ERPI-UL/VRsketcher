@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.s3tc.stex"
+path.etc2="res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.etc2.stex"
 path.etc="res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/gold/Metal034_1K_Color.png"
-dest_files=[ "res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.s3tc.stex", "res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.etc.stex" ]
+dest_files=[ "res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.s3tc.stex", "res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.etc2.stex", "res://.import/Metal034_1K_Color.png-033596fd971c9e64dd5c0b6e86611edb.etc.stex" ]
 
 [params]
 

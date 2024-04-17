@@ -2,7 +2,6 @@ extends Node
 
 const DEBUG_SETTINGS_FILE_PATH : String = "debug_settings.txt";
 
-
 var enable_tool_teleport						: bool	= true;
 var enable_tool_pen								: bool	= true;
 var enable_tool_eraser							: bool	= true;
@@ -37,7 +36,7 @@ var disable_welcome_splash						: bool	= false;
 
 var screenshot_prefix							: String = "";
 
-func _ready():
+func _ready() :
 	var file : File = File.new();
 	if file.file_exists(DEBUG_SETTINGS_FILE_PATH) == false :
 		save_debug_settings();
@@ -46,7 +45,7 @@ func _ready():
 
 func load_debug_settings() -> void :
 	print("load debug settings");
-	
+
 	var debug_settings_file : File = File.new();
 	if debug_settings_file.file_exists(DEBUG_SETTINGS_FILE_PATH) == true :
 		if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.READ) == OK :
@@ -146,9 +145,9 @@ func save_debug_settings() -> void :
 			"spectator_camera_02_rotation_x"			: spectator_camera_02_rotation_x,
 			"spectator_camera_02_rotation_y"			: spectator_camera_02_rotation_y,
 			"spectator_camera_02_rotation_z"			: spectator_camera_02_rotation_z,
-			
+
 			"disable_welcome_splash"					: disable_welcome_splash
 		};
-		
+
 		debug_settings_file.store_string(to_json(settings));
 		debug_settings_file.close();

@@ -57,21 +57,28 @@ func update_inspector_scale(value : float) -> void :
 
 func enable_signals() -> void :
 	if position_x.is_connected("value_changed", self, "set_model_position") == false :
-		position_x.connect("value_changed", self, "set_model_position")
+		if position_x.connect("value_changed", self, "set_model_position") != OK :
+			pass;
 	if position_y.is_connected("value_changed", self, "set_model_position") == false :
-		position_y.connect("value_changed", self, "set_model_position")
+		if position_y.connect("value_changed", self, "set_model_position") != OK :
+			pass;
 	if position_z.is_connected("value_changed", self, "set_model_position") == false :
-		position_z.connect("value_changed", self, "set_model_position")
+		if position_z.connect("value_changed", self, "set_model_position") != OK :
+			pass;
 
 	if rotation_x.is_connected("value_changed", self, "set_model_rotation") == false :
-		rotation_x.connect("value_changed", self, "set_model_rotation")
+		if rotation_x.connect("value_changed", self, "set_model_rotation") != OK :
+			pass;
 	if rotation_y.is_connected("value_changed", self, "set_model_rotation") == false :
-		rotation_y.connect("value_changed", self, "set_model_rotation")
+		if rotation_y.connect("value_changed", self, "set_model_rotation") != OK :
+			pass;
 	if rotation_z.is_connected("value_changed", self, "set_model_rotation") == false :
-		rotation_z.connect("value_changed", self, "set_model_rotation")
+		if rotation_z.connect("value_changed", self, "set_model_rotation") != OK :
+			pass;
 	
 	if scale.is_connected("value_changed", self, "set_model_scale") == false :
-		scale.connect("value_changed", self, "set_model_scale")
+		if scale.connect("value_changed", self, "set_model_scale") != OK :
+			pass;
 
 func disable_signals() -> void :
 	if position_x.is_connected("value_changed", self, "set_model_position") == true :

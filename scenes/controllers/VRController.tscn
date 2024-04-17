@@ -2,40 +2,34 @@
 
 [ext_resource path="res://scenes/controllers/VRController.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui/vr_welcome_splash/VRWelcomeSplash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ui/XR_Palette.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/tooltip/Tooltip.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/CameraDataUpdater.gd" type="Script" id=5]
 [ext_resource path="res://scripts/ui_components/XRInterfaceController.gd" type="Script" id=8]
-[ext_resource path="res://scenes/ui/tools_menu/ToolsMenu.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/ui_components/XRInterface.gd" type="Script" id=12]
 
 [node name="Player" type="ARVROrigin"]
 script = ExtResource( 1 )
-tools_root_path = NodePath("ARVRController/Tools_Root")
-tooltip_path = NodePath("ARVRController/Tooltip")
+tools_root_path = NodePath("ARVRController_Right/Tools_Root")
+tooltip_path = NodePath("ARVRController_Right/Tooltip")
 
 [node name="ARVRCamera" type="ARVRCamera" parent="."]
 far = 250.0
 script = ExtResource( 5 )
 
-[node name="ARVRController" type="ARVRController" parent="."]
+[node name="ARVRController_Right" type="ARVRController" parent="."]
+controller_id = 2
 
-[node name="Tools_Root" type="Spatial" parent="ARVRController"]
+[node name="Tools_Root" type="Spatial" parent="ARVRController_Right"]
 
-[node name="Tooltip" parent="ARVRController" instance=ExtResource( 4 )]
+[node name="Tooltip" parent="ARVRController_Right" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
 
-[node name="XRInterfaceController" type="Spatial" parent="ARVRController"]
+[node name="XRInterfaceController" type="Spatial" parent="ARVRController_Right"]
 script = ExtResource( 8 )
 collision_mask = 134217728
-
-[node name="Tools_Menu" type="Area" parent="."]
-collision_layer = 134217728
-collision_mask = 0
-script = ExtResource( 12 )
-pixel_per_world_unit = 512
-
-[node name="Tools_Menu" parent="Tools_Menu" instance=ExtResource( 9 )]
-margin_right = 1200.0
+gizmo_ray_thickness = 0.005
+gizmo_end_radius = 0.01
 
 [node name="VRWelcomeSplash" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.5, -1.5 )
@@ -46,6 +40,12 @@ pixel_per_world_unit = 512
 
 [node name="VRWelcomeSplash" parent="VRWelcomeSplash" instance=ExtResource( 2 )]
 
-[connection signal="xr_interface_entered" from="ARVRController/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ true ]]
-[connection signal="xr_interface_exited" from="ARVRController/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ false ]]
+[node name="ARVRController_Left" type="ARVRController" parent="."]
+
+[node name="XRInterface" parent="ARVRController_Left" instance=ExtResource( 3 )]
+transform = Transform( 0.25, 0.433013, 0.866025, -0.866025, 0.5, 0, -0.433013, -0.75, 0.5, 0.05, 0, 0 )
+pixel_per_world_unit = 2048
+
+[connection signal="xr_interface_entered" from="ARVRController_Right/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ true ]]
+[connection signal="xr_interface_exited" from="ARVRController_Right/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ false ]]
 [connection signal="splash_closed" from="VRWelcomeSplash/VRWelcomeSplash" to="." method="enable_tools_menu"]

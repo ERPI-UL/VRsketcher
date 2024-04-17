@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.s3tc.stex"
+path.etc2="res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.etc2.stex"
 path.etc="res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/wood_floor_02/WoodFloor051_1K_Roughness.png"
-dest_files=[ "res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.s3tc.stex", "res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.etc.stex" ]
+dest_files=[ "res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.s3tc.stex", "res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.etc2.stex", "res://.import/WoodFloor051_1K_Roughness.png-d50fa527768f8c9c311d25d3f75de2df.etc.stex" ]
 
 [params]
 

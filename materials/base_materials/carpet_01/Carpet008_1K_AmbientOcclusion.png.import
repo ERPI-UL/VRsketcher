@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.s3tc.stex"
+path.etc2="res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.etc2.stex"
 path.etc="res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/carpet_01/Carpet008_1K_AmbientOcclusion.png"
-dest_files=[ "res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.s3tc.stex", "res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.etc.stex" ]
+dest_files=[ "res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.s3tc.stex", "res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.etc2.stex", "res://.import/Carpet008_1K_AmbientOcclusion.png-28a85c71c7d6cf998d5d104197c7d3c8.etc.stex" ]
 
 [params]
 

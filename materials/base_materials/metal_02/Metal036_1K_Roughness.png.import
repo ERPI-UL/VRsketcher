@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.s3tc.stex"
+path.etc2="res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.etc2.stex"
 path.etc="res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/metal_02/Metal036_1K_Roughness.png"
-dest_files=[ "res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.s3tc.stex", "res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.etc.stex" ]
+dest_files=[ "res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.s3tc.stex", "res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.etc2.stex", "res://.import/Metal036_1K_Roughness.png-cd5e6256b489dcb9e82851037c7a98b3.etc.stex" ]
 
 [params]
 

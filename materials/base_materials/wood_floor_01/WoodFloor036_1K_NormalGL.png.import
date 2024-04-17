@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.s3tc.stex"
+path.etc2="res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.etc2.stex"
 path.etc="res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/wood_floor_01/WoodFloor036_1K_NormalGL.png"
-dest_files=[ "res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.s3tc.stex", "res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.etc.stex" ]
+dest_files=[ "res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.s3tc.stex", "res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.etc2.stex", "res://.import/WoodFloor036_1K_NormalGL.png-7dea4d017b7d4f9e79ddce26fb56c3d6.etc.stex" ]
 
 [params]
 

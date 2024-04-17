@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.s3tc.stex"
+path.etc2="res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.etc2.stex"
 path.etc="res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://materials/base_materials/concrete_01/Concrete044C_1K_Roughness.png"
-dest_files=[ "res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.s3tc.stex", "res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.etc.stex" ]
+dest_files=[ "res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.s3tc.stex", "res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.etc2.stex", "res://.import/Concrete044C_1K_Roughness.png-ceebbf903fa196194f2b9f2a1330c252.etc.stex" ]
 
 [params]
 

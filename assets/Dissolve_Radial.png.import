@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.s3tc.stex"
+path.etc2="res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.etc2.stex"
 path.etc="res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Dissolve_Radial.png"
-dest_files=[ "res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.s3tc.stex", "res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.etc.stex" ]
+dest_files=[ "res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.s3tc.stex", "res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.etc2.stex", "res://.import/Dissolve_Radial.png-908197a05f0b39f5cf6f3f39938987cc.etc.stex" ]
 
 [params]
 

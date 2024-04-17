@@ -1,5 +1,11 @@
 extends Node
 
+signal scene_drawn_models_list_updated(list, manager);
+signal scene_imported_models_list_updated(list, manager);
+signal scene_lines_list_updated(list, manager);
+signal scene_measurements_list_updated(list, manager);
+signal scene_notes_list_updated(list, manager);
+
 signal paint_color_changed(new_paint_color);
 
 signal tool_switch_tool(tool_name);
@@ -16,3 +22,10 @@ signal tooltip_update_text(tooltip_text);
 signal vr_enable_color_correction(value);
 
 signal tools_menu_tooltip_update_text(tooltip_text);
+
+signal environment_set_hdri(hdri_index);
+signal environment_next_hdri();
+signal environment_set_exposure(exposure);
+signal environment_sky_updated(sky);
+
+signal save_screenshot(screenshot_name);

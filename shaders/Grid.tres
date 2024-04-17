@@ -22,13 +22,13 @@ code = "//MIT License
 //Procedural grid shader
 
 shader_type spatial;
-render_mode blend_mix, cull_disabled, world_vertex_coords, shadows_disabled, unshaded;
+render_mode blend_mix, cull_disabled, shadows_disabled, unshaded;
 
 uniform vec4 grid_color : hint_color = vec4(vec3(0.0),1.0);
 uniform vec4 background_color : hint_color = vec4(vec3(0.0),0.0);
 
 uniform float line_thickness : hint_range(0.001, 0.5) = 0.01;
-uniform int cell_count = 10;
+uniform float grid_size : hint_range(0.0, 10.0) = 1.0;
 
 uniform sampler2D alpha_falloff : hint_white;
 
@@ -41,22 +41,16 @@ void vertex()
 
 void fragment()
 {
-    float x = fract(world_position.x * float(cell_count));
-    x = min(x, 1.0 - x);
-    x = smoothstep(x - fwidth(x), x + fwidth(x), line_thickness);
 
-    float y = fract(world_position.y * float(cell_count));
-    y = min(y, 1.0 - y);
-    y = smoothstep(y - fwidth(y), y + fwidth(y), line_thickness);
+	// Apply grid effect
+	vec2 grid_pos = mod(world_position.xz + grid_size * 0.5, grid_size) / grid_size - 0.5;
+	grid_pos = abs(grid_pos) * 2.0;
+	float line = min(step(line_thickness, grid_pos.x), step(line_thickness, grid_pos.y));
 
-    float grid = clamp(x + y, 0.0, 1.0);
-
-	vec4 color = mix(background_color, grid_color, grid);
-	
 	float falloff = texture(alpha_falloff, vec2(distance(vec2(0.5, 0.5), UV) * 2.0)).r;
-	
-	
-	ALBEDO = color.rgb;
-    ALPHA = color.a * falloff;
+
+	// Apply color and transparency
+	ALBEDO = mix(grid_color.rgb, background_color.rgb, line);
+	ALPHA = mix(grid_color.a, background_color.a, line) * falloff;
 	DEPTH = 500.0;
 }"

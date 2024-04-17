@@ -2,6 +2,7 @@ extends Area
 class_name XRInterface
 
 export(int) var pixel_per_world_unit : int = 1024.0;
+export(bool) var backface_culling : bool = true;
 
 var interface : Control = null;
 
@@ -46,7 +47,11 @@ func _ready() -> void :
 		render_material.albedo_texture = viewport.get_texture();
 		render_material.flags_unshaded = true;
 		render_material.flags_transparent = true;
-		render_material.params_cull_mode = SpatialMaterial.CULL_DISABLED;
+		if backface_culling == true :
+			render_material.params_cull_mode = SpatialMaterial.CULL_BACK;
+		else :
+			render_material.params_cull_mode = SpatialMaterial.CULL_DISABLED;
+		
 		render_material.set_render_priority(127);
 		render_target.set_surface_material(0, render_material);
 

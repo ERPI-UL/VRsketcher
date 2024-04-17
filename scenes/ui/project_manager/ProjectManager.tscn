@@ -112,6 +112,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CreateProjectDialog" parent="." instance=ExtResource( 2 )]
+theme = ExtResource( 4 )
 file_system_dialog_path = NodePath("../Project_Directory_Dialog")
 
 [node name="Project_Directory_Dialog" type="FileDialog" parent="."]
@@ -120,11 +121,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
+margin_left = -400.0
 margin_top = -200.0
 margin_right = 300.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 600, 400 )
+rect_min_size = Vector2( 800, 400 )
 theme = ExtResource( 4 )
 window_title = "Target project location"
 mode_overrides_title = false
@@ -138,11 +139,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
+margin_left = -400.0
 margin_top = -200.0
 margin_right = 300.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 600, 400 )
+rect_min_size = Vector2( 800, 400 )
 theme = ExtResource( 4 )
 window_title = "Import VRSketcher Project"
 mode_overrides_title = false

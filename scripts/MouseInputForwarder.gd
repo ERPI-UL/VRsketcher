@@ -13,8 +13,20 @@ func _gui_input(event : InputEvent) -> void :
 	target_viewport.input(event);
 
 func _ready() -> void :
-	connect("mouse_entered", self, "update_mouse_presence", [true]);
-	connect("mouse_exited", self, "update_mouse_presence", [false]);
+	if connect("mouse_entered", self, "update_mouse_presence", [true]) != OK :
+		print("Can't connect signal mouse_entered");
+	if connect("mouse_exited", self, "update_mouse_presence", [false]) != OK :
+		print("Can't connect signal mouse_exited");
+	
+	if EventBus.connect("vr_enable_color_correction", self, "enable_vr_color_correction") != OK :
+		print("Can't connect EventBus signal vr_enable_color_correction");
 
 func update_mouse_presence(value : bool) -> void :
 	KeyboardInputState.enabled = value;
+
+func enable_vr_color_correction(value : bool) -> void :
+	var m : ShaderMaterial = null;
+	if value == true :
+		m = ShaderMaterial.new();
+		m.shader = load("res://shaders/vr_color_correction.tres");
+		material = m;

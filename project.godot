@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://scenes/sketch_tools/eraser/Eraser.gd"
 }, {
 "base": "Node",
+"class": "EventBusValueReceiver",
+"language": "GDScript",
+"path": "res://scripts/settings/EventBusValueReceiver.gd"
+}, {
+"base": "Node",
 "class": "Exporter",
 "language": "GDScript",
 "path": "res://scripts/exporters/Exporter.gd"
@@ -95,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://scenes/ui_components/model_item/ModelItem.gd"
 }, {
 "base": "Control",
+"class": "ModelItemManager",
+"language": "GDScript",
+"path": "res://scripts/ui_components/ModelItemManager.gd"
+}, {
+"base": "Control",
 "class": "ModelTransform",
 "language": "GDScript",
 "path": "res://scenes/ui_components/model_transform/ModelTransform.gd"
@@ -123,6 +133,11 @@ _global_script_classes=[ {
 "class": "NoteItem",
 "language": "GDScript",
 "path": "res://scenes/ui_components/notes_item/NoteItem.gd"
+}, {
+"base": "Control",
+"class": "NoteItemManager",
+"language": "GDScript",
+"path": "res://scripts/ui_components/NoteItemManager.gd"
 }, {
 "base": "SketchTool",
 "class": "NoteTool",
@@ -197,7 +212,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "VRSketcher",
 "language": "GDScript",
-"path": "res://scripts/VRSketcher.gd"
+"path": "res://scripts/vr_sketcher_platforms/VRSketcher.gd"
+}, {
+"base": "Node",
+"class": "ViewportScreenshotSaver",
+"language": "GDScript",
+"path": "res://scripts/ViewportScreenshotSaver.gd"
 }, {
 "base": "Area",
 "class": "XRInterface",
@@ -213,6 +233,7 @@ _global_script_class_icons={
 "Controller": "",
 "CreateProjectDialog": "",
 "Eraser": "",
+"EventBusValueReceiver": "",
 "Exporter": "",
 "Exporter_3MF": "",
 "Exporter_OBJ": "",
@@ -227,12 +248,14 @@ _global_script_class_icons={
 "Model3D": "",
 "ModelInteractionArea": "",
 "ModelItem": "",
+"ModelItemManager": "",
 "ModelTransform": "",
 "Modeler": "",
 "ModelsManager": "",
 "Move": "",
 "Note3D": "",
 "NoteItem": "",
+"NoteItemManager": "",
 "NoteTool": "",
 "NotesManager": "",
 "Pen": "",
@@ -248,6 +271,7 @@ _global_script_class_icons={
 "ToolTip": "",
 "TooltipHovering": "",
 "VRSketcher": "",
+"ViewportScreenshotSaver": "",
 "XRInterface": "",
 "XRInterfaceController": ""
 }
@@ -255,7 +279,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Vr Sketcher"
-run/main_scene="res://VRSketcher.tscn"
+run/main_scene="res://App_Launcher.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -502,7 +526,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 quality/shadows/filter_mode=2
 gles2/compatibility/disable_half_float=true
 quality/depth/use_32_bpc_depth=true
