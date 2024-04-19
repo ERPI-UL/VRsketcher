@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Camera",
+"class": "CameraDataUpdater",
+"language": "GDScript",
+"path": "res://scripts/CameraDataUpdater.gd"
+}, {
 "base": "Spatial",
 "class": "Controller",
 "language": "GDScript",
@@ -219,6 +224,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ViewportScreenshotSaver.gd"
 }, {
+"base": "Viewport",
+"class": "XRFeedbackViewport",
+"language": "GDScript",
+"path": "res://scripts/ui_components/XRFeedbackViewport.gd"
+}, {
 "base": "Area",
 "class": "XRInterface",
 "language": "GDScript",
@@ -230,6 +240,7 @@ _global_script_classes=[ {
 "path": "res://scripts/ui_components/XRInterfaceController.gd"
 } ]
 _global_script_class_icons={
+"CameraDataUpdater": "",
 "Controller": "",
 "CreateProjectDialog": "",
 "Eraser": "",
@@ -272,6 +283,7 @@ _global_script_class_icons={
 "TooltipHovering": "",
 "VRSketcher": "",
 "ViewportScreenshotSaver": "",
+"XRFeedbackViewport": "",
 "XRInterface": "",
 "XRInterfaceController": ""
 }

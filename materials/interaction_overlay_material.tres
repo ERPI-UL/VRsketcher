@@ -4,6 +4,7 @@
 
 [resource]
 shader = ExtResource( 1 )
+shader_param/grow = 0.0
 shader_param/overlay_color = Color( 0, 0.717647, 1, 1 )
 shader_param/rim_power = 3.0
 shader_param/overlay_strength = 3.0

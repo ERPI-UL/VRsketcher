@@ -17,7 +17,7 @@
 [ext_resource path="res://scenes/Model_Managers.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/ui/display_settings/Display_Settings.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/icons/icon_import.svg" type="Texture" id=17]
-[ext_resource path="res://scripts/CameraDataUpdater.gd" type="Script" id=18]
+[ext_resource path="res://scripts/ui_components/XRFeedbackViewport.gd" type="Script" id=18]
 [ext_resource path="res://scenes/WorldEnvironment.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/camera_tools/spectator_camera/SpectatorCamera.tscn" type="PackedScene" id=21]
 
@@ -64,12 +64,9 @@ shape = SubResource( 3 )
 [node name="Video_Feedback" type="Viewport" parent="."]
 size = Vector2( 2076, 2076 )
 fxaa = true
-keep_3d_linear = true
 render_target_update_mode = 3
-
-[node name="Camera" type="Camera" parent="Video_Feedback"]
 script = ExtResource( 18 )
-read_camera_data = true
+xr_viewport_path = NodePath("../Viewport")
 
 [node name="Interface" type="Control" parent="."]
 anchor_right = 1.0
@@ -151,6 +148,8 @@ margin_left = 5.0
 margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
+spectator_camera_1_path = NodePath("../../../../../../../Spectator_Cameras/SpectatorCamera_01")
+spectator_camera_2_path = NodePath("../../../../../../../Spectator_Cameras/SpectatorCamera_02")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Interface/VRSketcherInterface/HBoxContainer"]
 show_behind_parent = true
@@ -184,4 +183,5 @@ visible = false
 visible = false
 
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/save" to="Interface" method="save_project"]
+[connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/import_model" to="Interface/ModelImportWindow" method="open_import_window"]
 [connection signal="pressed" from="Interface/VRSketcherInterface/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/take_screenshot" to="Interface" method="take_screenshot"]

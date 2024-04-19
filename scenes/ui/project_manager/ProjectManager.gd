@@ -34,6 +34,7 @@ func open_project_creation() -> void :
 
 func open_import_project_dialog() -> void :
 	import_project_dialog.popup_centered();
+	import_project_dialog.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS);
 
 func import_project_dialog(path : String) -> void :
 	Project.import_project(path);

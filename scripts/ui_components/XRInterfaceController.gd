@@ -11,6 +11,8 @@ export(Color, RGBA) var ray_color : Color = Color.cyan;
 export(float) var gizmo_ray_thickness : float = 0.01;
 export(float) var gizmo_end_radius : float = 0.02;
 
+export(int) var double_click_ms_delta : float = 500;
+
 var raycast : RayCast = null;
 var gizmo_ray : MeshInstance = null;
 var gizmo_end : MeshInstance = null;
@@ -18,6 +20,8 @@ var gizmo_end : MeshInstance = null;
 var interface : XRInterface = null;
 var hover_state : bool = false;
 var previous_hover_state : bool = false;
+
+var previous_click_date : int = 0;
 
 var controller_signal_connection_silenced : bool = true;
 
@@ -104,7 +108,9 @@ func set_enabled(value : bool) -> void :
 
 func interface_send_mouse_button_pressed(button_index : int = BUTTON_LEFT) -> void :
 	if interface != null :
-		interface.interface_send_mouse_button_pressed(button_index);
+		var current_time : int = Time.get_ticks_msec();
+		interface.interface_send_mouse_button_pressed(button_index, (current_time - previous_click_date) <= double_click_ms_delta);
+		previous_click_date = current_time;
 
 func interface_send_mouse_button_released(button_index : int = BUTTON_LEFT) -> void :
 	if interface != null :

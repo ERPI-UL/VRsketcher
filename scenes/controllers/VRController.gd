@@ -39,6 +39,9 @@ func _process(_delta: float) -> void :
 		if current_tool != null :
 			if current_tool.tool_in_use == true :
 				current_tool.stop_tool_use();
+				if current_tool.interacted_object != null :
+					if current_tool.interacted_object is Model3D == true :
+						(current_tool.interacted_object as Model3D).set_overlay_material(null);
 	
 	xr_palette.visible = camera.global_transform.basis.z.dot(xr_palette.global_transform.basis.z) >= xr_palette_visibility_angle;
 
@@ -86,7 +89,7 @@ func input_pressed(button_index : int) -> void :
 		Enums.InputCode.BUTTON_A :
 			show_tools_menu(!interface_controller.enabled);
 		Enums.InputCode.BUTTON_B :
-			pass;
+			OS.show_virtual_keyboard()
 		Enums.InputCode.BUTTON_GRIP :
 			pass;
 		Enums.InputCode.BUTTON_TRIGGER :

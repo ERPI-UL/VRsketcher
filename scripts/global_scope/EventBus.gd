@@ -1,5 +1,7 @@
 extends Node
 
+signal project_import_model(path, smooth_shading);
+
 signal scene_drawn_models_list_updated(list, manager);
 signal scene_imported_models_list_updated(list, manager);
 signal scene_lines_list_updated(list, manager);
@@ -11,6 +13,7 @@ signal paint_color_changed(new_paint_color);
 signal tool_switch_tool(tool_name);
 signal tool_switch_next_tool();
 signal tool_switch_previous_tool();
+signal tool_set_property(property, value);
 
 signal tool_set_shortcut(direction, shortcut_button);
 

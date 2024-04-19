@@ -1,4 +1,5 @@
 extends Camera
+class_name CameraDataUpdater
 
 export(bool) var read_camera_data : bool = false;
 

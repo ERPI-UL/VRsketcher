@@ -17,6 +17,9 @@ var modes_sub			: Array		= [
 ];
 
 func _ready() -> void :
+	if EventBus.is_connected("tool_set_property", self, "set_property_value") == false :
+		if EventBus.connect("tool_set_property", self, "set_property_value") != OK :
+			print("Can't connect EventBus signal set_property_value");
 	load_tool_modes();
 
 func load_tool_modes() -> void :
@@ -46,6 +49,11 @@ func get_tool_mode_name(get_sub_mode_name : bool = false) -> String :
 
 func object_enter_hover(node : Node) -> void :
 	if tool_in_use == false && visible == true :
+
+		if interacted_object != null :
+			if interacted_object is Model3D == true :
+				(interacted_object as Model3D).set_overlay_material(null);
+
 		if node is ModelInteractionArea == true :
 			interacted_object = node.get_parent();
 			if interacted_object is Model3D == true :
@@ -59,3 +67,7 @@ func object_exit_hover(node : Node) -> void :
 			if interacted_object is Model3D == true :
 				(interacted_object as Model3D).set_overlay_material(null);
 			interacted_object = null;
+
+func set_property_value(property : String, value) -> void :
+	if property in self :
+		set(property, value);

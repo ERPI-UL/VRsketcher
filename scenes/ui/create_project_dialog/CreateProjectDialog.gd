@@ -13,6 +13,7 @@ func _ready() -> void:
 
 func open_file_system_dialog() -> void :
 	file_system_dialog.popup_centered();
+	file_system_dialog.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS);
 
 func selected_directory_changed(path : String) -> void :
 	project_path.text = path;
@@ -26,3 +27,4 @@ func cancel_project_creation() -> void :
 
 func open_file_dialog() -> void :
 	file_system_dialog.popup_centered();
+	file_system_dialog.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS);

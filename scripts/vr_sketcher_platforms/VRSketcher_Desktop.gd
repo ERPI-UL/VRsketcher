@@ -28,6 +28,10 @@ func set_controller(controller : Node, enable_vr : bool) -> void :
 	(get_node(controller_viewport_path) as Viewport).arvr = enable_vr;
 	
 	get_node(controller_viewport_path).add_child(controller);
+	
+	EventBus.emit_signal("scene_drawn_models_list_updated", manager_drawn_models.models, manager_drawn_models);
+	EventBus.emit_signal("scene_imported_models_list_updated", manager_imported_models.models, manager_imported_models);
+	EventBus.emit_signal("scene_notes_list_updated", manager_notes.notes, manager_notes);
 
 func get_children_recursive (root : Node) -> Array :
 	var children : Array = [];
@@ -45,9 +49,14 @@ func set_environment_exposure(value : float = 1.0) -> void :
 func open_project() -> void :
 	.open_project();
 
-	project_manager.visible = false;
-	vr_sketcher_interface.visible = true;
-	controller_selection.visible = true;
+	if project_manager != null && is_instance_valid(project_manager) == true :
+		project_manager.visible = false;
+
+	if vr_sketcher_interface != null && is_instance_valid(vr_sketcher_interface) == true :
+		vr_sketcher_interface.visible = true;
+
+	if controller_selection != null && is_instance_valid(controller_selection) == true :
+		controller_selection.visible = true;
 
 func import_model_from_path(model_path : String, smooth_shading : bool = false) -> void :
 	.import_model_from_path(model_path, smooth_shading || import_smooth_shading.pressed);

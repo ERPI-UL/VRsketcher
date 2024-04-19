@@ -385,18 +385,25 @@ custom_constants/separation = 32
 alignment = 1
 
 [node name="main_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
-margin_left = 454.0
-margin_right = 462.0
+margin_left = 434.0
+margin_right = 442.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="sub_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
-margin_left = 494.0
-margin_right = 502.0
+margin_left = 474.0
+margin_right = 482.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="options_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
+margin_left = 514.0
+margin_right = 522.0
+margin_bottom = 8.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
 [connection signal="mouse_entered" from="CenterContainer/VBoxContainer/tools_panel/PanelContainer/HBoxContainer/GLOBAL_SKY/Button" to="CenterContainer/VBoxContainer/tools_panel/PanelContainer/HBoxContainer/GLOBAL_SKY/Button/VBoxContainer/Label/TooltipHovering" method="update_tooltip"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/tools_panel/PanelContainer/HBoxContainer/GLOBAL_SKY/Button" to="." method="switch_hdri"]

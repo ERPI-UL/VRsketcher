@@ -1,16 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/icons/icon_camera.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/ui_components/model_transform/ModelTransform.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ui/debug_settings/debug_settings.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="ViewportTexture" id=6]
-viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_01")
-
-[sub_resource type="ViewportTexture" id=7]
-viewport_path = NodePath("Spectator_Cameras/SpectatorCamera_02")
 
 [node name="Debug_Settings" type="Control"]
 anchor_right = 1.0
@@ -180,7 +174,7 @@ margin_top = 18.0
 margin_right = 1288.0
 margin_bottom = 118.0
 rect_min_size = Vector2( 0, 100 )
-texture = SubResource( 6 )
+texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
@@ -207,7 +201,7 @@ margin_top = 388.0
 margin_right = 1288.0
 margin_bottom = 488.0
 rect_min_size = Vector2( 0, 100 )
-texture = SubResource( 7 )
+texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 

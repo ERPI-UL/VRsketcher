@@ -13,3 +13,4 @@ func _ready() -> void :
 
 	if EventBus.connect("scene_notes_list_updated", notes, "refresh_notes_list") != OK :
 		print("Can't connect EventBus signal scene_notes_list_updated");
+

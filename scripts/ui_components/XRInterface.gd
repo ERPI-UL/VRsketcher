@@ -12,6 +12,7 @@ var render_target : MeshInstance = null;
 
 var mouse_position : Vector2 = Vector2.ZERO;
 
+var collision_shape : CollisionShape = null;
 
 func _ready() -> void :
 	for c in get_children() :
@@ -39,6 +40,7 @@ func _ready() -> void :
 		var render_target_collider : CollisionShape = CollisionShape.new();
 		render_target_collider.shape = BoxShape.new();
 		(render_target_collider.shape as BoxShape).extents = Vector3(viewport.size.x / (2.0 * pixel_per_world_unit), viewport.size.y / (2.0 * pixel_per_world_unit), 0.01);
+		collision_shape = render_target_collider;
 		add_child(render_target_collider);
 
 		add_child(render_target);
@@ -75,21 +77,34 @@ func interface_send_mouse_click(button_index : int = BUTTON_LEFT) -> void :
 	interface_send_mouse_button_pressed(button_index);
 	call_deferred("interface_send_mouse_button_released", button_index);
 
-func interface_send_mouse_button_pressed(button_index : int = BUTTON_LEFT) -> void :
+func interface_send_mouse_button_pressed(button_index : int = BUTTON_LEFT, double_click : bool = false) -> void :
 	var event : InputEventMouseButton = InputEventMouseButton.new();
 	event.button_index = button_index;
 	event.pressed = true;
 	event.position = mouse_position;
+	event.doubleclick = double_click;
 	viewport.input(event);
 
 func interface_send_mouse_button_released(button_index : int = BUTTON_LEFT) -> void :
 	var event : InputEventMouseButton = InputEventMouseButton.new();
 	event.button_index = button_index;
 	event.pressed = false;
-	event.position = mouse_position;
+	event.position = mouse_position; 
 	viewport.input(event);
 
 func show_interface(value : bool) -> void :
 	visible = value;
 	monitorable = value;
 	monitoring = value;
+	collision_shape.disabled = !value;
+
+func toggle_interface() -> void :
+	var value : bool = visible;
+	visible = !value;
+	monitorable = !value;
+	monitoring = !value;
+	collision_shape.disabled = value
+
+func parse_input_event(input_event : InputEvent) -> void :
+	if viewport != null :
+		viewport.input(input_event);

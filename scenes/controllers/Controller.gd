@@ -26,6 +26,9 @@ func switch_to_tool(tool_name : String) -> void :
 
 	if current_tool != null :
 		current_tool.stop_tool_use();
+		if current_tool.interacted_object != null :
+			if current_tool.interacted_object is Model3D == true :
+				(current_tool.interacted_object as Model3D).set_overlay_material(null);
 		tools_root.remove_child(current_tool);
 
 	current_tool = new_tool;

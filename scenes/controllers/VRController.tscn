@@ -1,11 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/controllers/VRController.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui/vr_welcome_splash/VRWelcomeSplash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ui/XR_Palette.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/tooltip/Tooltip.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/CameraDataUpdater.gd" type="Script" id=5]
+[ext_resource path="res://scenes/virtual_keyboard/VirtualKeyboard.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/icons/Keyboard.svg" type="Texture" id=7]
 [ext_resource path="res://scripts/ui_components/XRInterfaceController.gd" type="Script" id=8]
+[ext_resource path="res://assets/themes/dark.tres" type="Theme" id=9]
+[ext_resource path="res://assets/themes/dark_base.tres" type="Theme" id=10]
 [ext_resource path="res://scripts/ui_components/XRInterface.gd" type="Script" id=12]
 
 [node name="Player" type="ARVROrigin"]
@@ -26,6 +30,7 @@ controller_id = 2
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
 
 [node name="XRInterfaceController" type="Spatial" parent="ARVRController_Right"]
+transform = Transform( 1, 2.98023e-08, 0, 2.23517e-08, 1, -2.98023e-08, -2.98023e-08, 0, 1, 2.98023e-08, -3.72529e-09, 0 )
 script = ExtResource( 8 )
 collision_mask = 134217728
 gizmo_ray_thickness = 0.005
@@ -46,6 +51,45 @@ pixel_per_world_unit = 512
 transform = Transform( 0.25, 0.433013, 0.866025, -0.866025, 0.5, 0, -0.433013, -0.75, 0.5, 0.05, 0, 0 )
 pixel_per_world_unit = 2048
 
+[node name="XRInterface_Toggle_Keyboard" type="Area" parent="ARVRController_Left/XRInterface"]
+transform = Transform( 1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.2, 0.3, 0.05 )
+collision_layer = 134217728
+collision_mask = 0
+script = ExtResource( 12 )
+pixel_per_world_unit = 2048
+
+[node name="Control" type="Panel" parent="ARVRController_Left/XRInterface/XRInterface_Toggle_Keyboard"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 120, 120 )
+theme = ExtResource( 9 )
+
+[node name="Button" type="Button" parent="ARVRController_Left/XRInterface/XRInterface_Toggle_Keyboard/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+icon = ExtResource( 7 )
+flat = true
+icon_align = 1
+expand_icon = true
+
+[node name="XRInterface_Keyboard" type="Area" parent="ARVRController_Left/XRInterface"]
+transform = Transform( 1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0.3, 0.05 )
+visible = false
+collision_layer = 134217728
+collision_mask = 0
+script = ExtResource( 12 )
+pixel_per_world_unit = 2048
+
+[node name="Control" type="Control" parent="ARVRController_Left/XRInterface/XRInterface_Keyboard"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 576, 240 )
+theme = ExtResource( 10 )
+
+[node name="VirtualKeyboard" parent="ARVRController_Left/XRInterface/XRInterface_Keyboard/Control" instance=ExtResource( 6 )]
+
 [connection signal="xr_interface_entered" from="ARVRController_Right/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ true ]]
 [connection signal="xr_interface_exited" from="ARVRController_Right/XRInterfaceController" to="." method="set_xr_interface_hovered" binds= [ false ]]
 [connection signal="splash_closed" from="VRWelcomeSplash/VRWelcomeSplash" to="." method="enable_tools_menu"]
+[connection signal="pressed" from="ARVRController_Left/XRInterface/XRInterface_Toggle_Keyboard/Control/Button" to="ARVRController_Left/XRInterface/XRInterface_Keyboard" method="toggle_interface"]
+[connection signal="keyboard_input_event" from="ARVRController_Left/XRInterface/XRInterface_Keyboard/Control/VirtualKeyboard" to="ARVRController_Left/XRInterface" method="parse_input_event"]

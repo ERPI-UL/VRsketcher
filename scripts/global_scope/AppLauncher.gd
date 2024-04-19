@@ -5,6 +5,8 @@ func _ready() :
 	yield(get_tree(), "idle_frame");
 	if ["Android"].find(OS.get_name()) >= 0 :
 		#Meta Quest mode
+		OS.request_permissions();
+
 		var scene : PackedScene = load("res://XR_VRSketcher.tscn");
 		get_tree().root.add_child(scene.instance());
 	else :

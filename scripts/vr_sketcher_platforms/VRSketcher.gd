@@ -15,7 +15,8 @@ onready var scene_drawn_models					: Spatial			= get_node("Scene_Objects/Drawn_M
 onready var scene_notes							: Spatial			= get_node("Scene_Objects/Notes");
 
 func _ready() -> void :
-	pass;
+		if EventBus.connect("project_import_model", self, "import_model_from_path") != OK :
+			print("Can't connect EventBus signal project_import_model");
 
 func get_children_recursive (root : Node) -> Array :
 	var children : Array = [];
