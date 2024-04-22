@@ -10,6 +10,7 @@ onready var fold_container : Control = get_node("VBoxContainer/VBoxContainer");
 
 onready var model_name : Label = get_node("VBoxContainer/HBoxContainer/Model_Name");
 onready var model_transform : ModelTransform = get_node("VBoxContainer/VBoxContainer/ModelTransform");
+onready var model_visible : CheckButton = get_node("VBoxContainer/HBoxContainer/Visible");
 onready var model_interactable : CheckBox = get_node("VBoxContainer/VBoxContainer/HBoxContainer2/interactable_switch");
 onready var model_override_material : OptionButton = get_node("VBoxContainer/VBoxContainer/HBoxContainer/material_override");
 
@@ -33,6 +34,7 @@ func set_target_model(model : Model3D) -> void :
 	model_name.text = target_model.inspector_name;
 	
 	model_transform.set_model_transform(target_model.global_transform.origin, target_model.rotation_degrees, target_model.scale.x);
+	model_visible.pressed = model.model_visible;
 	model_interactable.pressed = model.model_interactable;
 	model_override_material.selected = target_model.override_material_index + 1;
 
@@ -61,7 +63,10 @@ func set_model_scale(value : float) -> void :
 
 func set_model_interactable(value : bool) -> void :
 	target_model.set_model_interactable(value);
-	
+
+func set_model_visible(value : bool) -> void :
+	target_model.set_model_visible(value);
+
 func update_model_interactable_changed(value : bool) -> void :
 	model_interactable.pressed = value;
 

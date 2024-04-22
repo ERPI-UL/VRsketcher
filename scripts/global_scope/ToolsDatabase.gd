@@ -18,7 +18,15 @@ var tools : Dictionary = {
 		"sub_menu"		: null,
 		"options_menu"	: null
 	},
-
+	"TOOL_FLY"			: {
+		"name"			: "Déplacement Libre",
+		"icon"			: load("res://assets/icons/vr_tool_icons/tool_fly.svg"),
+		"tool"			: load("res://scenes/sketch_tools/fly/Fly.tscn").instance(),
+		"main_menu"		: null,
+		"sub_menu"		: null,
+		"options_menu"	: load("res://scenes/sketch_tools/fly/fly_options_menu.tscn").instance()
+	},
+	
 	"TOOL_PEN"				: {
 		"name"			: "Dessiner",
 		"icon"			: load("res://assets/icons/vr_tool_icons/tool_pen.svg"),
@@ -57,6 +65,14 @@ var tools : Dictionary = {
 		"icon"			: load("res://assets/icons/vr_tool_icons/tool_rotate.svg"),
 		"tool"			: load("res://scenes/sketch_tools/rotate/Rotate.tscn").instance(),
 		"main_menu"		: load("res://scenes/sketch_tools/rotate/rotate_main_menu.tscn").instance(),
+		"sub_menu"		: null,
+		"options_menu"	: null
+	},
+	"TOOL_DUPLICATE"			: {
+		"name"			: "Dupliquer",
+		"icon"			: load("res://assets/icons/vr_tool_icons/tool_duplicate.svg"),
+		"tool"			: load("res://scenes/sketch_tools/duplicate/Duplicate.tscn").instance(),
+		"main_menu"		: null,
 		"sub_menu"		: null,
 		"options_menu"	: null
 	},

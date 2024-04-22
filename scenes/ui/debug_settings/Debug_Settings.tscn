@@ -37,7 +37,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Features/ScrollContainer"]
 margin_right = 1288.0
-margin_bottom = 618.0
+margin_bottom = 706.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -46,97 +46,109 @@ margin_right = 1288.0
 margin_bottom = 40.0
 text = "Teleport"
 
-[node name="Pen" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Fly" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 44.0
 margin_right = 1288.0
 margin_bottom = 84.0
-text = "Pen"
+text = "Fly"
 
-[node name="Eraser" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Pen" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 88.0
 margin_right = 1288.0
 margin_bottom = 128.0
-text = "Eraser"
+text = "Pen"
 
-[node name="Measurements" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Eraser" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 132.0
 margin_right = 1288.0
 margin_bottom = 172.0
-text = "Measurements"
+text = "Eraser"
 
-[node name="Material_Painter" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Measurements" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 176.0
 margin_right = 1288.0
 margin_bottom = 216.0
-text = "Texture painting"
+text = "Measurements"
 
-[node name="Grab" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Material_Painter" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 220.0
 margin_right = 1288.0
 margin_bottom = 260.0
-text = "Grab"
+text = "Texture painting"
 
-[node name="Move" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Grab" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 264.0
 margin_right = 1288.0
 margin_bottom = 304.0
-text = "Move"
+text = "Grab"
 
-[node name="Rotate" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Move" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 308.0
 margin_right = 1288.0
 margin_bottom = 348.0
-text = "Rotate"
+text = "Move"
 
-[node name="Modeler" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Rotate" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 352.0
 margin_right = 1288.0
 margin_bottom = 392.0
-text = "Primitive modeling"
+text = "Rotate"
 
-[node name="Note" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+[node name="Modeler" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
 margin_top = 396.0
 margin_right = 1288.0
 margin_bottom = 436.0
+text = "Primitive modeling"
+
+[node name="Duplicate" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+margin_top = 440.0
+margin_right = 1288.0
+margin_bottom = 480.0
+text = "Duplicate"
+
+[node name="Note" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
+margin_top = 484.0
+margin_right = 1288.0
+margin_bottom = 524.0
 text = "Note"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 440.0
+margin_top = 528.0
 margin_right = 1288.0
-margin_bottom = 452.0
+margin_bottom = 540.0
 custom_constants/separation = 12
 custom_styles/separator = SubResource( 5 )
 
 [node name="HDRI_Switch" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 456.0
+margin_top = 544.0
 margin_right = 1288.0
-margin_bottom = 496.0
+margin_bottom = 584.0
 text = "Sky texture switch"
 
 [node name="Global_Material_Switch" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 500.0
+margin_top = 588.0
 margin_right = 1288.0
-margin_bottom = 540.0
+margin_bottom = 628.0
 text = "Global Material Switch"
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 544.0
+margin_top = 632.0
 margin_right = 1288.0
-margin_bottom = 556.0
+margin_bottom = 644.0
 custom_constants/separation = 12
 custom_styles/separator = SubResource( 5 )
 
 [node name="Label3" type="Label" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 560.0
+margin_top = 648.0
 margin_right = 1288.0
-margin_bottom = 574.0
+margin_bottom = 662.0
 text = "Welcome splash"
 autowrap = true
 
 [node name="Disable_Welcome_Splash" type="CheckButton" parent="VBoxContainer/Features/ScrollContainer/VBoxContainer"]
-margin_top = 578.0
+margin_top = 666.0
 margin_right = 1288.0
-margin_bottom = 618.0
+margin_bottom = 706.0
 text = "Disabled"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]

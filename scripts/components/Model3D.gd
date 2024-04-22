@@ -10,6 +10,7 @@ var inspector_unfolded						: bool			= false;
 var model_filename							: String		= "";
 
 var model_interactable						: bool			= true;
+var model_visible							: bool			= true;
 
 var material								: Material		= null;
 
@@ -76,6 +77,13 @@ func set_model_interactable(value : bool) -> void :
 	model_interactable = value;
 	if interaction_area != null :
 		interaction_area.monitorable = model_interactable;
+
+func set_model_visible(value : bool) -> void :
+	model_visible = value;
+	for c in get_children() :
+		if c is MeshInstance :
+			c.visible = value;
+	set_model_interactable(model_interactable && value);
 
 func set_material(value : Material) -> void :
 	if override_material_index >= 0 :

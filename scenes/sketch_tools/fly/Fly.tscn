@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/sketch_tools/fly/Fly.gd" type="Script" id=1]
+[ext_resource path="res://scenes/gizmos/Gizmo_Arrow.tscn" type="PackedScene" id=2]
+
+[node name="Fly" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Gizmo_Move" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )

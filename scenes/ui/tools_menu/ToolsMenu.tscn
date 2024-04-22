@@ -40,21 +40,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 172.0
+margin_left = 116.0
 margin_top = 166.0
-margin_right = 1128.0
+margin_right = 1184.0
 margin_bottom = 434.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
-margin_right = 956.0
+margin_right = 1068.0
 margin_bottom = 40.0
 
 [node name="tooltip" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 952.0
+margin_right = 1064.0
 margin_bottom = 36.0
 custom_fonts/font = SubResource( 1 )
 align = 1
@@ -62,7 +62,7 @@ valign = 1
 
 [node name="tools_panel" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 44.0
-margin_right = 956.0
+margin_right = 1068.0
 margin_bottom = 256.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -195,9 +195,44 @@ script = ExtResource( 22 )
 script = ExtResource( 14 )
 linked_debug_settings = "enable_function_global_material_switch"
 
-[node name="panel_tools" type="PanelContainer" parent="CenterContainer/VBoxContainer/tools_panel"]
+[node name="panel_movement_tools" type="PanelContainer" parent="CenterContainer/VBoxContainer/tools_panel"]
 margin_left = 112.0
-margin_right = 636.0
+margin_right = 220.0
+margin_bottom = 212.0
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/tools_panel/panel_movement_tools"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 104.0
+margin_bottom = 208.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="TOOL_TELEPORT" parent="CenterContainer/VBoxContainer/tools_panel/panel_movement_tools/HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 100.0
+margin_bottom = 100.0
+target_tool_name = "TOOL_TELEPORT"
+tool_icon = ExtResource( 7 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_movement_tools/HBoxContainer/TOOL_TELEPORT"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_teleport"
+
+[node name="TOOL_FLY" parent="CenterContainer/VBoxContainer/tools_panel/panel_movement_tools/HBoxContainer" instance=ExtResource( 1 )]
+margin_top = 104.0
+margin_right = 100.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_FLY"
+tool_icon = ExtResource( 7 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_movement_tools/HBoxContainer/TOOL_FLY"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_fly"
+
+[node name="panel_tools" type="PanelContainer" parent="CenterContainer/VBoxContainer/tools_panel"]
+margin_left = 224.0
+margin_right = 748.0
 margin_bottom = 212.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -215,19 +250,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 5
 
-[node name="TOOL_TELEPORT" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_right = 100.0
-margin_bottom = 100.0
-target_tool_name = "TOOL_TELEPORT"
-tool_icon = ExtResource( 7 )
-
-[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer/TOOL_TELEPORT"]
-script = ExtResource( 14 )
-linked_debug_settings = "enable_tool_teleport"
-
 [node name="TOOL_PEN" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_left = 104.0
-margin_right = 204.0
+margin_right = 100.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_PEN"
 tool_icon = ExtResource( 5 )
@@ -237,8 +261,8 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_pen"
 
 [node name="TOOL_ERASER" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_left = 208.0
-margin_right = 308.0
+margin_left = 104.0
+margin_right = 204.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_ERASER"
 tool_icon = ExtResource( 8 )
@@ -248,8 +272,8 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_eraser"
 
 [node name="TOOL_GRAB" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_left = 312.0
-margin_right = 412.0
+margin_left = 208.0
+margin_right = 308.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_GRAB"
 tool_icon = ExtResource( 6 )
@@ -259,8 +283,8 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_grab"
 
 [node name="TOOL_MOVE" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_left = 416.0
-margin_right = 516.0
+margin_left = 312.0
+margin_right = 412.0
 margin_bottom = 100.0
 target_tool_name = "TOOL_MOVE"
 tool_icon = ExtResource( 9 )
@@ -270,9 +294,9 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_move"
 
 [node name="TOOL_ROTATE" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_top = 104.0
-margin_right = 100.0
-margin_bottom = 204.0
+margin_left = 416.0
+margin_right = 516.0
+margin_bottom = 100.0
 target_tool_name = "TOOL_ROTATE"
 tool_icon = ExtResource( 3 )
 
@@ -281,9 +305,8 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_rotate"
 
 [node name="TOOL_MODELER" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
-margin_left = 104.0
 margin_top = 104.0
-margin_right = 204.0
+margin_right = 100.0
 margin_bottom = 204.0
 target_tool_name = "TOOL_MODELER"
 tool_icon = ExtResource( 4 )
@@ -291,6 +314,18 @@ tool_icon = ExtResource( 4 )
 [node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer/TOOL_MODELER"]
 script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_modeler"
+
+[node name="TOOL_DUPLICATE" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
+margin_left = 104.0
+margin_top = 104.0
+margin_right = 204.0
+margin_bottom = 204.0
+target_tool_name = "TOOL_DUPLICATE"
+tool_icon = ExtResource( 4 )
+
+[node name="DebugEnabler" type="Node" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer/TOOL_DUPLICATE"]
+script = ExtResource( 14 )
+linked_debug_settings = "enable_tool_duplicate"
 
 [node name="TOOL_MATERIAL_PAINT" parent="CenterContainer/VBoxContainer/tools_panel/panel_tools/VBoxContainer/HFlowContainer" instance=ExtResource( 1 )]
 margin_left = 208.0
@@ -329,8 +364,8 @@ script = ExtResource( 14 )
 linked_debug_settings = "enable_tool_note"
 
 [node name="panel_shortcuts" type="PanelContainer" parent="CenterContainer/VBoxContainer/tools_panel"]
-margin_left = 640.0
-margin_right = 956.0
+margin_left = 752.0
+margin_right = 1068.0
 margin_bottom = 212.0
 size_flags_vertical = 0
 
@@ -378,29 +413,29 @@ arrow_icon = ExtResource( 16 )
 
 [node name="tool_menus" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 260.0
-margin_right = 956.0
+margin_right = 1068.0
 margin_bottom = 268.0
 size_flags_horizontal = 5
 custom_constants/separation = 32
 alignment = 1
 
 [node name="main_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
-margin_left = 434.0
-margin_right = 442.0
+margin_left = 490.0
+margin_right = 498.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="sub_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
-margin_left = 474.0
-margin_right = 482.0
+margin_left = 530.0
+margin_right = 538.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="options_menu" type="PanelContainer" parent="CenterContainer/VBoxContainer/tool_menus"]
-margin_left = 514.0
-margin_right = 522.0
+margin_left = 570.0
+margin_right = 578.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 0

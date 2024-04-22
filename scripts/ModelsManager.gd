@@ -11,7 +11,8 @@ func add_model(model : Model3D) -> void :
 
 func remove_model(model : Model3D) -> void :
 	models.remove(models.find(model));
-	model.queue_free();
+	if is_instance_valid(model) == true :
+		model.queue_free();
 	emit_signal("models_list_changed");
 
 func clear_models() -> void :
@@ -20,3 +21,6 @@ func clear_models() -> void :
 			m.queue_free();
 	models.clear();
 	emit_signal("models_list_changed");
+
+func duplicate_model(index : int) -> void :
+	pass;

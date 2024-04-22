@@ -15,8 +15,27 @@ onready var scene_drawn_models					: Spatial			= get_node("Scene_Objects/Drawn_M
 onready var scene_notes							: Spatial			= get_node("Scene_Objects/Notes");
 
 func _ready() -> void :
-		if EventBus.connect("project_import_model", self, "import_model_from_path") != OK :
-			print("Can't connect EventBus signal project_import_model");
+	if EventBus.connect("project_import_model", self, "import_model_from_path") != OK :
+		print("Can't connect EventBus signal project_import_model");
+
+	manager_imported_models.connect(
+		"models_list_changed",
+		self,
+		"manager_to_event_bus_callback",
+		[manager_imported_models, manager_imported_models.models, "scene_imported_models_list_updated"]
+	);
+	manager_drawn_models.connect(
+		"models_list_changed",
+		self,
+		"manager_to_event_bus_callback",
+		[manager_drawn_models, manager_drawn_models.models, "scene_drawn_models_list_updated"]
+	);
+	manager_notes.connect(
+		"notes_list_changed",
+		self,
+		"manager_to_event_bus_callback",
+		[manager_notes, manager_notes.notes, "scene_notes_list_updated"]
+	);
 
 func get_children_recursive (root : Node) -> Array :
 	var children : Array = [];
@@ -25,8 +44,11 @@ func get_children_recursive (root : Node) -> Array :
 		children.append(child);
 		if child.get_child_count() > 0 :
 			children.append_array(get_children_recursive(child));
-		
+
 	return children;
+
+func manager_to_event_bus_callback(manager : Node, manager_list : Array, event_bus_signal : String) -> void :
+	EventBus.emit_signal(event_bus_signal, manager_list, manager);
 
 func set_environment_exposure(value : float = 1.0) -> void :
 	Project.current_project["current_exposure"] = value;

@@ -3,6 +3,7 @@ extends Node
 const DEBUG_SETTINGS_FILE_PATH : String = "debug_settings.txt";
 
 var enable_tool_teleport						: bool	= true;
+var enable_tool_fly								: bool	= true;
 var enable_tool_pen								: bool	= true;
 var enable_tool_eraser							: bool	= true;
 var enable_tool_measurements					: bool	= true;
@@ -11,6 +12,7 @@ var enable_tool_grab							: bool	= true;
 var enable_tool_move							: bool	= true;
 var enable_tool_rotate							: bool	= true;
 var enable_tool_modeler							: bool	= true;
+var enable_tool_duplicate						: bool	= true;
 var enable_tool_note							: bool	= true;
 
 var enable_function_hdri_switch					: bool	= true;
@@ -54,6 +56,8 @@ func load_debug_settings() -> void :
 				var settings : Dictionary = parse_result.result;
 				if settings.has("enable_tool_teleport") == true :
 					enable_tool_teleport = settings["enable_tool_teleport"] as bool;
+				if settings.has("enable_tool_fly") == true :
+					enable_tool_fly = settings["enable_tool_fly"] as bool;
 				if settings.has("enable_tool_pen") == true :
 					enable_tool_pen = settings["enable_tool_pen"] as bool;
 				if settings.has("enable_tool_eraser") == true :
@@ -70,6 +74,8 @@ func load_debug_settings() -> void :
 					enable_tool_rotate = settings["enable_tool_rotate"] as bool;
 				if settings.has("enable_tool_modeler") == true :
 					enable_tool_modeler = settings["enable_tool_modeler"] as bool;
+				if settings.has("enable_tool_duplicate") == true :
+					enable_tool_duplicate = settings["enable_tool_duplicate"] as bool;
 				if settings.has("enable_tool_note") == true :
 					enable_tool_note = settings["enable_tool_note"] as bool;
 
@@ -117,6 +123,7 @@ func save_debug_settings() -> void :
 	if debug_settings_file.open(DEBUG_SETTINGS_FILE_PATH, File.WRITE) == OK :
 		var settings : Dictionary = {
 			"enable_tool_teleport"						: enable_tool_teleport,
+			"enable_tool_fly"							: enable_tool_fly,
 			"enable_tool_pen"							: enable_tool_pen,
 			"enable_tool_eraser"						: enable_tool_eraser,
 			"enable_tool_measurements"					: enable_tool_measurements,
@@ -125,6 +132,7 @@ func save_debug_settings() -> void :
 			"enable_tool_move"							: enable_tool_move,
 			"enable_tool_rotate"						: enable_tool_rotate,
 			"enable_tool_modeler"						: enable_tool_modeler,
+			"enable_tool_duplicate"						: enable_tool_duplicate,
 			"enable_tool_note"							: enable_tool_note,
 
 			"enable_function_hdri_switch"				: enable_function_hdri_switch,

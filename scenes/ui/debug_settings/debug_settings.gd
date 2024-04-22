@@ -3,8 +3,9 @@ extends Node
 export(NodePath) var spectator_camera_1_path : NodePath = "";
 export(NodePath) var spectator_camera_2_path : NodePath = "";
 
-func _ready():
+func _ready() -> void :
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Teleport") as CheckButton).pressed = DebugSettings.enable_tool_teleport;
+	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Fly") as CheckButton).pressed = DebugSettings.enable_tool_fly;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Pen") as CheckButton).pressed = DebugSettings.enable_tool_pen;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Eraser") as CheckButton).pressed = DebugSettings.enable_tool_eraser;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Measurements") as CheckButton).pressed = DebugSettings.enable_tool_measurements;
@@ -13,6 +14,7 @@ func _ready():
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed = DebugSettings.enable_tool_move;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed = DebugSettings.enable_tool_rotate;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed = DebugSettings.enable_tool_modeler;
+	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Duplicate") as CheckButton).pressed = DebugSettings.enable_tool_duplicate;
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Note") as CheckButton).pressed = DebugSettings.enable_tool_note;
 
 	(get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).pressed = DebugSettings.enable_function_hdri_switch;
@@ -76,6 +78,7 @@ func _ready():
 
 func save_debug_settings() -> void :
 	DebugSettings.enable_tool_teleport = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Teleport") as CheckButton).pressed;
+	DebugSettings.enable_tool_fly = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Fly") as CheckButton).pressed;
 	DebugSettings.enable_tool_pen = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Pen") as CheckButton).pressed;
 	DebugSettings.enable_tool_eraser = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Eraser") as CheckButton).pressed;
 	DebugSettings.enable_tool_measurements = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Measurements") as CheckButton).pressed;
@@ -84,6 +87,7 @@ func save_debug_settings() -> void :
 	DebugSettings.enable_tool_move = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Move") as CheckButton).pressed;
 	DebugSettings.enable_tool_rotate = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Rotate") as CheckButton).pressed;
 	DebugSettings.enable_tool_modeler = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Modeler") as CheckButton).pressed;
+	DebugSettings.enable_tool_duplicate = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Duplicate") as CheckButton).pressed;
 	DebugSettings.enable_tool_note = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Note") as CheckButton).pressed;
 
 	DebugSettings.enable_function_hdri_switch = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/HDRI_Switch") as CheckButton).pressed;
