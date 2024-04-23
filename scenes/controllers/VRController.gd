@@ -95,6 +95,7 @@ func input_pressed(button_index : int) -> void :
 		Enums.InputCode.BUTTON_TRIGGER :
 			if interface_controller.enabled == false || (interface_controller.enabled == true && xr_interface_hovered == false) :
 				if current_tool != null :
+					show_tools_menu(false);
 					current_tool.start_tool_use();
 			if (current_tool == null) || (current_tool != null && current_tool.tool_in_use == false):
 				interface_controller.interface_send_mouse_button_pressed(BUTTON_LEFT);

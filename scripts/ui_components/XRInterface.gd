@@ -3,6 +3,7 @@ class_name XRInterface
 
 export(int) var pixel_per_world_unit : int = 1024.0;
 export(bool) var backface_culling : bool = true;
+export(bool) var force_srgb : bool = true;
 
 var interface : Control = null;
 
@@ -49,6 +50,7 @@ func _ready() -> void :
 		render_material.albedo_texture = viewport.get_texture();
 		render_material.flags_unshaded = true;
 		render_material.flags_transparent = true;
+		render_material.flags_albedo_tex_force_srgb = force_srgb;
 		if backface_culling == true :
 			render_material.params_cull_mode = SpatialMaterial.CULL_BACK;
 		else :

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ui/vr_welcome_splash/VRWelcomeSplash.gd" type="Script" id=1]
-[ext_resource path="res://assets/splash_vive_pro.png" type="Texture" id=2]
+[ext_resource path="res://assets/welcome_splashes/splash_vive_pro.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/GlacialIndifference-Bold.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/themes/ui_theme_dark.tres" type="Theme" id=20]
 

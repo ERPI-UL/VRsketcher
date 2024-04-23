@@ -35,6 +35,7 @@ var spectator_camera_02_rotation_y				: float	= 0.0;
 var spectator_camera_02_rotation_z				: float	= 0.0;
 
 var disable_welcome_splash						: bool	= false;
+var hmd_slash									: int	= 0;
 
 var screenshot_prefix							: String = "";
 
@@ -114,7 +115,9 @@ func load_debug_settings() -> void :
 
 				if settings.has("disable_welcome_splash") == true :
 					disable_welcome_splash = settings["disable_welcome_splash"] as bool;
-
+				if settings.has("hmd_slash") == true :
+					hmd_slash = settings["hmd_slash"] as int;
+					
 			debug_settings_file.close();
 
 func save_debug_settings() -> void :
@@ -154,7 +157,8 @@ func save_debug_settings() -> void :
 			"spectator_camera_02_rotation_y"			: spectator_camera_02_rotation_y,
 			"spectator_camera_02_rotation_z"			: spectator_camera_02_rotation_z,
 
-			"disable_welcome_splash"					: disable_welcome_splash
+			"disable_welcome_splash"					: disable_welcome_splash,
+			"hmd_slash"									: hmd_slash
 		};
 
 		debug_settings_file.store_string(to_json(settings));

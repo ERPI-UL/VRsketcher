@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/splash_vive_cosmos.png-89081d5d9a4ce617cb21129fe782d6d1.stex"
+path="res://.import/splash_meta_quest.png-ff3a28e547ad40c014813810f8059b31.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/splash_vive_cosmos.png"
-dest_files=[ "res://.import/splash_vive_cosmos.png-89081d5d9a4ce617cb21129fe782d6d1.stex" ]
+source_file="res://assets/welcome_splashes/splash_meta_quest.png"
+dest_files=[ "res://.import/splash_meta_quest.png-ff3a28e547ad40c014813810f8059b31.stex" ]
 
 [params]
 

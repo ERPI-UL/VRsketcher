@@ -8,6 +8,16 @@ func _ready() -> void :
 	if (DebugSettings.get("disable_welcome_splash") as bool) == true :
 		close_welcome_splash();
 
+	var splash : Texture = null;
+	
+	match DebugSettings.hmd_slash :
+		0 :
+			splash = load("res://assets/welcome_splashes/splash_vive_pro.png");
+		1 :
+			splash = load("res://assets/welcome_splashes/splash_vive_cosmos.png");
+		2 :
+			splash = load("res://assets/welcome_splashes/splash_meta_quest.png");
+	(get_node("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/TextureRect") as TextureRect).texture = splash;
 
 func close_welcome_splash() -> void :
 	if (get_parent().get_parent() is XRInterface) == true :
