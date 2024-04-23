@@ -41,22 +41,31 @@ func stop_tool_use() -> void :
 		copy.model_filename = grabbed_object.model_filename;
 		copy.smooth_shading = grabbed_object.smooth_shading;
 
-		copy.set_model_interactable(grabbed_object.model_interactable);
+		
+
+		copy.set_model_interactable(true);
 		copy.set_override_material(grabbed_object.override_material_index);
 		
 		copy.set_material(grabbed_object.material);
 		
+		copy.meshes = grabbed_object.meshes;
 		copy.aabb = grabbed_object.get_model_aabb();
 		var offset : float = max(copy.aabb.size.x, max(copy.aabb.size.y, copy.aabb.size.z));
 
 		copy.global_transform = original_transform;
-		copy.global_transform.origin += CameraData.direction_right * (offset + 0.1);
+		copy.global_transform.origin += CameraData.direction_right * (offset * grabbed_object.scale.x + 0.1);
 
 		copy.set_overlay_material(null);
-
-		var manager : ModelsManager = (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models;
-		manager.add_model(copy);
-		EventBus.emit_signal("scene_drawn_models_list_updated", manager.models, manager);
-
+		
+		var manager : ModelsManager = null;
+		if grabbed_object.is_imported == true :
+			manager = (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_imported_models;
+			manager.add_model(copy);
+			EventBus.emit_signal("scene_imported_models_list_updated", manager.models, manager);
+		else :
+			manager = (get_tree().root.get_node("VRSketcher") as VRSketcher).manager_drawn_models;
+			manager.add_model(copy);
+			EventBus.emit_signal("scene_drawn_models_list_updated", manager.models, manager);
+			
 		grabbed_object = null;
 		original_parent = null;

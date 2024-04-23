@@ -201,7 +201,10 @@ func save_project() -> void :
 		project_data_file.store_string(to_json(project_data));
 		project_data_file.close();
 		
-		print(project_data)
+		print(project_data);
+		EventBus.emit_signal("ui_notification_message", "Projet sauvegardé");
+	else :
+		EventBus.emit_signal("ui_notification_message", "Erreur lors de la sauvegarde");
 
 func load_project(index : int) -> void :
 	print("load project " + str(index))
@@ -423,8 +426,12 @@ func load_project(index : int) -> void :
 
 				print(current_project);
 				emit_signal("open_project");
+				
+				EventBus.emit_signal("ui_notification_message", "Projet chargé");
 			else :
 				print("Error while loading project");
+				
+				EventBus.emit_signal("ui_notification_message", "Erreur lors de l'ouverture du projet");
 
 func import_project(path : String) -> void :
 	print("import VRSketcher project at : " + path);

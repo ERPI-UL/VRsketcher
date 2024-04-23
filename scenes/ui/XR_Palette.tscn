@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/themes/dark_base.tres" type="Theme" id=1]
 [ext_resource path="res://assets/icons/icon_save.svg" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/icons/icon_import.svg" type="Texture" id=9]
 [ext_resource path="res://scripts/Interface.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ui/model_import_window/ModelImportWindow.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/ui/ui_notification.tscn" type="PackedScene" id=12]
 
 [node name="XRInterface" type="Area"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.5, 0 )
@@ -19,18 +20,25 @@ collision_mask = 0
 script = ExtResource( 4 )
 pixel_per_world_unit = 512
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1200, 800 )
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 1200, 800 )
 theme = ExtResource( 1 )
 script = ExtResource( 10 )
 
-[node name="Projects" parent="TabContainer" instance=ExtResource( 8 )]
+[node name="Projects" parent="Control/TabContainer" instance=ExtResource( 8 )]
 margin_left = 5.0
 margin_top = 54.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Scene" type="Control" parent="TabContainer"]
+[node name="Scene" type="Control" parent="Control/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -39,16 +47,16 @@ margin_top = 54.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Scene"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Scene"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Scene/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/TabContainer/Scene/VBoxContainer"]
 margin_right = 1190.0
 margin_bottom = 47.0
 custom_constants/separation = 40
 
-[node name="save" type="Button" parent="TabContainer/Scene/VBoxContainer/HBoxContainer"]
+[node name="save" type="Button" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer"]
 margin_right = 40.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 40, 40 )
@@ -56,7 +64,7 @@ icon = ExtResource( 2 )
 flat = true
 expand_icon = true
 
-[node name="import_model" type="Button" parent="TabContainer/Scene/VBoxContainer/HBoxContainer"]
+[node name="import_model" type="Button" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer"]
 margin_left = 80.0
 margin_right = 120.0
 margin_bottom = 47.0
@@ -65,7 +73,7 @@ icon = ExtResource( 9 )
 flat = true
 expand_icon = true
 
-[node name="take_screenshot" type="Button" parent="TabContainer/Scene/VBoxContainer/HBoxContainer"]
+[node name="take_screenshot" type="Button" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer"]
 margin_left = 160.0
 margin_right = 200.0
 margin_bottom = 47.0
@@ -74,33 +82,33 @@ icon = ExtResource( 3 )
 flat = true
 expand_icon = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Scene/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/TabContainer/Scene/VBoxContainer"]
 margin_top = 51.0
 margin_right = 1190.0
 margin_bottom = 741.0
 size_flags_vertical = 3
 
-[node name="Scene_Data" parent="TabContainer/Scene/VBoxContainer/HBoxContainer2" instance=ExtResource( 7 )]
+[node name="Scene_Data" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 593.0
 margin_bottom = 690.0
 
-[node name="Display_Settings" parent="TabContainer/Scene/VBoxContainer/HBoxContainer2" instance=ExtResource( 6 )]
+[node name="Display_Settings" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 597.0
 margin_right = 1190.0
 margin_bottom = 690.0
 
-[node name="ModelImportWindow" parent="TabContainer/Scene" instance=ExtResource( 11 )]
+[node name="ModelImportWindow" parent="Control/TabContainer/Scene" instance=ExtResource( 11 )]
 margin_left = -400.0
 margin_top = -250.0
 margin_right = 400.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 800, 500 )
 
-[node name="Tools" type="Control" parent="TabContainer"]
+[node name="Tools" type="Control" parent="Control/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -109,12 +117,14 @@ margin_top = 54.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="ToolsMenu" parent="TabContainer/Tools" instance=ExtResource( 5 )]
+[node name="ToolsMenu" parent="Control/TabContainer/Tools" instance=ExtResource( 5 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 
-[connection signal="pressed" from="TabContainer/Scene/VBoxContainer/HBoxContainer/save" to="TabContainer" method="save_project"]
-[connection signal="pressed" from="TabContainer/Scene/VBoxContainer/HBoxContainer/import_model" to="TabContainer/Scene/ModelImportWindow" method="open_import_window"]
-[connection signal="pressed" from="TabContainer/Scene/VBoxContainer/HBoxContainer/take_screenshot" to="TabContainer" method="take_screenshot"]
+[node name="ui_notification" parent="Control" instance=ExtResource( 12 )]
+
+[connection signal="pressed" from="Control/TabContainer/Scene/VBoxContainer/HBoxContainer/save" to="Control/TabContainer" method="save_project"]
+[connection signal="pressed" from="Control/TabContainer/Scene/VBoxContainer/HBoxContainer/import_model" to="Control/TabContainer/Scene/ModelImportWindow" method="open_import_window"]
+[connection signal="pressed" from="Control/TabContainer/Scene/VBoxContainer/HBoxContainer/take_screenshot" to="Control/TabContainer" method="take_screenshot"]

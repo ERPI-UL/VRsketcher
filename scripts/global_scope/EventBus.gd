@@ -32,3 +32,4 @@ signal environment_set_exposure(exposure);
 signal environment_sky_updated(sky);
 
 signal save_screenshot(screenshot_name);
+signal ui_notification_message(message);

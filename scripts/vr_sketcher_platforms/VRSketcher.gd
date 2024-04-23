@@ -188,10 +188,13 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			manager_imported_models.add_model(model);
 			EventBus.emit_signal("scene_imported_models_list_updated", manager_imported_models.models, manager_imported_models);
 			print("imported model loaded");
+			EventBus.emit_signal("ui_notification_message", "Modèle importé");
 		else :
 			print("model loading error");
+			EventBus.emit_signal("ui_notification_message", "Erreur d'import du modèle");
 	else :
 		print("model not found");
+		EventBus.emit_signal("ui_notification_message", "Fichier modèle introuvable");
 
 
 
