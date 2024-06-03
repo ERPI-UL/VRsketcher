@@ -21,6 +21,8 @@ var interaction_area : ModelInteractionArea = null;
 
 var override_material_index : int = -1;
 var smooth_shading : bool = false;
+var model_texture : Texture = null;
+var texture_material : SpatialMaterial = null;
 
 signal position_changed(new_value);
 signal rotation_changed(new_value);
@@ -45,9 +47,10 @@ func set_scale(new_value : Vector3) -> void :
 	emit_signal("scale_changed", new_value);
 
 func set_override_material(new_value : int) -> void :
-	override_material_index = new_value;
-	set_material(null);
-	emit_signal("material_override_changed", new_value);
+	if model_texture != null :
+		override_material_index = new_value;
+		set_material(null);
+		emit_signal("material_override_changed", new_value);
 
 func add_mesh(value : Mesh) -> void :
 	var m : MeshInstance = MeshInstance.new();
@@ -86,22 +89,32 @@ func set_model_visible(value : bool) -> void :
 	set_model_interactable(model_interactable && value);
 
 func set_material(value : Material) -> void :
-	if override_material_index >= 0 :
-		material = MaterialLibrary.get_material(override_material_index);
-	else :
-		if value == null :
-			material = MaterialLibrary.get_current_material();
+	if model_texture != null :
+		if override_material_index >= 0 :
+			material = MaterialLibrary.get_material(override_material_index);
 		else :
-			material = value;
-	refresh_material();
+			if value == null :
+				material = MaterialLibrary.get_current_material();
+			else :
+				material = value;
+		refresh_material();
 
 func refresh_material() -> void :
 	for c in get_children() :
 		if c is MeshInstance :
-			c.set_surface_material(0, material);
+			if texture_material == null :
+				c.set_surface_material(0, material);
+			else :
+				c.material_override = texture_material;
 
 func set_overlay_material(material : Material) -> void :
 	for c in get_children() :
 		if c is MeshInstance :
 			c.material_overlay = material;
 
+func set_model_texture(texture : Texture) -> void :
+	model_texture = texture;
+	texture_material = SpatialMaterial.new();
+	texture_material.albedo_texture = model_texture;
+	texture_material.params_cull_mode = SpatialMaterial.CULL_DISABLED;
+	refresh_material();

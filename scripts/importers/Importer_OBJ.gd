@@ -100,10 +100,16 @@ func import_model_file(path : String, smooth_shading : bool = false) -> Array :
 
 		for i in range(0, ((mesh_data as Dictionary)["triangles"] as Array).size()) :
 			var triangle : Array = ((mesh_data as Dictionary)["triangles"] as Array)[i]["vertices"];
-
+			var uvs : Array = ((mesh_data as Dictionary)["triangles"] as Array)[i]["uvs"];
+			
+			surface_tool.add_uv(((mesh_data as Dictionary)["uvs"] as Array)[uvs[0]]);
 			surface_tool.add_vertex(((mesh_data as Dictionary)["vertices"] as Array)[triangle[0]]);
+			surface_tool.add_uv(((mesh_data as Dictionary)["uvs"] as Array)[uvs[1]]);
 			surface_tool.add_vertex(((mesh_data as Dictionary)["vertices"] as Array)[triangle[1]]);
+			surface_tool.add_uv(((mesh_data as Dictionary)["uvs"] as Array)[uvs[2]]);
 			surface_tool.add_vertex(((mesh_data as Dictionary)["vertices"] as Array)[triangle[2]]);
+
+			
 
 		surface_tool.generate_normals();
 

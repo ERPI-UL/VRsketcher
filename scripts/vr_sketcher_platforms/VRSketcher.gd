@@ -142,11 +142,31 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 
 		var extension : String = model_path.rsplit(".", true, 1)[1];
 		var loaded_meshes : Array = [];
+		var model_texture : Texture = null;
+		
+		var png_path : String = "";
+		var jpg_path : String = "";
+		
 
 		if extension == "3mf" || extension == "3MF" :
 			loaded_meshes = Importer3mf.import_model_file(model_path);
 		elif extension == "obj" || extension == "OBJ" :
 			loaded_meshes = ImporterObj.import_model_file(model_path, model_data["smooth_shading"]);
+			
+			png_path = model_path.rsplit(".", true, 1)[0] + ".png";
+			jpg_path = model_path.rsplit(".", true, 1)[0] + ".jpg";
+			
+			if dir.file_exists(png_path) == true :
+				var image : Image = Image.new();
+				image.load(png_path);
+				model_texture = ImageTexture.new();
+				(model_texture as ImageTexture).create_from_image(image);
+			elif dir.file_exists(jpg_path) == true :
+				var image : Image = Image.new();
+				image.load(jpg_path);
+				model_texture = ImageTexture.new();
+				(model_texture as ImageTexture).create_from_image(image);
+			
 		elif extension == "stl" || extension == "STL" :
 			loaded_meshes = ImporterStl.import_model_file(model_path, model_data["smooth_shading"]);
 
@@ -161,6 +181,12 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			if local_model_file.file_exists(Project.get_imported_models_directory_path() + "/" + model_name) == false :
 				if dir.file_exists(model_path) == true :
 					dir.copy(model_path, Project.get_imported_models_directory_path() + "/" + model_name);
+					
+					if png_path != "" || jpg_path != "" :
+						if dir.file_exists(png_path) == true :
+							dir.copy(png_path, Project.get_imported_models_directory_path() + "/" + png_path.rsplit("/", true, 1)[1]);
+						elif dir.file_exists(jpg_path) == true :
+							dir.copy(jpg_path, Project.get_imported_models_directory_path() + "/" + jpg_path.rsplit("/", true, 1)[1]);
 
 			#Restore model data
 			model_name = model_name.rsplit(".")[0];
@@ -184,6 +210,9 @@ func import_model(model_data : Dictionary, local_model : bool = false) -> void :
 			#Create interaction area using the model's overall AABB
 			model.model_interactable = model_data["model_interactable"] as bool;
 			model.update_interaction_area();
+			
+			if model_texture != null :
+				model.set_model_texture(model_texture);
 
 			manager_imported_models.add_model(model);
 			EventBus.emit_signal("scene_imported_models_list_updated", manager_imported_models.models, manager_imported_models);

@@ -13,7 +13,7 @@ func _ready() -> void :
 	if ["Android"].find(OS.get_name()) >= 0 :
 		splash = load("res://assets/welcome_splashes/splash_meta_quest.png");
 	else :
-		match DebugSettings.hmd_slash :
+		match DebugSettings.hmd_splash :
 			0 :
 				splash = load("res://assets/welcome_splashes/splash_vive_pro.png");
 			1 :
