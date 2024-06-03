@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/themes/dark_base.tres" type="Theme" id=1]
 [ext_resource path="res://assets/icons/icon_save.svg" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scripts/Interface.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ui/model_import_window/ModelImportWindow.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/ui/ui_notification.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/ui/debug_settings/Debug_Settings.tscn" type="PackedScene" id=13]
 
 [node name="XRInterface" type="Area"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.5, 0 )
@@ -33,13 +34,13 @@ theme = ExtResource( 1 )
 script = ExtResource( 10 )
 
 [node name="Projects" parent="Control/TabContainer" instance=ExtResource( 8 )]
+visible = false
 margin_left = 5.0
 margin_top = 54.0
 margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="Scene" type="Control" parent="Control/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -94,12 +95,30 @@ anchor_bottom = 0.0
 margin_right = 593.0
 margin_bottom = 690.0
 
-[node name="Display_Settings" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2" instance=ExtResource( 6 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Panel" type="Panel" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2"]
 margin_left = 597.0
 margin_right = 1190.0
 margin_bottom = 690.0
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+tab_align = 0
+
+[node name="Scene settings" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2/Panel/TabContainer" instance=ExtResource( 6 )]
+visible = false
+margin_left = 5.0
+margin_top = 54.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="Advanced settings" parent="Control/TabContainer/Scene/VBoxContainer/HBoxContainer2/Panel/TabContainer" instance=ExtResource( 13 )]
+margin_left = 5.0
+margin_top = 54.0
+margin_right = -5.0
+margin_bottom = -5.0
 
 [node name="ModelImportWindow" parent="Control/TabContainer/Scene" instance=ExtResource( 11 )]
 margin_left = -400.0

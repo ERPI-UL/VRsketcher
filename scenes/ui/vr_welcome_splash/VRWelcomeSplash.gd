@@ -10,13 +10,16 @@ func _ready() -> void :
 
 	var splash : Texture = null;
 	
-	match DebugSettings.hmd_slash :
-		0 :
-			splash = load("res://assets/welcome_splashes/splash_vive_pro.png");
-		1 :
-			splash = load("res://assets/welcome_splashes/splash_vive_cosmos.png");
-		2 :
-			splash = load("res://assets/welcome_splashes/splash_meta_quest.png");
+	if ["Android"].find(OS.get_name()) >= 0 :
+		splash = load("res://assets/welcome_splashes/splash_meta_quest.png");
+	else :
+		match DebugSettings.hmd_slash :
+			0 :
+				splash = load("res://assets/welcome_splashes/splash_vive_pro.png");
+			1 :
+				splash = load("res://assets/welcome_splashes/splash_vive_cosmos.png");
+			2 :
+				splash = load("res://assets/welcome_splashes/splash_meta_quest.png");
 	(get_node("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/TextureRect") as TextureRect).texture = splash;
 
 func close_welcome_splash() -> void :

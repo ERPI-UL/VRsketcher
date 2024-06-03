@@ -24,10 +24,10 @@ func _ready() -> void :
 
 	var hdm_splash : OptionButton = get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/HMD_Splash");
 	hdm_splash.get_popup().add_radio_check_item("HTC Vive", 0);
-	hdm_splash.get_popup().add_radio_check_item("HTC Vive Cosmos", 01);
+	hdm_splash.get_popup().add_radio_check_item("HTC Vive Cosmos", 1);
 	hdm_splash.get_popup().add_radio_check_item("Meta Quest", 2);
 	
-	hdm_splash.selected = DebugSettings.hmd_slash;
+	hdm_splash.selected = DebugSettings.hmd_splash;
 	
 	(get_node("VBoxContainer/Spectator_Cameras/ScrollContainer/VBoxContainer/Transform_Camera_01") as ModelTransform).set_model_transform(
 		Vector3(
@@ -100,7 +100,7 @@ func save_debug_settings() -> void :
 	DebugSettings.enable_function_global_material_switch = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Global_Material_Switch") as CheckButton).pressed;
 
 	DebugSettings.disable_welcome_splash = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/Disable_Welcome_Splash") as CheckButton).pressed;
-	DebugSettings.hmd_slash = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/HMD_Splash") as OptionButton).selected;
+	DebugSettings.hmd_splash = (get_node("VBoxContainer/Features/ScrollContainer/VBoxContainer/HMD_Splash") as OptionButton).selected;
 
 	if spectator_camera_1_path != "" :
 		var spectator_camera_01 : SpectatorCamera = get_node(spectator_camera_1_path) as SpectatorCamera;
