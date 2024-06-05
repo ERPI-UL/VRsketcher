@@ -47,7 +47,7 @@ func set_scale(new_value : Vector3) -> void :
 	emit_signal("scale_changed", new_value);
 
 func set_override_material(new_value : int) -> void :
-	if model_texture != null :
+	if model_texture == null :
 		override_material_index = new_value;
 		set_material(null);
 		emit_signal("material_override_changed", new_value);
@@ -89,7 +89,7 @@ func set_model_visible(value : bool) -> void :
 	set_model_interactable(model_interactable && value);
 
 func set_material(value : Material) -> void :
-	if model_texture != null :
+	if model_texture == null :
 		if override_material_index >= 0 :
 			material = MaterialLibrary.get_material(override_material_index);
 		else :
@@ -97,7 +97,7 @@ func set_material(value : Material) -> void :
 				material = MaterialLibrary.get_current_material();
 			else :
 				material = value;
-		refresh_material();
+	refresh_material();
 
 func refresh_material() -> void :
 	for c in get_children() :
